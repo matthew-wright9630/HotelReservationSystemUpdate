@@ -1,0 +1,9 @@
+<section>
+  <p>Description of room: {{ room.description }}</p>
+  <div>
+    <img [src]="room.imageUrl" [alt]="room.description" />
+    <p>max occupancy of {{ room.maxNumberOfGuests }} guests</p>
+    <p>${{ room.price }}</p>
+    <button>Select</button>
+  </div>
+</section>
