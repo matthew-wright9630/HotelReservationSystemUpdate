@@ -13,12 +13,17 @@ div {
   margin: 10px;
 }
 
+h3 {
+  background-color: #966f33;
+}
+
 p {
   background-color: #966f33;
 }
 
 .room__unavailable {
-  color: #ff9d9c;
+  color: #6b1f1a;
+  font-weight: 500;
 }
 
 img {
