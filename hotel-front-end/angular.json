@@ -3,7 +3,7 @@
   "version": 1,
   "cli": {
     "packageManager": "npm",
-    "analytics": "f6c49f7e-8d83-43c7-8313-3685a8470028"
+    "analytics": false
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -19,15 +19,8 @@
           "options": {
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": [
-              "src/styles.css"
-            ]
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.css"]
           },
           "configurations": {
             "production": {

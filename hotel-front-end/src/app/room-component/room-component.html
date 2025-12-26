@@ -1,0 +1,17 @@
+<section>
+  <p>Description of room: {{ room.description }}</p>
+  <div>
+    <img [src]="room.imageUrl" [alt]="room.description" />
+    @if (room.isAvailable) {
+    <p>max occupancy of {{ room.maxNumberOfGuests }} guests</p>
+    } @else {
+    <p class="room__unavailable">
+      Sorry, this room is already booked for these dates. Try booking after 12/28/2025
+    </p>
+    }
+    <div>
+      <p>${{ room.price }}</p>
+      <button [disabled]="!room.isAvailable" (click)="addRoomToBooking(room)">Select</button>
+    </div>
+  </div>
+</section>
