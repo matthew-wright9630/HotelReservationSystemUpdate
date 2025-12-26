@@ -5,7 +5,7 @@
     <p>max occupancy of {{ room.maxNumberOfGuests }} guests</p>
     <div>
       <p>${{ room.price }}</p>
-      <button>Select</button>
+      <button [disabled]="!room.isAvailable" (click)="addRoomToBooking(room)">Select</button>
     </div>
   </div>
 </section>

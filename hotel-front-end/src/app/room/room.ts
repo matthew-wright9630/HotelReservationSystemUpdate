@@ -5,6 +5,7 @@ export class Room {
   imageUrl: string;
   maxNumberOfGuests: number;
   price: number;
+  isAvailable: boolean;
 
   //constructor
   constructor(
@@ -12,12 +13,14 @@ export class Room {
     description: string,
     imageUrl: string,
     maxNumberOfGuests: number,
-    price: number
+    price: number,
+    isAvailable: boolean
   ) {
     this.id = id;
     this.description = description;
     this.imageUrl = imageUrl;
     this.maxNumberOfGuests = maxNumberOfGuests;
     this.price = price;
+    this.isAvailable = isAvailable;
   }
 }

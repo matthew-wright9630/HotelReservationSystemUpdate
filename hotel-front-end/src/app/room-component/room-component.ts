@@ -11,4 +11,8 @@ import { CommonModule } from '@angular/common';
 })
 export class RoomComponent {
   @Input() room!: Room;
+
+  addRoomToBooking(room: Room) {
+    console.log(room);
+  }
 }

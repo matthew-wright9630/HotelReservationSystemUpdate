@@ -1,7 +1,7 @@
 section {
   border: 1px black solid;
   background-color: #966f33;
-  width: 70%;
+  width: 60%;
   margin: 10px;
 }
 
@@ -24,4 +24,9 @@ img {
 button {
   height: 50px;
   margin-left: 5px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
