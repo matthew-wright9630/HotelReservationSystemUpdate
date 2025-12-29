@@ -8,24 +8,7 @@ DROP TABLE IF EXISTS
 	room_description, 
 	transactions;
 
--- only one room per booking
-CREATE TABLE booking(
-
-	booking_id SERIAL PRIMARY KEY,
-	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	check_in_date DATE NOT NULL,
-	check_out_date DATE NOT NULL,
-	price INT NOT NULL,
-	-- this keeps a history of at what price a room was booked in case room price changes later
-	-- in galleons (signed integer, no decimals unless dealing with sickles and knuts) 
-	number_of_guests NUMERIC(1) NOT NULL,
-	name_on_booking VARCHAR(255) NOT NULL,
-	email_on_booking VARCHAR(255) NOT NULL,
-	phone_on_booking NUMERIC(10) NOT NULL,
-	guest_id INT NOT NULL REFERENCES guest(guest_id),
-	employee_id INT NOT NULL REFERENCES employee(employee_id),
-	room_id INT NOT NULL REFERENCES room(room_id)
-);
+DROP TYPE IF EXISTS pay_status CASCADE;
 
 CREATE TABLE employee(
 	
@@ -39,7 +22,6 @@ CREATE TABLE employee(
 	last_name VARCHAR(255) NOT NULL,
 	middle_name VARCHAR(255)
 );
-
 
 -- Lookup Table --
 CREATE TABLE guest(
@@ -55,11 +37,8 @@ CREATE TABLE guest(
 	-- 10-digit number (no country codes in the wizarding world)
 );
 
--- Junction Table --
-CREATE TABLE guest_payment(
-	guest_id INT NOT NULL REFERENCES guest(guest_id),
-	payment_info_id INT NOT NULL REFERENCES payment_info(payment_info_id),
-	PRIMARY KEY (guest_id, payment_info_id)
+CREATE TABLE room(
+	room_id SERIAL PRIMARY KEY
 );
 
 -- Lookup Table --
@@ -88,14 +67,41 @@ CREATE TABLE payment_info(
 	*/
 );
 
+-- Junction Table --
+CREATE TABLE guest_payment(
+	guest_id INT NOT NULL REFERENCES guest(guest_id),
+	payment_info_id INT NOT NULL REFERENCES payment_info(payment_info_id),
+	PRIMARY KEY (guest_id, payment_info_id)
+);
+
+-- only one room per booking
+CREATE TABLE booking(
+
+	booking_id SERIAL PRIMARY KEY,
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+	check_in_date DATE NOT NULL,
+	check_out_date DATE NOT NULL,
+	price INT NOT NULL,
+	-- this keeps a history of at what price a room was booked in case room price changes later
+	-- in galleons (signed integer, no decimals unless dealing with sickles and knuts) 
+	number_of_guests NUMERIC(1) NOT NULL,
+	name_on_booking VARCHAR(255) NOT NULL,
+	email_on_booking VARCHAR(255) NOT NULL,
+	phone_on_booking NUMERIC(10) NOT NULL,
+	guest_id INT NOT NULL REFERENCES guest(guest_id),
+	employee_id INT NOT NULL REFERENCES employee(employee_id),
+	room_id INT NOT NULL REFERENCES room(room_id)
+);
+
+-- Only allow the following statuses
+CREATE TYPE pay_status AS ENUM ('pending', 'authorized','processing','completed','declined','refunded', 'cancelled');
+
 CREATE TABLE transactions(
 	-- transaction is a keyword in SQL
 
 	transaction_id SERIAL PRIMARY KEY,
 
-	payment_status VARCHAR(20) NOT NULL,
-	-- status is a keyword in SQL
-	-- can be: pending, authorized, processing, completed, declined, refunded, cancelled
+	payment_status pay_status NOT NULL,
 
 	payment INT NOT NULL,
 	-- in galleons (signed integer, no decimals unless dealing with sickles and knuts) 
