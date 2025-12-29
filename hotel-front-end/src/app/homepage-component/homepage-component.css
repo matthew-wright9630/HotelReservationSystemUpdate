@@ -1,4 +1,8 @@
 section {
-  background-color: #966f33;
-  margin: 10px;
+  /* background-color: #966f33; */
+  /* margin: 10px; */
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 70%;
 }

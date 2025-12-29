@@ -42,5 +42,13 @@ export class HomepageComponent {
       182.0,
       false
     ),
+    new Room(
+      3,
+      'Executive Suite, Smoking, Ravenclaw style',
+      'assets/ravenclaw_room.png',
+      4,
+      325.0,
+      true
+    ),
   ];
 }

@@ -1,8 +1,6 @@
 section {
   border: 1px black solid;
   background-color: #966f33;
-  width: 60%;
-  margin: 10px;
 }
 
 div {
@@ -19,6 +17,8 @@ h3 {
 
 p {
   background-color: #966f33;
+  margin: 0;
+  max-width: 30%;
 }
 
 .room__unavailable {
@@ -27,7 +27,8 @@ p {
 }
 
 img {
-  width: 30%;
+  width: 200px;
+  height: 125px;
 }
 
 button {
