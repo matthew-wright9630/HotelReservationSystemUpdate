@@ -1,8 +1,6 @@
 section {
   border: 1px black solid;
   background-color: #966f33;
-  width: 60%;
-  margin: 10px;
 }
 
 div {
@@ -13,16 +11,24 @@ div {
   margin: 10px;
 }
 
-p {
+h3 {
   background-color: #966f33;
 }
 
+p {
+  background-color: #966f33;
+  margin: 0;
+  max-width: 30%;
+}
+
 .room__unavailable {
-  color: #ff9d9c;
+  color: #6b1f1a;
+  font-weight: 500;
 }
 
 img {
-  width: 30%;
+  width: 200px;
+  height: 125px;
 }
 
 button {

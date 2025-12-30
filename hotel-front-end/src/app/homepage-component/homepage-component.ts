@@ -3,6 +3,12 @@ import { RoomComponent } from '../room-component/room-component';
 import { Room } from '../room/room';
 import { CommonModule } from '@angular/common';
 
+/**
+ * The Homepage component is the first page that guests will see when entering the website. It pulls a list of rooms from
+ * the database and renders it via the Room component.
+ * It also displays the current selection of rooms a guest has picked.
+ */
+
 @Component({
   selector: 'app-homepage-component',
   standalone: true,
@@ -35,6 +41,14 @@ export class HomepageComponent {
       4,
       182.0,
       false
+    ),
+    new Room(
+      3,
+      'Executive Suite, Smoking, Ravenclaw style',
+      'assets/ravenclaw_room.png',
+      4,
+      325.0,
+      true
     ),
   ];
 }
