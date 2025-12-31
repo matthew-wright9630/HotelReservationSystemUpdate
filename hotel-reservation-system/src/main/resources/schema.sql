@@ -37,8 +37,41 @@ CREATE TABLE guest(
 	-- 10-digit number (no country codes in the wizarding world)
 );
 
+-- Lookup Table --
+CREATE TABLE room_colors (
+	room_colors_id SERIAL PRIMARY KEY,
+	name VARCHAR(255),
+);
+
+-- Inserts the available room types into the table
+INSERT INTO room_colors (name)
+VALUES ('Griffindor'), ('Slytherin'), ('Hufflepuff'), ('Ravenclaw');
+
+-- Lookup Table --
+CREATE TABLE room_description (
+	room_description_id SERIAL PRIMARY KEY,
+	room_colors VARCHAR(255) NOT NULL REFERENCES room_colors(name),
+	-- References the room_colors (name) property for the information in this entity
+	max_occupancy INT NOT NULL,
+	is_smoking BOOLEAN NOT NULL,
+	ada_compliant BOOLEAN NOT NULL,
+	bed_style TEXT NOT NULL,
+	price INT NOT NULL,
+);
+
+-- Lookup Table --
 CREATE TABLE room(
-	room_id SERIAL PRIMARY KEY
+	room_id SERIAL PRIMARY KEY,
+	room_description_id NOT NULL REFERENCES room_description(room_description_id),
+	available BOOLEAN NOT NULL,
+	-- availability is a keyword in SQL
+)
+
+-- Junction Table --
+CREATE TABLE guest_payment(
+	guest_id INT NOT NULL REFERENCES guest(guest_id),
+	payment_info_id INT NOT NULL REFERENCES payment_info(payment_info_id),
+	PRIMARY KEY (guest_id, payment_info_id)
 );
 
 -- Lookup Table --
