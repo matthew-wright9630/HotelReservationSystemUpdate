@@ -1,10 +1,15 @@
 package com.skillstorm.hotel_reservation_system.models;
 
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -34,20 +39,35 @@ public class Guest {
     @Column(name = "phone_number")
     private int phoneNumber;
 
+    @ManyToMany
+    @JoinTable(name = "guest_payment",
+        joinColumns=
+            @JoinColumn(name="guest_id"),
+        inverseJoinColumns=
+            @JoinColumn(name="payment_info_id")
+    )
+    private Set<PaymentInfo> paymentInfo;
+
+    /* 
+    Constructors:
+        No-args, All-args except id, All-args 
+    */
     public Guest() {
     }
-
-    public Guest(String email, String firstName, String lastName, String middleName, String address, int phoneNumber) {
+    
+    public Guest(String email, String firstName, String lastName, String middleName, String address, int phoneNumber,
+            Set<PaymentInfo> paymentInfo) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.paymentInfo = paymentInfo;
     }
-
+    
     public Guest(long id, String email, String firstName, String lastName, String middleName, String address,
-            int phoneNumber) {
+            int phoneNumber, Set<PaymentInfo> paymentInfo) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
@@ -55,8 +75,11 @@ public class Guest {
         this.middleName = middleName;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.paymentInfo = paymentInfo;
     }
 
+    // getters, setters, hashcode, equals, toString
+    
     public long getId() {
         return id;
     }
@@ -113,6 +136,14 @@ public class Guest {
         this.phoneNumber = phoneNumber;
     }
 
+    public Set<PaymentInfo> getPaymentInfo() {
+        return paymentInfo;
+    }
+
+    public void setPaymentInfo(Set<PaymentInfo> paymentInfo) {
+        this.paymentInfo = paymentInfo;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -124,6 +155,7 @@ public class Guest {
         result = prime * result + ((middleName == null) ? 0 : middleName.hashCode());
         result = prime * result + ((address == null) ? 0 : address.hashCode());
         result = prime * result + phoneNumber;
+        result = prime * result + ((paymentInfo == null) ? 0 : paymentInfo.hashCode());
         return result;
     }
 
@@ -165,13 +197,19 @@ public class Guest {
             return false;
         if (phoneNumber != other.phoneNumber)
             return false;
+        if (paymentInfo == null) {
+            if (other.paymentInfo != null)
+                return false;
+        } else if (!paymentInfo.equals(other.paymentInfo))
+            return false;
         return true;
     }
 
     @Override
     public String toString() {
         return "Guest [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
-                + ", middleName=" + middleName + ", address=" + address + ", phoneNumber=" + phoneNumber + "]";
+                + ", middleName=" + middleName + ", address=" + address + ", phoneNumber=" + phoneNumber
+                + ", paymentInfo=" + paymentInfo + "]";
     }
-
+       
 }

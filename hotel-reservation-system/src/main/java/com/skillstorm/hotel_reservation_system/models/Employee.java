@@ -1,5 +1,7 @@
 package com.skillstorm.hotel_reservation_system.models;
 
+import com.skillstorm.hotel_reservation_system.enums.EmployeeRole;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +20,7 @@ public class Employee {
 
     //An employee can either be an admin or manager
     @Column(name = "employee_role")
-    private String role;
+    private EmployeeRole role;
 
     @Column
     private String email;
@@ -35,20 +37,29 @@ public class Employee {
     @Column(name = "home_address")
     private String address;
 
+    @Column(name = "phone_number")
+    private int phoneNumber;
+    
+    /* 
+    Constructors:
+        No-args, All-args except id, All-args 
+    */
     public Employee() {
     }
-    
-    public Employee(String role, String email, String firstName, String middleName, String lastName, String address) {
+        
+    public Employee(EmployeeRole role, String email, String firstName, String middleName, String lastName,
+            String address, int phoneNumber) {
         this.role = role;
         this.email = email;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
         this.address = address;
+        this.phoneNumber = phoneNumber;
     }
 
-    public Employee(long id, String role, String email, String firstName, String middleName, String lastName,
-            String address) {
+    public Employee(long id, EmployeeRole role, String email, String firstName, String middleName, String lastName,
+            String address, int phoneNumber) {
         this.id = id;
         this.role = role;
         this.email = email;
@@ -56,7 +67,10 @@ public class Employee {
         this.middleName = middleName;
         this.lastName = lastName;
         this.address = address;
+        this.phoneNumber = phoneNumber;
     }
+
+    // getters, setters, hashcode, equals, toString
 
     public long getId() {
         return id;
@@ -66,13 +80,13 @@ public class Employee {
         this.id = id;
     }
 
-    public String getRole() {
+    public EmployeeRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(EmployeeRole role) {
         this.role = role;
-    }
+    }  
 
     public String getAddress() {
         return address;
@@ -114,17 +128,26 @@ public class Employee {
         this.middleName = middleName;
     }
 
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + (int) (id ^ (id >>> 32));
         result = prime * result + ((role == null) ? 0 : role.hashCode());
-        result = prime * result + ((address == null) ? 0 : address.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-        result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
         result = prime * result + ((middleName == null) ? 0 : middleName.hashCode());
+        result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+        result = prime * result + ((address == null) ? 0 : address.hashCode());
+        result = prime * result + phoneNumber;
         return result;
     }
 
@@ -139,15 +162,7 @@ public class Employee {
         Employee other = (Employee) obj;
         if (id != other.id)
             return false;
-        if (role == null) {
-            if (other.role != null)
-                return false;
-        } else if (!role.equals(other.role))
-            return false;
-        if (address == null) {
-            if (other.address != null)
-                return false;
-        } else if (!address.equals(other.address))
+        if (role != other.role)
             return false;
         if (email == null) {
             if (other.email != null)
@@ -159,23 +174,30 @@ public class Employee {
                 return false;
         } else if (!firstName.equals(other.firstName))
             return false;
+        if (middleName == null) {
+            if (other.middleName != null)
+                return false;
+        } else if (!middleName.equals(other.middleName))
+            return false;
         if (lastName == null) {
             if (other.lastName != null)
                 return false;
         } else if (!lastName.equals(other.lastName))
             return false;
-        if (middleName == null) {
-            if (other.middleName != null)
+        if (address == null) {
+            if (other.address != null)
                 return false;
-        } else if (!middleName.equals(other.middleName))
+        } else if (!address.equals(other.address))
+            return false;
+        if (phoneNumber != other.phoneNumber)
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "Employee [id=" + id + ", role=" + role + ", address=" + address + ", email=" + email + ", firstName="
-                + firstName + ", lastName=" + lastName + ", middleName=" + middleName + "]";
+        return "Employee [id=" + id + ", role=" + role + ", email=" + email + ", firstName=" + firstName
+                + ", middleName=" + middleName + ", lastName=" + lastName + ", address=" + address + ", phoneNumber="
+                + phoneNumber + "]";
     }
-
 }
