@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skillstorm.hotel_reservation_system.models.RoomDescription;
 import com.skillstorm.hotel_reservation_system.services.RoomDescriptionService;
 
+// Controller for handling traffic to the room-descriptions endpoint
 @RestController
 @RequestMapping("/room-descriptions")
 public class RoomDescriptionController {
@@ -23,6 +24,7 @@ public class RoomDescriptionController {
         this.roomDescriptionService = roomDescriptionService;
     }
 
+    // Gets all room descriptions
     @GetMapping
     public ResponseEntity<List<RoomDescription>> getRooms() {
         try {
@@ -33,6 +35,7 @@ public class RoomDescriptionController {
         }
     }
 
+    // Creates a room description
     @PostMapping
     public ResponseEntity<RoomDescription> createRoom(@RequestBody RoomDescription roomDescription) {
         try {

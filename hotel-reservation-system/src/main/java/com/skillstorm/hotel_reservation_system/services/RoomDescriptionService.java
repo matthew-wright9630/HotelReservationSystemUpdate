@@ -21,6 +21,7 @@ public class RoomDescriptionService {
         return roomDescriptionRepository.findAll();
     }
 
+    // Saves a room to the database and returns the newly created room.
     public RoomDescription createRoomDescription(RoomDescription roomDescription) {
         return roomDescriptionRepository.save(roomDescription);
     }

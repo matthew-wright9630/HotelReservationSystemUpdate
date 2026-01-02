@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+// Class that controls what traffic goes where for the /rooms endpoint.
 @RestController
 @RequestMapping("/rooms")
 public class RoomController {
@@ -26,6 +27,7 @@ public class RoomController {
         this.roomService = roomService;
     }
 
+    // Gets all rooms
     @GetMapping
     public ResponseEntity<List<Room>> getRooms() {
         try {
@@ -36,6 +38,7 @@ public class RoomController {
         }
     }
 
+    // Creates a new room
     @PostMapping
     public ResponseEntity<Room> createRoom(@RequestBody Room room) {
         try {
@@ -46,6 +49,8 @@ public class RoomController {
         }
     }
 
+    // accepts a LocalDate parameter and returns all rooms that are available for
+    // that date.
     @GetMapping("/dates")
     public ResponseEntity<List<Room>> getAvailableRooms(@RequestParam LocalDate date) {
         try {
