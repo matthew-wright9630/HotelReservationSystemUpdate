@@ -20,8 +20,4 @@ export class RoomComponent {
   @Input() room!: Room;
 
   constructor(private dataPass: DataPassService) {}
-
-  addRoomToBooking(room: Room) {
-    this.dataPass.addRoom(room);
-  }
 }

@@ -1,20 +1,20 @@
 import { Component, signal } from '@angular/core';
-import { RoomComponent } from '../room-component/room-component';
-import { Room } from '../models/room/room';
+import { RoomDescription } from '../models/room-description/room-description';
 import { CommonModule } from '@angular/common';
 import { HttpService } from '../services/http-service';
 import { CurrentSelectionComponent } from '../current-selection-component/current-selection-component';
+import { RoomDescriptionComponent } from '../room-description-component/room-description-component';
 
 /**
  * The Homepage component is the first page that guests will see when entering the website. It pulls a list of rooms from
- * the database and renders it via the Room component.
+ * the database and renders it via the RoomDescription component.
  * It also displays the current selection of rooms a guest has picked.
  */
 
 @Component({
   selector: 'app-homepage-component',
   standalone: true,
-  imports: [CommonModule, RoomComponent, CurrentSelectionComponent],
+  imports: [CommonModule, RoomDescriptionComponent, CurrentSelectionComponent],
   templateUrl: './homepage-component.html',
   styleUrl: './homepage-component.css',
 })
@@ -23,14 +23,14 @@ export class HomepageComponent {
     this.addRoomToHomepage();
   }
 
-  rooms = signal<Room[]>([]);
+  rooms = signal<RoomDescription[]>([]);
 
   addRoomToHomepage() {
     this.httpService.getAllRooms().subscribe((data) => {
       const mappedRooms =
         data.body?.map(
           (newRoom) =>
-            new Room(
+            new RoomDescription(
               newRoom.id,
               newRoom.bedStyle,
               newRoom.adaCompliant,

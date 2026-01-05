@@ -1,15 +1,15 @@
 import { Component, computed, signal } from '@angular/core';
 import { HttpService } from '../services/http-service';
 import { CommonModule } from '@angular/common';
-import { Room } from '../models/room/room';
+import { RoomDescription } from '../models/room-description/room-description';
 import { DataPassService } from '../services/data-pass-service';
-import { RoomComponent } from '../room-component/room-component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { RoomDescriptionComponent } from '../room-description-component/room-description-component';
 
 @Component({
   selector: 'app-current-selection-component',
   standalone: true,
-  imports: [CommonModule, RoomComponent],
+  imports: [CommonModule, RoomDescriptionComponent],
   templateUrl: './current-selection-component.html',
   styleUrl: './current-selection-component.css',
 })
@@ -18,7 +18,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class CurrentSelectionComponent {
   // A signal is created to get the selected room, how many rooms to select, and the current room number (for updating) from the data-pass-service
 
-  selectedRooms = signal<Room[]>([]);
+  selectedRooms = signal<RoomDescription[]>([]);
 
   selectedCount = computed(() => this.selectedRooms().length);
 

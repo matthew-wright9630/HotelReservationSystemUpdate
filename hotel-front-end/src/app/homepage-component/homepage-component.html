@@ -3,7 +3,7 @@
     <h2>Rooms</h2>
     <div class="homepage__rooms">
       @for (room of rooms(); track room.id) {
-      <app-room-component [room]="room"></app-room-component>
+      <app-room-description-component [room]="room"></app-room-description-component>
       }
     </div>
   </section>
