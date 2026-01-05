@@ -1,7 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { HttpService } from '../services/http-service';
 import { CommonModule } from '@angular/common';
-import { Room } from '../room/room';
+import { Room } from '../models/room/room';
 import { DataPassService } from '../services/data-pass-service';
 import { RoomComponent } from '../room-component/room-component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -13,15 +13,18 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   templateUrl: './current-selection-component.html',
   styleUrl: './current-selection-component.css',
 })
+// This class creates the current selection (reservation summary to users).
+// It will display the number of rooms that need to be selected and any rooms that have been selected.
 export class CurrentSelectionComponent {
+  // A signal is created to get the selected room, how many rooms to select, and the current room number (for updating) from the data-pass-service
+
   selectedRooms = signal<Room[]>([]);
-  numberOfRoomsCount = signal(1);
 
   selectedCount = computed(() => this.selectedRooms().length);
-  remainingCount = computed(() => this.numberOfRoomsCount() - this.selectedCount());
 
   currentRoomNumber = computed(() => this.selectedCount() + 1);
 
+  // Constructor for injecting the httpService and dataPass.
   constructor(private httpService: HttpService, private dataPass: DataPassService) {
     this.dataPass.currentRoomSelectionObservable.subscribe((rooms) => {
       this.selectedRooms.set(rooms);
@@ -32,6 +35,7 @@ export class CurrentSelectionComponent {
       .subscribe((rooms) => this.selectedRooms.set(rooms));
   }
 
+  // Mock data that will need to be updated.
   mockBooking = {
     numberOfRooms: 2,
   };

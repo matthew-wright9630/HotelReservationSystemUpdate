@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Room } from '../room/room';
+import { Room } from '../models/room/room';
 import { CommonModule } from '@angular/common';
 import { HttpService } from '../services/http-service';
 import { DataPassService } from '../services/data-pass-service';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Room } from '../room/room';
+import { Room } from '../models/room/room';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 
 @Injectable({
@@ -13,4 +13,6 @@ export class HttpService {
   getAllRooms(): Observable<HttpResponse<Room[]>> {
     return this.http.get<Room[]>(this.baseURL + 'rooms', { observe: 'response' });
   }
+
+  // getAllRoomDescriptions(): Observable<HttpResponse<Room[]>> {}
 }

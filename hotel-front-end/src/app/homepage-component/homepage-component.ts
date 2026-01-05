@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RoomComponent } from '../room-component/room-component';
-import { Room } from '../room/room';
+import { Room } from '../models/room/room';
 import { CommonModule } from '@angular/common';
 import { HttpService } from '../services/http-service';
 import { CurrentSelectionComponent } from '../current-selection-component/current-selection-component';

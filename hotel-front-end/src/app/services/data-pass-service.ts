@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Room } from '../room/room';
+import { Room } from '../models/room/room';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataPassService {
-  currentRoomSelectionSubject = new BehaviorSubject<Room[]>(
-    []
-    // new Room(0, 'none', false, false, '', 0, 0.0, false, '')
-  );
+  // Creates an empty array of selected rooms
+  currentRoomSelectionSubject = new BehaviorSubject<Room[]>([]);
 
   currentRoomSelectionObservable = this.currentRoomSelectionSubject.asObservable();
 
@@ -28,6 +26,7 @@ export class DataPassService {
     this.currentRoomSelectionSubject.next(newRoom);
   }
 
+  // This method adds a room to the current-selection component
   addRoom(room: Room) {
     const current = this.currentRoomSelectionSubject.value;
 
@@ -38,6 +37,7 @@ export class DataPassService {
     this.currentRoomSelectionSubject.next([...current, room]);
   }
 
+  // This method removes a room to the current-selection component
   removeRoom(roomId: number) {
     const current = this.currentRoomSelectionSubject.value;
     const updated = current.filter((selectedRoom) => selectedRoom.id !== roomId);
@@ -45,6 +45,8 @@ export class DataPassService {
     this.currentRoomSelectionSubject.next(updated);
   }
 
+  // This method takes a room and allows it to be updated
+  // (removed from the array, then added again)
   updateRoom(updatedRoom: Room) {
     const current = this.currentRoomSelectionSubject.value;
 
