@@ -53,9 +53,6 @@ public class RoomDescription {
     @Column
     private int price;
 
-    @Column(name = "room_image")
-    private String roomImage;
-
     // One room description can match multiple
     @OneToMany(mappedBy = "roomDescription")
     @JsonIgnore
@@ -65,7 +62,7 @@ public class RoomDescription {
     }
 
     public RoomDescription(long id, RoomColors roomColor, int maxOccupancy, boolean isSmoking, boolean adaCompliant,
-            String bedStyle, int price, String roomImage) {
+            String bedStyle, int price) {
         this.id = id;
         this.roomColor = roomColor;
         this.maxOccupancy = maxOccupancy;
@@ -73,18 +70,16 @@ public class RoomDescription {
         this.adaCompliant = adaCompliant;
         this.bedStyle = bedStyle;
         this.price = price;
-        this.roomImage = roomImage;
     }
 
     public RoomDescription(RoomColors roomColor, int maxOccupancy, boolean isSmoking, boolean adaCompliant,
-            String bedStyle, int price, String roomImage) {
+            String bedStyle, int price) {
         this.roomColor = roomColor;
         this.maxOccupancy = maxOccupancy;
         this.isSmoking = isSmoking;
         this.adaCompliant = adaCompliant;
         this.bedStyle = bedStyle;
         this.price = price;
-        this.roomImage = roomImage;
     }
 
     public long getId() {
@@ -151,14 +146,6 @@ public class RoomDescription {
         this.rooms = rooms;
     }
 
-    public String getRoomImage() {
-        return roomImage;
-    }
-
-    public void setRoomImage(String roomImage) {
-        this.roomImage = roomImage;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -170,7 +157,6 @@ public class RoomDescription {
         result = prime * result + (adaCompliant ? 1231 : 1237);
         result = prime * result + ((bedStyle == null) ? 0 : bedStyle.hashCode());
         result = prime * result + price;
-        result = prime * result + ((roomImage == null) ? 0 : roomImage.hashCode());
         result = prime * result + ((rooms == null) ? 0 : rooms.hashCode());
         return result;
     }
@@ -201,11 +187,6 @@ public class RoomDescription {
             return false;
         if (price != other.price)
             return false;
-        if (roomImage == null) {
-            if (other.roomImage != null)
-                return false;
-        } else if (!roomImage.equals(other.roomImage))
-            return false;
         if (rooms == null) {
             if (other.rooms != null)
                 return false;
@@ -218,7 +199,7 @@ public class RoomDescription {
     public String toString() {
         return "RoomDescription [id=" + id + ", roomColor=" + roomColor + ", maxOccupancy=" + maxOccupancy
                 + ", isSmoking=" + isSmoking + ", adaCompliant=" + adaCompliant + ", bedStyle=" + bedStyle + ", price="
-                + price + ", roomImage=" + roomImage + "]";
+                + price + "]";
     }
 
 }

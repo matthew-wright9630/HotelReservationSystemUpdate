@@ -1,8 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RoomComponent } from '../room-component/room-component';
 import { Room } from '../room/room';
 import { CommonModule } from '@angular/common';
-import { HttpService } from '../services/http-service';
 
 /**
  * The Homepage component is the first page that guests will see when entering the website. It pulls a list of rooms from
@@ -18,31 +17,38 @@ import { HttpService } from '../services/http-service';
   styleUrl: './homepage-component.css',
 })
 export class HomepageComponent {
-  constructor(private httpService: HttpService) {
-    this.addRoomToHomepage();
-  }
-
-  rooms = signal<Room[]>([]);
-
-  addRoomToHomepage() {
-    this.httpService.getAllRooms().subscribe((data) => {
-      console.log(data.body);
-      const mappedRooms =
-        data.body?.map(
-          (newRoom) =>
-            new Room(
-              newRoom.id,
-              newRoom.bedStyle,
-              newRoom.adaCompliant,
-              newRoom.isSmoking,
-              newRoom.imageUrl,
-              newRoom.maxOccupancy,
-              newRoom.price,
-              true,
-              newRoom.roomColors
-            )
-        ) || [];
-      this.rooms.set(mappedRooms);
-    });
-  }
+  rooms: Room[] = [
+    new Room(
+      0,
+      '1 King Bed, Non-Smoking, Griffindor style',
+      'assets/griffindor_room.png',
+      2,
+      175.0,
+      true
+    ),
+    new Room(
+      1,
+      '2 Full Beds, Non-Smoking, Slytherin style',
+      'assets/slytherin_room.png',
+      4,
+      168.0,
+      true
+    ),
+    new Room(
+      2,
+      '2 Queen Beds, Smoking, Hufflepuff style',
+      'assets/hufflepuff_room.png',
+      4,
+      182.0,
+      false
+    ),
+    new Room(
+      3,
+      'Executive Suite, Smoking, Ravenclaw style',
+      'assets/ravenclaw_room.png',
+      4,
+      325.0,
+      true
+    ),
+  ];
 }

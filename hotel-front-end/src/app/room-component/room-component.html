@@ -1,9 +1,9 @@
 <section>
-  <h3>Description of room: {{ room.bedStyle }}, {{ room.roomColors }} style</h3>
-  <img [src]="room.imageUrl" [alt]="room.bedStyle" />
+  <h3>Description of room: {{ room.description }}</h3>
   <div>
+    <img [src]="room.imageUrl" [alt]="room.description" />
     @if (room.isAvailable) {
-    <p>max occupancy of {{ room.maxOccupancy }} guests</p>
+    <p>max occupancy of {{ room.maxNumberOfGuests }} guests</p>
     } @else {
     <p class="room__unavailable">
       Sorry, this room is already booked for these dates. Try booking after 12/28/2025
