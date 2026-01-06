@@ -10,18 +10,22 @@ DROP TABLE IF EXISTS
 	transactions;
 
 DROP TYPE IF EXISTS pay_status CASCADE;
+DROP TYPE IF EXISTS emp_role CASCADE;
+
+-- Only allow the following employee roles:
+CREATE TYPE emp_role AS ENUM ('admin', 'manager');
 
 CREATE TABLE employee(
 	
 	employee_id SERIAL PRIMARY KEY,
-	employee_role VARCHAR(20) NOT NULL,
-	-- role is a keyword in SQL
-	-- can be admin or hotel manager
-	home_address VARCHAR(255) NOT NULL,
+	employee_role emp_role NOT NULL,
 	email VARCHAR(255) NOT NULL,
 	first_name VARCHAR(255) NOT NULL,
+	middle_name VARCHAR(255),
 	last_name VARCHAR(255) NOT NULL,
-	middle_name VARCHAR(255)
+	home_address VARCHAR(255) NOT NULL,
+	phone_number NUMERIC(10)
+	-- 10-digit number (no country codes in the wizarding world)
 );
 
 -- Lookup Table --
@@ -100,8 +104,8 @@ CREATE TABLE booking(
 	-- this keeps a history of at what price a room was booked in case room price changes later
 	-- in galleons (signed integer, no decimals unless dealing with sickles and knuts) 
 	number_of_guests NUMERIC(1) NOT NULL,
-	name_on_booking VARCHAR(255) NOT NULL,
 	email_on_booking VARCHAR(255) NOT NULL,
+	name_on_booking VARCHAR(255) NOT NULL,
 	phone_on_booking NUMERIC(10) NOT NULL,
 	guest_id INT NOT NULL REFERENCES guest(guest_id),
 	employee_id INT NOT NULL REFERENCES employee(employee_id),
