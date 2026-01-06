@@ -1,6 +1,6 @@
 <section>
   <h3>Description of room: {{ room.bedStyle }}, {{ room.roomColor }} style</h3>
-  <img [src]="room.roomImage" [alt]="room?.bedStyle + ', ' + room?.roomColor + ' style'" />
+  <img [src]="room.roomImage" [alt]="room.bedStyle + ', ' + room.roomColor + ' style'" />
   <div>
     @if (room.isAvailable) {
     <p>max occupancy of {{ room.maxOccupancy }} guests</p>

@@ -41,12 +41,6 @@ export class CurrentSelectionComponent {
 
   // Checks if the correct number of rooms have been selected for booking.
   bookingButtonAvailable(): boolean {
-    console.log(
-      this.selectedRooms().length,
-      this.mockBooking.numberOfRooms,
-      this.mockBooking.numberOfRooms === this.selectedRooms().length
-    );
-    console.log(this.mockBooking.numberOfRooms);
     return this.selectedRooms().length === this.mockBooking.numberOfRooms;
   }
 

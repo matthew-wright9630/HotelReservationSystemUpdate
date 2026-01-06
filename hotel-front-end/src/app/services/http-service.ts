@@ -10,6 +10,8 @@ import { Room } from '../models/room/room';
 export class HttpService {
   baseURL: string = 'http://localhost:8080/';
 
+  constructor(private http: HttpClient) {}
+
   getAllRooms(): Observable<HttpResponse<Room[]>> {
     return this.http.get<Room[]>(this.baseURL + 'rooms', { observe: 'response' });
   }

@@ -1,5 +1,6 @@
 package com.skillstorm.hotel_reservation_system.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skillstorm.hotel_reservation_system.models.RoomDescription;
 import com.skillstorm.hotel_reservation_system.services.RoomDescriptionService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 // Controller for handling traffic to the room-descriptions endpoint
 @RestController
@@ -31,6 +33,16 @@ public class RoomDescriptionController {
     public ResponseEntity<List<RoomDescription>> getRooms() {
         try {
             List<RoomDescription> roomDescriptions = roomDescriptionService.findAllRooms();
+            return new ResponseEntity<>(roomDescriptions, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().header("message", e.getMessage()).build();
+        }
+    }
+
+    @GetMapping("/availability")
+    public ResponseEntity<List<RoomDescription>> getAvailableRoomDescriptions(@RequestParam LocalDate date) {
+        try {
+            List<RoomDescription> roomDescriptions = roomDescriptionService.findAvailableRoomDescriptions(date);
             return new ResponseEntity<>(roomDescriptions, HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().header("message", e.getMessage()).build();

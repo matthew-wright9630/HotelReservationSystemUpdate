@@ -34,7 +34,9 @@ public class RoomService {
     // This is useful for filtering by specific days.
     public List<Room> findAllAvailableRooms(LocalDate date) {
         List<Room> rooms = findAllRooms();
+
         // Will need a bookingService to find all rooms that are booked for this date.
+
         return rooms;
     }
 }
