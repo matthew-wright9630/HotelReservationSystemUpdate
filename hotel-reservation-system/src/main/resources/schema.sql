@@ -28,6 +28,9 @@ CREATE TABLE employee(
 	-- 10-digit number (no country codes in the wizarding world)
 );
 
+INSERT INTO employee (employee_role, email, first_name, middle_name, last_name, home_address, phone_number)
+VALUES ('admin', 'matthew.wright.ttb@google.com', 'Matthew', 'Allen', 'Wright', '4787 Carson Ct, Woodburn IN 46797', 2146067487);
+
 -- Lookup Table --
 CREATE TABLE guest(
 

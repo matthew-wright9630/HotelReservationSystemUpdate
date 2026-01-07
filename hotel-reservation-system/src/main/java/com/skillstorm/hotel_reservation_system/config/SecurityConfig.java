@@ -8,11 +8,20 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.skillstorm.hotel_reservation_system.services.CustomEmployeeLoginService;
+
 import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private final CustomEmployeeLoginService customEmployeeLoginService;
+
+    // Constructor injection
+    public SecurityConfig(CustomEmployeeLoginService customEmployeeLoginService) {
+        this.customEmployeeLoginService = customEmployeeLoginService;
+    }
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -34,9 +43,13 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/employees/**").permitAll()
                         // Allows all GET method requests to the /employees endpoint.
 
+                        .requestMatchers(HttpMethod.POST, "/employees").hasRole("admin")
+
                         .anyRequest().authenticated())
 
-                .oauth2Login(Customizer.withDefaults())
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customEmployeeLoginService)))
 
                 .exceptionHandling(exceptions -> exceptions
                         // Handles unauthorized requests and returns a 401 error
