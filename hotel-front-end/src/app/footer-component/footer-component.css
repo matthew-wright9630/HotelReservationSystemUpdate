@@ -1,0 +1,17 @@
+footer {
+  margin: 20px auto;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+}
+
+img {
+  width: 100px;
+}
+
+p {
+  margin: 0;
+  font-size: 14px;
+}

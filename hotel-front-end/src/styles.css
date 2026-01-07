@@ -7,7 +7,8 @@
 }
 
 body {
-  margin: 0px;
+  margin: 0 100px;
+  /* max-width: 1200px; */
 }
 
 main {
@@ -18,9 +19,20 @@ button {
   background: url('./assets/stone-button.png');
   opacity: 1;
   transition: 0.3s linear;
+  font-size: 16px;
 }
 
 button:hover {
   cursor: pointer;
+  opacity: 0.6;
+}
+
+a {
+  opacity: 1;
+  transition: 0.3s linear;
+  text-decoration: none;
+}
+
+a:hover {
   opacity: 0.6;
 }
