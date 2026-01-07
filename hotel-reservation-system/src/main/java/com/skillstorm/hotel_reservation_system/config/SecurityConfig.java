@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -25,14 +27,30 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/room-descriptions").permitAll()
                         // Allows all GET method requests to the /room-descriptions endpoint.
 
-                        .requestMatchers(HttpMethod.POST, "/room-descriptions").permitAll()
+                        // .requestMatchers(HttpMethod.POST, "/room-descriptions").permitAll()
                         // Currently allows all POST method requests to the /room-description endpoint.
                         // This will need to be changed later to role-specific
 
-                        .anyRequest().authenticated());
+                        .requestMatchers(HttpMethod.GET, "/employees/**").permitAll()
+                        // Allows all GET method requests to the /employees endpoint.
 
-        http.oauth2Login(Customizer.withDefaults());
+                        .anyRequest().authenticated())
 
+                .oauth2Login(Customizer.withDefaults())
+
+                .exceptionHandling(exceptions -> exceptions
+                        // Handles unauthorized requests and returns a 401 error
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            response.setContentType("application/json");
+                            response.getWriter().write("{\"error\": \"unauthorized\"}");
+                        })
+                        // Handles forbidden requests and returns a 403 error
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                            response.setContentType("application/json");
+                            response.getWriter().write("{\"error\": \"forbidden\"}");
+                        }));
         return http.build();
     }
 }
