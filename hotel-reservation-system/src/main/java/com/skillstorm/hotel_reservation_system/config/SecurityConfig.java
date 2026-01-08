@@ -40,6 +40,7 @@ public class SecurityConfig {
                         // Currently allows all POST method requests to the /room-description endpoint.
                         // This will need to be changed later to role-specific
 
+                        .requestMatchers(HttpMethod.GET, "/employees/user").permitAll()
                         .requestMatchers(HttpMethod.GET, "/employees/**").permitAll()
                         // Allows all GET method requests to the /employees endpoint.
 
@@ -49,7 +50,9 @@ public class SecurityConfig {
 
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(userInfo -> userInfo
-                                .userService(customEmployeeLoginService)))
+                                .userService(customEmployeeLoginService))
+                        .defaultSuccessUrl("http://localhost:4200/homepage", true) // Angular route
+                        .failureUrl("http://localhost:4200/login/error"))
 
                 .exceptionHandling(exceptions -> exceptions
                         // Handles unauthorized requests and returns a 401 error

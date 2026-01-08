@@ -4,6 +4,8 @@ import com.skillstorm.hotel_reservation_system.enums.EmployeeRole;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,14 +14,15 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "employee")
 public class Employee {
-    
+
     @Id
     @Column(name = "employee_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    //An employee can either be an admin or manager
+    // An employee can either be an admin or manager
     @Column(name = "employee_role")
+    @Enumerated(EnumType.STRING)
     private EmployeeRole role;
 
     @Column
@@ -39,14 +42,14 @@ public class Employee {
 
     @Column(name = "phone_number")
     private int phoneNumber;
-    
-    /* 
-    Constructors:
-        No-args, All-args except id, All-args 
-    */
+
+    /*
+     * Constructors:
+     * No-args, All-args except id, All-args
+     */
     public Employee() {
     }
-        
+
     public Employee(EmployeeRole role, String email, String firstName, String middleName, String lastName,
             String address, int phoneNumber) {
         this.role = role;
@@ -86,7 +89,7 @@ public class Employee {
 
     public void setRole(EmployeeRole role) {
         this.role = role;
-    }  
+    }
 
     public String getAddress() {
         return address;

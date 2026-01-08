@@ -30,6 +30,7 @@ public class CustomEmployeeLoginService extends DefaultOAuth2UserService {
 
         Employee employee = employeeRepository.findByEmail(email);
         if (employee.getId() > 0) {
+            System.out.println("This is a test: " + userRequest);
             // Assign role from DB
             authorities.add(new SimpleGrantedAuthority("ROLE_" + employee.getRole().name()));
         }
