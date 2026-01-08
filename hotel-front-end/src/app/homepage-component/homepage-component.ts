@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RoomDescription } from '../models/room-description/room-description';
 import { CommonModule } from '@angular/common';
+import { BookingNavbarComponent } from '../booking-navbar-component/booking-navbar-component';
 import { HttpService } from '../services/http-service';
 import { CurrentSelectionComponent } from '../current-selection-component/current-selection-component';
 import { RoomDescriptionComponent } from '../room-description-component/room-description-component';
@@ -15,7 +16,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-homepage-component',
   standalone: true,
-  imports: [CommonModule, RoomDescriptionComponent, CurrentSelectionComponent],
+  imports: [CommonModule, RoomDescriptionComponent, CurrentSelectionComponent, BookingNavbarComponent],
   templateUrl: './homepage-component.html',
   styleUrl: './homepage-component.css',
 })
