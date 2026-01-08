@@ -23,13 +23,16 @@
                         <input [id]="'room-' + $index" class="numGuestsInputs" type="number" [attr.min]=1 [attr.max]=4 [attr.default]=1 [formControlName]="$index">
                         <!-- Need to hide button for first instance in array. 
                          Clicking any of the remove buttons always deletes the last field in the form array. -->
-                        <button id="'removeRoom-' + $index" class="removeRoomButtons" (click)="removeRoom($index)">Remove</button>
                     </div>
                 }
                 <!-- Only allow upto four rooms-->
                 @if (rooms.length < 4) {
-                    <button value="Add Room" (click)="addRoom()" id="addRoomButton">Add Room</button>
+                    <div id="addAndRemoveRoomButtonsDiv">
+                        <button value="Add Room" (click)="addRoom()" id="addRoomButton">Add Room</button>
+                        <button id="removeRoomButton" (click)="removeRoom(rooms.length-1)">Remove Room</button>
+                    </div>
                 } @else{
+                    <button id="removeRoomButtonAlt" (click)="removeRoom(rooms.length-1)">Remove Room</button>
                     <p>Contact hotel staff for bookings larger than 4 rooms</p>
                 }
             </div>

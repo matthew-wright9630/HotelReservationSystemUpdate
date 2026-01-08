@@ -19,8 +19,8 @@ export class BookingNavbarComponent {
 
   constructor(private fb: FormBuilder){
     this.findRoomsForm = this.fb.group({
-      checkInDate: new FormControl(new Date(), [Validators.required]),
-      checkOutDate: new FormControl(this.tomorrow, [Validators.required]),
+      checkInDate: new FormControl(this.todayString, [Validators.required]),
+      checkOutDate: new FormControl(this.tomorrowString, [Validators.required]),
       rooms: this.fb.array([new FormControl(1, [Validators.required])]),
       adaAccessible: new FormControl(false),
       nonSmoking: new FormControl(true)
