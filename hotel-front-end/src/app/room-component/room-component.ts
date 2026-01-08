@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { Room } from '../room/room';
+import { Room } from '../models/room/room';
 import { CommonModule } from '@angular/common';
+import { HttpService } from '../services/http-service';
+import { DataPassService } from '../services/data-pass-service';
 
 /**
  * The Room Component accepts a Room datatype and displays it as a card on the website.
@@ -17,7 +19,5 @@ import { CommonModule } from '@angular/common';
 export class RoomComponent {
   @Input() room!: Room;
 
-  addRoomToBooking(room: Room) {
-    console.log(room);
-  }
+  constructor(private dataPass: DataPassService) {}
 }

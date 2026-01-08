@@ -1,0 +1,156 @@
+/* Entire booking navbar level */
+nav {
+    border: 0.1vw black solid;
+    background-color: #966f33;
+    margin: 1vw;
+    border-radius: 0.5vw;
+}
+
+/* "Start a new booking" */
+h3 {
+    background-color: transparent;
+    margin-left: 3vw;
+    font-size: 1.5vw;
+}
+
+/* div of image and form */
+#imageAndFormDiv {
+    display: flex;
+    background-color: transparent;
+}
+
+/* image */
+#frontFacadeImg {
+    width: 30vw;
+    margin: 0 1.5vw 2vw 2vw;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5vw;
+    background-color: transparent;
+    margin: 0 0 0 2vw;
+}
+
+#checkInDiv, #checkOutDiv {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* entire bordered area for adding rooms */
+#roomsSelector {
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: 0.1vw black solid;
+    border-radius: 0.5vw;
+}
+
+/* Room {{i}}: [    ] [Remove] */
+.roomInputDiv {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 3vw;
+    margin: 0.1vw 0;
+    padding: 0;
+}
+
+/* "Number of Guests" */
+h6 {
+    background-color: transparent;
+    font-weight: 500;
+    font-size: 0.9vw;
+    margin: 0.5vw 0.5vw 0.5vw 5.5vw;
+}
+
+.numGuestsInputs {
+    font-size: 1vw;
+    width: 2vw;
+    /* margin: 0 2vw 0 1vw; */
+    max-height: 1.3vw;
+    background-color: transparent;
+}
+
+/* ADA-Accessible and Non-smoking */
+#checkboxesDiv {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+}
+
+#addAndRemoveRoomButtonsDiv{
+    display: flex;
+    background-color: transparent;
+    align-items: center;
+}
+
+/* "contact hotel staff for bookings larger than 4 rooms"  */
+p {
+    background-color: transparent;
+    margin: 0 1vw 0.5vw 1vw;
+    max-width: 12vw;
+    text-align: justify;
+    font-style: italic;
+    color:linen;
+}
+
+label, input {
+    background-color: transparent;
+}
+
+label {
+    font-weight: 500;
+    font-size: 1.3vw;
+    margin-bottom: 0.8vw;
+}
+
+/* Room {{i}} */
+.numGuestsLabel {
+    font-size: 1.2vw;
+    font-weight: 500;
+    margin: 0 0 0.3vw 0.7vw;
+}
+
+/* When displayed with 'Add Room' button */
+#removeRoomButton {
+    border-radius: 0.2vw;
+    font-size: 0.8vw;
+    margin: 0.5vw 0.5vw;
+}
+
+/* When displayed with <p> tag */
+#removeRoomButtonAlt {
+    margin: 0.5vw 0.5vw;
+    font-size: 0.8vw;
+    align-self: flex-end;
+    border-radius: 0.2vw;
+}
+
+#addRoomButton {
+    margin: 0.5vw 0.5vw;
+    font-size: 0.8vw;
+    border-radius: 0.2vw;
+}
+
+/* the checkboxes */
+#adaAccessible, #nonSmoking {
+    margin-right: 0.8vw;
+    width: 1.2em;
+    height: 1.2em;
+}
+
+#adaAccessibleLabel, #nonSmokingLabel {
+    margin-bottom: 0.2vw;
+}
+
+#submitSearchButton{
+    font-size: 2vw;
+    border-radius: 0.3vw;
+}

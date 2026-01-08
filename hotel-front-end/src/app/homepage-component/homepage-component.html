@@ -1,5 +1,19 @@
-<section>
-  @for (room of rooms; track $index) {
-  <app-room-component [room]="room"></app-room-component>
-  }
-</section>
+<header>
+  <app-booking-navbar-component></app-booking-navbar-component>
+</header>
+<div class="homepage">
+  <section class="homepage__room__section">
+    <h2>Rooms</h2>
+    <div class="homepage__rooms">
+      @for (room of roomDescriptions(); track room.id) {
+      <app-room-description-component [room]="room"></app-room-description-component>
+      }
+    </div>
+  </section>
+  <section class="homepage__current-selection__section">
+    <h2>Reservation Summary</h2>
+    <div class="homepage__current-selection">
+      <app-current-selection-component></app-current-selection-component>
+    </div>
+  </section>
+</div>

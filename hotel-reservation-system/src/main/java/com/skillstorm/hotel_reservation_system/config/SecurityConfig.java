@@ -33,20 +33,25 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/rooms").permitAll()
                         // Allows all GET method requests to the /rooms endpoint.
 
+                        .requestMatchers(HttpMethod.GET, "/rooms/availability").permitAll()
+
                         .requestMatchers(HttpMethod.POST, "/rooms").permitAll()
                         // Allows all POST method requests to the /rooms endpoint.
 
                         .requestMatchers(HttpMethod.GET, "/room-descriptions").permitAll()
                         // Allows all GET method requests to the /room-descriptions endpoint.
 
-                        // .requestMatchers(HttpMethod.POST, "/room-descriptions").permitAll()
-                        // Currently allows all POST method requests to the /room-description endpoint.
-                        // This will need to be changed later to role-specific
+                        .requestMatchers(HttpMethod.POST, "/room-descriptions").hasAnyRole("admin", "manager")
+                        // All POST requests to room descriptions should be made only by an admin or a
+                        // manager
 
                         .requestMatchers(HttpMethod.GET, "/employees/**").permitAll()
                         // Allows all GET method requests to the /employees endpoint.
 
                         .requestMatchers(HttpMethod.POST, "/employees").hasRole("admin")
+                        // All POST requests to the /employees endpoint should be made only by a user
+                        // with an admin role.
+                        // This is because only managers should be able to create a new employee.
 
                         .anyRequest().authenticated())
 

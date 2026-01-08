@@ -1,0 +1,46 @@
+<!-- Allow users to specify when they want to visit and their room requirements -->
+
+<nav>
+    <h3>Start a new booking</h3>
+    <div id="imageAndFormDiv">
+        <!-- In hindsight, this image will likely get moved somewhere else -->
+        <img id="frontFacadeImg" src="assets/FrontFacade.png" alt="Hotel Front Facade" />
+        <form [formGroup]="findRoomsForm">
+            <div id="checkInDiv">
+                <label for="checkInDate">Check-In Date</label>
+                <input type="date" id="checkInDate" name="checkInDate" [attr.min]="todayString" formControlName="checkInDate">
+            </div>
+            <div id="checkOutDiv">
+                <label for="checkOutDate">Check-Out Date</label>
+                <input type="date" id="checkOutDate" name="checkOutDate" [attr.min]="tomorrowString" [attr.default]="tomorrowString" formControlName="checkOutDate">
+            </div>
+            <div id="roomsSelector" formArrayName="rooms">
+                <h6>Number of Guests</h6>
+                <!-- Dynamically add number of rooms to search for -->
+                @for (room of rooms.controls; track $index){
+                    <div class="roomInputDiv">
+                        <label [for]="'room-' + $index" class="numGuestsLabel">Room {{$index+1}}:</label>
+                        <input [id]="'room-' + $index" class="numGuestsInputs" type="number" [attr.min]=1 [attr.max]=4 [attr.default]=1 [formControlName]="$index">
+                        <!-- Need to hide button for first instance in array. 
+                         Clicking any of the remove buttons always deletes the last field in the form array. -->
+                    </div>
+                }
+                <!-- Only allow upto four rooms-->
+                @if (rooms.length < 4) {
+                    <div id="addAndRemoveRoomButtonsDiv">
+                        <button value="Add Room" (click)="addRoom()" id="addRoomButton">Add Room</button>
+                        <button id="removeRoomButton" (click)="removeRoom(rooms.length-1)">Remove Room</button>
+                    </div>
+                } @else{
+                    <button id="removeRoomButtonAlt" (click)="removeRoom(rooms.length-1)">Remove Room</button>
+                    <p>Contact hotel staff for bookings larger than 4 rooms</p>
+                }
+            </div>
+            <div id="checkboxesDiv">
+                <label for="adaAccessible" id="adaAccessibleLabel"><input type="checkbox" id="adaAccessible" formControlName="adaAccessible">ADA-Accessible</label>
+                <label for="nonSmoking" id="nonSmokingLabel"><input type="checkbox" id="nonSmoking" formControlName="nonSmoking">Non-Smoking</label>
+            </div>
+            <button type="button" (click)="submitfindRoomsForm()" [disabled]="findRoomsForm.invalid" id="submitSearchButton">Search</button>
+        </form> 
+    </div>  
+</nav>

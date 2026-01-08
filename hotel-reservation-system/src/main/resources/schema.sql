@@ -54,6 +54,7 @@ CREATE TABLE room_description (
 	is_smoking BOOLEAN NOT NULL,
 	ada_compliant BOOLEAN NOT NULL,
 	bed_style TEXT NOT NULL,
+	room_image TEXT NOT NULL,
 	price INT NOT NULL
 );
 
