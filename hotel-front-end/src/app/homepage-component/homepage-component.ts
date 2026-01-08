@@ -6,6 +6,8 @@ import { HttpService } from '../services/http-service';
 import { CurrentSelectionComponent } from '../current-selection-component/current-selection-component';
 import { RoomDescriptionComponent } from '../room-description-component/room-description-component';
 import { Observable } from 'rxjs';
+import { DataPassService } from '../services/data-pass-service';
+import { Employee } from '../models/employee/employee';
 
 /**
  * The Homepage component is the first page that guests will see when entering the website. It pulls a list of rooms from
@@ -16,13 +18,18 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-homepage-component',
   standalone: true,
-  imports: [CommonModule, RoomDescriptionComponent, CurrentSelectionComponent, BookingNavbarComponent],
+  imports: [
+    CommonModule,
+    RoomDescriptionComponent,
+    CurrentSelectionComponent,
+    BookingNavbarComponent,
+  ],
   templateUrl: './homepage-component.html',
   styleUrl: './homepage-component.css',
 })
 export class HomepageComponent {
   // Creates the httpService needed to get API responses from server
-  constructor(private httpService: HttpService) {
+  constructor(private httpService: HttpService, private dataPassService: DataPassService) {
     this.addRoomToHomepage();
     // this.getAvailableRooms();
     // this.getAvailableRoomDescriptions();

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HttpService } from '../services/http-service';
+import { DataPassService } from '../services/data-pass-service';
 
 @Component({
   selector: 'app-header-component',
@@ -9,7 +10,7 @@ import { HttpService } from '../services/http-service';
   styleUrl: './header-component.css',
 })
 export class HeaderComponent {
-  constructor(private httpService: HttpService) {
+  constructor(private httpService: HttpService, private dataPassService: DataPassService) {
     this.getLoginDetails();
   }
 
@@ -20,6 +21,12 @@ export class HeaderComponent {
   getLoginDetails() {
     this.httpService.getCredentials().subscribe((data) => {
       console.log(data);
+      this.dataPassService.loggedInEmployee.set(data);
     });
+  }
+
+  getLoggedInEmployee() {
+    console.log(this.dataPassService.loggedInEmployee(), 'I am in the homepage');
+    return this.dataPassService?.loggedInEmployee();
   }
 }

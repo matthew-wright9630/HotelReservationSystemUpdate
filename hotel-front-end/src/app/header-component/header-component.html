@@ -5,6 +5,10 @@
   </div>
   <div>
     <a routerLink="/homepage" routerLinkActive="active">Booking</a>
+    @if (getLoggedInEmployee() === null) {
     <button (click)="login()">Login</button>
+    } @else {
+    <button (click)="login()">Profile</button>
+    }
   </div>
 </header>
