@@ -1,0 +1,118 @@
+/* Entire booking navbar level */
+nav {
+    border: 0.1vw black solid;
+    background-color: #966f33;
+    margin: 1vw;
+    border-radius: 0.5vw;
+}
+
+/* "Start a new booking" */
+h3 {
+    background-color: transparent;
+    margin-left: 3vw;
+    font-size: 1.5vw;
+}
+
+/* div of image and form */
+#imageAndFormDiv {
+    display: flex;
+    background-color: transparent;
+}
+
+/* image */
+#frontFacadeImg {
+    width: 30vw;
+    margin: 0 3vw 2vw 2vw;
+    border-radius: 1vw;
+    border: 0.1vw black solid;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2vw;
+    background-color: transparent;
+    margin: 0 0 0 2vw;
+}
+
+#checkInDiv, #checkOutDiv {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* entire bordered area for adding rooms */
+#roomsSelector {
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: 0.1vw black solid;
+    border-radius: 0.5vw;
+}
+
+/* Room {{i}}: [    ] [Remove] */
+.roomInputDiv {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 0.1vw 0;
+    padding: 0;
+}
+
+/* "Number of Guests" */
+h6 {
+    background-color: transparent;
+    font-weight: 500;
+    font-size: 0.9vw;
+    margin: 0.5vw 0 0.5vw 6vw;
+}
+
+.numGuestsInputs {
+    font-size: 1vw;
+    width: 2vw;
+    /* margin: 0 2vw 0 1vw; */
+    max-height: 1.3vw;
+    background-color: transparent;
+}
+
+#checkboxesDiv {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+}
+
+/* "contact hotel staff for bookings larger than 4 rooms"  */
+p {
+    background-color: transparent;
+    margin: 0.5vw 1vw;
+}
+
+label, input {
+    background-color: transparent;
+}
+
+label {
+    font-weight: 500;
+    font-size: 1.3vw;
+    margin-bottom: 0.8vw;
+}
+
+.numGuestsLabel {
+    font-size: 1.2vw;
+    font-weight: 500;
+    margin: 0 0 0.3vw 0.7vw;
+}
+
+.removeRoomButtons{
+    /* margin: 0.05vw 0; */
+}
+
+#addRoomButton {
+    display: block;
+    margin: 0.5vw 6vw;
+    font-size: 0.8vw;
+}

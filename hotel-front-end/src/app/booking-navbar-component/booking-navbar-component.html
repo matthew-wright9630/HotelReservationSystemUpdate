@@ -1,0 +1,37 @@
+<nav>
+    <h3>Start a new booking</h3>
+    <div id="imageAndFormDiv">
+        <img id="frontFacadeImg" src="assets/FrontFacade.png" alt="Hotel Front Facade" />
+        <form [formGroup]="findRoomsForm">
+            <div id="checkInDiv">
+                <label for="checkInDate">Check-In Date</label>
+                <input type="date" id="checkInDate" name="checkInDate" [attr.min]="todayString" formControlName="checkInDate">
+            </div>
+            <div id="checkOutDiv">
+                <label for="checkOutDate">Check-Out Date</label>
+                <input type="date" id="checkOutDate" name="checkOutDate" [attr.min]="tomorrowString" [attr.default]="tomorrowString" formControlName="checkOutDate">
+            </div>
+            
+            <div id="roomsSelector">
+                <h6>Number of Guests</h6>
+                @for (roomGroup of rooms.controls; track i; let i = $index){
+                    <div class="roomInputDiv">
+                        <label for="numberOfGuests-{{i}}" class="numGuestsLabel">Room {{i+1}}:</label>
+                        <input id="numberOfGuests-{{i}}" class="numGuestsInputs" type="number" [attr.min]=1 [attr.max]=4 [attr.default]=1 formControlName="numberOfGuests-{{i}}">
+                        <!-- need to hide button for first instance in array -->
+                        <button id="removeRoom-{{i}}" class="removeRoomButtons" (click)="removeRoom(i)">Remove</button>
+                    </div>
+                }
+                @if (rooms.length < 4) {
+                    <button value="Add Room" (click)="addRoom()" id="addRoomButton">Add Room</button>
+                } @else{
+                    <p>Contact hotel staff for bookings larger than 4 rooms</p>
+                }
+            </div>
+            <div id="checkboxesDiv">
+                <label for="adaAccessible"><input type="checkbox" id="adaAccessible" formControlName="adaAccessible">ADA-Accessible</label>
+                <label for="nonSmoking"><input type="checkbox" id="nonSmoking" formControlName="nonSmoking">Non-Smoking</label>
+            </div>
+        </form> 
+    </div>  
+</nav>

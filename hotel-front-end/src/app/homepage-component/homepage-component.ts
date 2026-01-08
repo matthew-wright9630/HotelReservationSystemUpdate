@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RoomComponent } from '../room-component/room-component';
 import { Room } from '../room/room';
 import { CommonModule } from '@angular/common';
+import { BookingNavbarComponent } from '../booking-navbar-component/booking-navbar-component';
 
 /**
  * The Homepage component is the first page that guests will see when entering the website. It pulls a list of rooms from
@@ -12,7 +13,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-homepage-component',
   standalone: true,
-  imports: [CommonModule, RoomComponent],
+  imports: [CommonModule, RoomComponent, BookingNavbarComponent],
   templateUrl: './homepage-component.html',
   styleUrl: './homepage-component.css',
 })
