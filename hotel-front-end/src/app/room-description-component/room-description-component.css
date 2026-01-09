@@ -5,6 +5,7 @@ section {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  border-radius: 0.5vw;
 }
 
 div {
@@ -40,6 +41,7 @@ img {
 button {
   height: 50px;
   margin-left: 5px;
+  border-radius: 0.4vw;
 }
 
 button:disabled {
