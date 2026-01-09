@@ -70,13 +70,6 @@ public class EmployeeController {
         return ResponseEntity.ok(foundEmployee);
     }
 
-    @GetMapping("/logout")
-    public void logout(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        req.getSession().invalidate();
-        res.sendRedirect(
-                "https://accounts.google.com/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:4200/homepage");
-    }
-
     // Creates a room description
     @PostMapping
     public ResponseEntity<Employee> createRoom(@RequestBody Employee employee) {

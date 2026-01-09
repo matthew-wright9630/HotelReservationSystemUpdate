@@ -48,6 +48,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/employees/**").permitAll()
                         // Allows all GET method requests to the /employees endpoint.
 
+                        .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
+                        // Allows all GET method requests to the /users endpoint.
+
                         .requestMatchers(HttpMethod.POST, "/employees").hasRole("admin")
                         // All POST requests to the /employees endpoint should be made only by a user
                         // with an admin role.
@@ -56,10 +59,16 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
 
                 .oauth2Login(oauth2 -> oauth2
-                        .userInfoEndpoint(userInfo -> userInfo
-                                .userService(customEmployeeLoginService))
                         .defaultSuccessUrl("http://localhost:4200/homepage", true) // Angular route
                         .failureUrl("http://localhost:4200/login/error"))
+
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID")
+                        .logoutSuccessUrl("http://localhost:4200/homepage") // angular route
+                )
 
                 .exceptionHandling(exceptions -> exceptions
                         // Handles unauthorized requests and returns a 401 error

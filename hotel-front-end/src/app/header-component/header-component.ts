@@ -29,4 +29,9 @@ export class HeaderComponent {
     console.log(this.dataPassService.loggedInEmployee(), 'I am in the homepage');
     return this.dataPassService?.loggedInEmployee();
   }
+
+  logout() {
+    this.httpService.logout();
+    this.dataPassService.loggedInEmployee.set(null);
+  }
 }

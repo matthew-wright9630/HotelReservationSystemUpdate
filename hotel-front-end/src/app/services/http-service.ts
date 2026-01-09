@@ -71,4 +71,10 @@ export class HttpService {
       withCredentials: true,
     });
   }
+
+  logout(): void {
+    this.http.get('http://localhost:8080/logout', { withCredentials: true }).subscribe(() => {
+      window.location.href = '/homepage';
+    });
+  }
 }
