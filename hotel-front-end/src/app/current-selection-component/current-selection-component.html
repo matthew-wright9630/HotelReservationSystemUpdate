@@ -1,32 +1,36 @@
 <section>
   @for (slot of roomSlots(); track $index; let i = $index) {
-  <h3>Room {{ i + 1 }}: {{ mockBooking.numberOfRooms }} guests</h3>
+  <div>
+    <h3>Room {{ i + 1 }}: {{ mockBooking.numberOfRooms }} guests</h3>
 
-  @if (selectedRooms()[i]) {
-  <div class="current-selection__div">
-    <div>
-      <p>
-        {{ selectedRooms()[i].bedStyle }},<br />
-        {{ selectedRooms()[i].roomColor }} style
-      </p>
+    @if (selectedRooms()[i]) {
+    <div class="current-selection__div">
+      <div>
+        <p>
+          {{ selectedRooms()[i].bedStyle }},<br />
+          {{ selectedRooms()[i].roomColor }} style
+        </p>
 
-      @if (selectedRooms()[i].isSmoking) {
-      <p>Smoking</p>
-      } @else {
-      <p>Non-Smoking</p>
-      }
+        @if (selectedRooms()[i].isSmoking) {
+        <p>Smoking</p>
+        } @else {
+        <p>Non-Smoking</p>
+        }
 
-      <p>
-        Max occupancy:
-        {{ selectedRooms()[i].maxOccupancy }} guests
-      </p>
+        <p>
+          Max occupancy:
+          {{ selectedRooms()[i].maxOccupancy }} guests
+        </p>
+      </div>
+
+      {{ selectedRooms()[i].price }} Galleons
     </div>
-
-    {{ selectedRooms()[i].price }} Galleons
+    } @else {
+    <p>Please select a room</p>
+    }
   </div>
-  } @else {
-  <p>Please select a room</p>
-  } }
+
+  }
   <p class="total">Current Total: {{ totalPrice }} Galleons</p>
   <p class="tax-statement">taxes and fees included</p>
   <button [disabled]="!bookingButtonAvailable()">Book</button>

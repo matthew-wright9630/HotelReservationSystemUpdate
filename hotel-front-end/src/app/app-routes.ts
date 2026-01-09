@@ -10,4 +10,12 @@ export const routes: Routes = [
     path: 'homepage',
     component: HomepageComponent,
   },
+  // {
+  //   path: 'contact',
+  //   component: ContactComponent,
+  // },
+  // {
+  //   path: 'about-us',
+  //   component: AboutComponent,
+  // },
 ];

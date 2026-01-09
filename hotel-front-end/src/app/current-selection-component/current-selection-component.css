@@ -6,6 +6,7 @@ section {
   justify-content: center;
   align-items: center;
   width: 100%;
+  gap: 20px;
 }
 
 h3 {
@@ -15,6 +16,7 @@ h3 {
 div {
   background-color: #966f33;
   margin: 5px;
+  border: 1px black solid;
 }
 
 .current-selection__div {

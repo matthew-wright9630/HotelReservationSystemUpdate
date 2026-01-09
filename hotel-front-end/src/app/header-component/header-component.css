@@ -1,0 +1,33 @@
+header {
+  margin: 20px auto;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+  height: 100px;
+}
+
+div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 20px;
+}
+
+img {
+  width: 100px;
+  height: 100%;
+}
+
+p {
+  margin: 0;
+  font-size: 16px;
+}
+
+button {
+  background-image: none;
+  background: transparent;
+  border: none;
+}

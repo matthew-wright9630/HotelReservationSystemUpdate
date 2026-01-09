@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
+import { Employee } from '../models/employee/employee';
 import { RoomDescription } from '../models/room-description/room-description';
 import { Room } from '../models/room/room';
 
@@ -50,6 +51,13 @@ export class HttpService {
     params = params.append('roomDescriptionId', id.toString());
     return this.http.get<boolean>(this.baseURL + 'room-descriptions/room-available', {
       params: params,
+    });
+  }
+
+  // Gets the logged-in employee and returns them.
+  getCredentials(): Observable<Employee> {
+    return this.http.get<Employee>(this.baseURL + 'employees/credentials', {
+      withCredentials: true,
     });
   }
 }
