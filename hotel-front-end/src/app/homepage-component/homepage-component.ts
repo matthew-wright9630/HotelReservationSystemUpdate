@@ -7,7 +7,7 @@ import { CurrentSelectionComponent } from '../current-selection-component/curren
 import { RoomDescriptionComponent } from '../room-description-component/room-description-component';
 import { Observable } from 'rxjs';
 import { DataPassService } from '../services/data-pass-service';
-import { Employee } from '../models/employee/employee';
+import { FrontPageComponent } from '../front-page-component/front-page-component';
 
 /**
  * The Homepage component is the first page that guests will see when entering the website. It pulls a list of rooms from
@@ -23,6 +23,7 @@ import { Employee } from '../models/employee/employee';
     RoomDescriptionComponent,
     CurrentSelectionComponent,
     BookingNavbarComponent,
+    FrontPageComponent
   ],
   templateUrl: './homepage-component.html',
   styleUrl: './homepage-component.css',

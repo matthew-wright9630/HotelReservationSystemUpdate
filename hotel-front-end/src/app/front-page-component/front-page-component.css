@@ -1,0 +1,32 @@
+article {
+  border: 0.1vw black solid;
+  background-color: #966f33;
+  margin: 20px auto;
+  border-radius: 0.5vw;
+}
+
+p {
+    margin: 1vw 0 1vw 6vw;
+    font-size: 1.3vw;
+    background-color: transparent;
+}
+
+/* image */
+#frontFacadeImg {
+  width: 90%;
+  display: block;
+  justify-self: center;
+  margin: 1vw 0 0 0;
+}
+
+#roomImagesDiv {
+    display: flex;
+    justify-content: center;
+    gap: 2vw;
+    background-color: transparent;
+    margin: 1vw 2vw;
+}
+
+#roomImagesDiv img {
+    max-width: 20vw;
+}

@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-booking-navbar-component',
@@ -9,6 +10,8 @@ import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Va
   styleUrl: './booking-navbar-component.css',
 })
 export class BookingNavbarComponent {
+  
+  private router = inject(Router);
   findRoomsForm: FormGroup;
 
   // specify earliest dates selectable for check-in and check-out
@@ -48,5 +51,6 @@ export class BookingNavbarComponent {
   // to be connected with rooms component
   submitfindRoomsForm(): void {
     console.log(this.findRoomsForm.value);
+    this.router.navigate(['/search']);
   }
 }
