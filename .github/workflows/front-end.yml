@@ -1,0 +1,8 @@
+name: Front-end Build Pipeline
+run-name: Front-end Build Pipeline
+
+on:
+  #Only run build manually for now
+  #push:
+    #branches: ["main"]
+  workflow_dispatch:
