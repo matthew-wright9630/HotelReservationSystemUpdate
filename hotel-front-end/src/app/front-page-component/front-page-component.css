@@ -6,9 +6,9 @@ article {
 }
 
 p {
-    margin: 1vw 0 1vw 6vw;
-    font-size: 1.3vw;
-    background-color: transparent;
+  margin: 1vw 0 1vw 6vw;
+  font-size: 1.3vw;
+  background-color: transparent;
 }
 
 /* image */
@@ -20,13 +20,13 @@ p {
 }
 
 #roomImagesDiv {
-    display: flex;
-    justify-content: center;
-    gap: 2vw;
-    background-color: transparent;
-    margin: 1vw 2vw;
+  display: flex;
+  justify-content: center;
+  gap: 2vw;
+  background-color: transparent;
+  margin: 1vw 2vw;
 }
 
 #roomImagesDiv img {
-    max-width: 20vw;
+  max-width: 22%;
 }
