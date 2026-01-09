@@ -21,3 +21,23 @@ INSERT INTO room_description (room_colors, max_occupancy, is_smoking, ada_compli
 VALUES ('Slytherin', 2, FALSE, TRUE, '1 King Bed', 'assets/slytherin_room.png', 175);
 INSERT INTO room_description (room_colors, max_occupancy, is_smoking, ada_compliant, bed_style, room_image, price)
 VALUES ('Slytherin', 4, FALSE, TRUE, '2 Queen Beds', 'assets/slytherin_room.png', 175);
+
+-- ROOM TABLE --
+INSERT INTO room (room_description_id) VALUES (1);
+INSERT INTO room (room_description_id) VALUES (1);
+INSERT INTO room (room_description_id) VALUES (1);
+INSERT INTO room (room_description_id) VALUES (1);
+INSERT INTO room (room_description_id) VALUES (2);
+INSERT INTO room (room_description_id) VALUES (2);
+INSERT INTO room (room_description_id) VALUES (2);
+INSERT INTO room (room_description_id) VALUES (3);
+INSERT INTO room (room_description_id) VALUES (3);
+INSERT INTO room (room_description_id) VALUES (4);
+INSERT INTO room (room_description_id) VALUES (4);
+INSERT INTO room (room_description_id) VALUES (4);
+INSERT INTO room (room_description_id) VALUES (4);
+INSERT INTO room (room_description_id) VALUES (5);
+INSERT INTO room (room_description_id) VALUES (5);
+INSERT INTO room (room_description_id) VALUES (6);
+INSERT INTO room (room_description_id) VALUES (6);
+INSERT INTO room (room_description_id) VALUES (8);
