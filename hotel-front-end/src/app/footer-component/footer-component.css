@@ -5,10 +5,16 @@ footer {
   justify-content: space-between;
   align-items: center;
   border: 1px solid black;
+  height: 100px;
+}
+
+.footer__link {
+  height: 100%;
 }
 
 img {
   width: 100px;
+  height: 100%;
 }
 
 p {

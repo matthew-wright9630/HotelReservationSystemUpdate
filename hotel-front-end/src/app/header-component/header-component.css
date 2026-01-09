@@ -16,6 +16,10 @@ div {
   gap: 20px;
 }
 
+.header__link {
+  height: 100%;
+}
+
 img {
   width: 100px;
   height: 100%;
