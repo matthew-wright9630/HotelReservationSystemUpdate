@@ -16,19 +16,19 @@ import { FrontPageComponent } from '../front-page-component/front-page-component
  */
 
 @Component({
-  selector: 'app-homepage-component',
+  selector: 'app-search-component',
   standalone: true,
   imports: [
     CommonModule,
     RoomDescriptionComponent,
     CurrentSelectionComponent,
     BookingNavbarComponent,
-    FrontPageComponent
+    FrontPageComponent,
   ],
-  templateUrl: './homepage-component.html',
-  styleUrl: './homepage-component.css',
+  templateUrl: './search-component.html',
+  styleUrl: './search-component.css',
 })
-export class HomepageComponent {
+export class SearchComponent {
   // Creates the httpService needed to get API responses from server
   constructor(private httpService: HttpService, private dataPassService: DataPassService) {
     this.addRoomToHomepage();
