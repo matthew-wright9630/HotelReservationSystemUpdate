@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { CalendarOptions } from '@fullcalendar/core';
+import { CalendarOptions, EventInput } from '@fullcalendar/core';
 import { CommonModule } from '@angular/common';
 import { HttpService } from '../services/http-service';
 import { DataPassService } from '../services/data-pass-service';
@@ -20,6 +20,7 @@ export class EmployeeAvailableRoomsComponent {
 
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin],
+    eventTimeFormat: {},
     initialView: 'dayGridMonth',
     events: (fetchInfo, successCallback, failureCallback) => {
       const startDate: Date = new Date(fetchInfo.start);
@@ -30,12 +31,14 @@ export class EmployeeAvailableRoomsComponent {
             return;
           }
           const totalRooms = this.dataPass.totalNumberOfRooms();
-          console.log(data.body);
-          const events = data.body.map((d) => ({
-            // title: `${totalRooms - d.length} booked`,
-            // date: d.date,
-            // className: d.rooms.length === 0 ? 'fully-booked' : 'available',
-          }));
+          console.log(totalRooms, data.body.length);
+          const events: EventInput[] = [];
+          events.push({
+            title: `${data.body.length} / ${totalRooms} rooms available`,
+            date: startDate,
+            className: totalRooms - data.body.length === 0 ? 'fully-booked' : 'available',
+            allDay: true,
+          });
           successCallback(events);
         },
         error: (err) => failureCallback(err),

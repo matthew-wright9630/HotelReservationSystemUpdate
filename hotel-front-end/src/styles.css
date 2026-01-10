@@ -37,3 +37,13 @@ a {
 a:hover {
   opacity: 0.6;
 }
+
+.fc-h-event {
+  border: none;
+}
+
+.fc-event-title {
+  font-size: 1.5em;
+  text-align: center;
+  text-wrap: wrap;
+}
