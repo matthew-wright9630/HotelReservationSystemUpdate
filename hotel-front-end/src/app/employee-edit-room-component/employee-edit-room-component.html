@@ -1,3 +1,104 @@
 <section>
-  <form action="#"></form>
+  <form [formGroup]="editRoomForm">
+    <div class="edit-form__div">
+      <!-- Selector for if a room or room type is being updated -->
+      <p>Are you updating a room or a room type?</p>
+      <div>
+        <label for="roomRadio">Room</label>
+        <input
+          type="radio"
+          id="roomRadio"
+          name="roomRadio"
+          formControlName="roomRadio"
+          value="Room"
+        />
+      </div>
+      <div>
+        <label for="typeRadio">Room Type</label>
+        <input
+          type="radio"
+          id="typeRadio"
+          name="roomRadio"
+          formControlName="roomRadio"
+          value="Room Type"
+        />
+      </div>
+    </div>
+    <div class="edit-form__div">
+      <!-- Selector for add, editing, or removing a room or room type -->
+      <p>Are you adding, removing, or editing the {{ roomRadio?.value }}?</p>
+      <div>
+        <label for="editTypeRadio">Add</label>
+        <input
+          type="radio"
+          id="addType"
+          name="editTypeRadio"
+          formControlName="editTypeRadio"
+          value="Add"
+        />
+      </div>
+      <div>
+        <label for="editTypeRadio">Edit</label>
+        <input
+          type="radio"
+          id="editType"
+          name="editTypeRadio"
+          formControlName="editTypeRadio"
+          value="Edit"
+        />
+      </div>
+      <div>
+        <label for="editTypeRadio">Remove</label>
+        <input
+          type="radio"
+          id="removeType"
+          name="editTypeRadio"
+          formControlName="editTypeRadio"
+          value="Remove"
+        />
+      </div>
+    </div>
+    @if (roomRadio?.value === 'Room Type' && editTypeRadio?.value !== 'Remove') { @if
+    (editTypeRadio?.value === 'Edit') {
+    <div class="edit-form__div">
+      <p>Select the room to {{ editTypeRadio?.value }}:</p>
+      <select formControlName="selectedOption">
+        <option value="" disabled>Select an option</option>
+
+        @for (option of roomDescriptionOptions; track $index) {
+        <option [value]="option">{{ option }}</option>
+        }
+      </select>
+    </div>
+    }
+    <div class="edit-form__div">
+      <label for="numberOfBedsControl">How many beds will be in the room? </label>
+      <input type="number" id="numberOfBedsControl" name="numberOfBedsControl" />
+    </div>
+    <div class="edit-form__div">
+      <label for="bedStyleControl">Bed style? (King, Queen, twin, etc). </label>
+      <input type="text" id="bedStyleControl" name="bedStyleControl" />
+    </div>
+    <div class="edit-form__div">
+      <label for="adaCompliantControl">Will the room be ADA compliant? </label>
+      <input type="checkbox" id="adaCompliantControl" name="adaCompliantControl" />
+    </div>
+    <div class="edit-form__div">
+      <label for="isSmokingControl">Will the room be allow smoking? </label>
+      <input type="checkbox" id="isSmokingControl" name="isSmokingControl" />
+    </div>
+    <div class="edit-form__div">
+      <label for="roomImageControl">Room Images </label>
+      <input type="text" id="roomImageControl" name="roomImageControl" />
+    </div>
+    <div class="edit-form__div">
+      <label for="maxOccupancyControl">How many people will this room accomodate? </label>
+      <input type="number" id="maxOccupancyControl" name="maxOccupancyControl" />
+    </div>
+    <div class="edit-form__div">
+      <label for="priceControl">What is the price of the room? </label>
+      <input type="number" id="priceControl" name="priceControl" />
+    </div>
+    }
+  </form>
 </section>

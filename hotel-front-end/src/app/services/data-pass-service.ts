@@ -26,6 +26,12 @@ export class DataPassService {
   // Creates a signal for the total number of rooms.
   totalNumberOfRooms = signal<number>(0);
 
+  // Creates a signal for the eployeeEditRoomForm that records what the room to be updated is.
+  editRoomSignal = signal<Room | null>(null);
+
+  // Creates a signal for the eployeeEditRoomForm that records what the room description to be updated is.
+  editRoomDescriptionSignal = signal<RoomDescription | null>(null);
+
   constructor() {}
 
   // this method tells the subject to update to the new state

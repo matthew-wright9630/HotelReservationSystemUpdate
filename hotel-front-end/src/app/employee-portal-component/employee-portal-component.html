@@ -1,3 +1,17 @@
-<section>
-  <app-employee-available-rooms-component />
+<section class="portal">
+  <div class="portal__components">
+    @switch (selectionElement) { @case ('available-rooms') {
+    <app-employee-available-rooms-component />
+    } @case ('edit-rooms') {
+    <app-employee-edit-room-component />
+    } }
+  </div>
+  <div class="portal__btns">
+    <button (click)="displayAvailableRoomsComponent()">Available Rooms</button>
+    <button (click)="displayEditRoomsComponent()">Check guests in/out</button>
+    <button (click)="displayEditRoomsComponent()">Reservation History</button>
+    <button (click)="displayEditRoomsComponent()">Book a guest</button>
+
+    <button (click)="displayEditRoomsComponent()">Edit Rooms</button>
+  </div>
 </section>
