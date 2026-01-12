@@ -4,13 +4,11 @@ import java.io.IOException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skillstorm.hotel_reservation_system.models.Employee;
-import com.skillstorm.hotel_reservation_system.models.Guest;
 import com.skillstorm.hotel_reservation_system.services.EmployeeService;
 
 import jakarta.servlet.http.HttpServletRequest;

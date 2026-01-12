@@ -1,6 +1,5 @@
 package com.skillstorm.hotel_reservation_system.services;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +61,9 @@ public class RoomDescriptionService {
 
     // Saves a room to the database and returns the newly created room.
     public RoomDescription createRoomDescription(RoomDescription roomDescription) {
+        if (roomDescription == null) {
+            throw new IllegalArgumentException("Not all fields were input correctly.");
+        }
         return roomDescriptionRepository.save(roomDescription);
     }
 
