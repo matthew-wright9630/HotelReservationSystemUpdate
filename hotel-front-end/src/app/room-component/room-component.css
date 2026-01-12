@@ -35,8 +35,3 @@ button {
   height: 50px;
   margin-left: 5px;
 }
-
-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-}

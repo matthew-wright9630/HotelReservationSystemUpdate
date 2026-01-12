@@ -45,8 +45,3 @@ button {
   margin-left: 5px;
   border-radius: 0.4vw;
 }
-
-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-}

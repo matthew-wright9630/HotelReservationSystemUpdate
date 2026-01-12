@@ -23,6 +23,7 @@ export class EmployeeEditRoomComponent {
   editRoomForm: FormGroup;
 
   options = ['Option A', 'Option B', 'Option C'];
+  houseColorOptions = ['Griffindor', 'Slytherin', 'Ravenclaw', 'Hufflepuff'];
 
   roomDescriptionOptions: RoomDescription[] = [];
 
@@ -30,15 +31,15 @@ export class EmployeeEditRoomComponent {
     this.editRoomForm = this.fb.group({
       roomRadio: new FormControl('', [Validators.required]),
       editTypeRadio: new FormControl('', [Validators.required]),
-      bedStyleControl: new FormControl('', [Validators.required]),
-      // numberOfBedsControl: new FormControl(0, [Validators.required]),
-      adaCompliantControl: new FormControl(false, [Validators.required]),
-      isSmokingControl: new FormControl(false, [Validators.required]),
-      roomImageControl: new FormControl('', [Validators.required]),
-      maxOccupancyControl: new FormControl(0, [Validators.required]),
-      priceControl: new FormControl(0, [Validators.required]),
-      roomColorControl: new FormControl('', [Validators.required]),
-      selectedRoomDescription: new FormControl(RoomDescription, [Validators.required]),
+      bedStyleControl: new FormControl(''),
+      // numberOfBedsControl: new FormControl(0),
+      adaCompliantControl: new FormControl(false),
+      isSmokingControl: new FormControl(false),
+      // roomImageControl: new FormControl(''),
+      maxOccupancyControl: new FormControl(0),
+      priceControl: new FormControl(0),
+      roomColorControl: new FormControl(''),
+      selectedRoomDescription: new FormControl(RoomDescription),
     });
 
     this.updateRoomDescriptionOptions();
@@ -62,7 +63,6 @@ export class EmployeeEditRoomComponent {
         return;
       }
       data.body.map((description) => {
-        console.log(description);
         this.roomDescriptionOptions.push(description);
       });
     });
@@ -72,16 +72,39 @@ export class EmployeeEditRoomComponent {
     this.editRoomForm.get('selectedRoomDescription')?.valueChanges.subscribe((selectedOption) => {
       this.onRoomDescriptionChange(selectedOption);
     });
+    this.editRoomForm.get('roomRadio')?.valueChanges.subscribe((value) => {
+      this.updateValidatorsForRoomType(value);
+    });
+  }
+
+  updateValidatorsForRoomType(value: string): void {
+    if (value === 'Room') {
+      this.editRoomForm.get('bedStyleControl')?.clearValidators();
+      this.editRoomForm.get('maxOccupancyControl')?.clearValidators();
+      this.editRoomForm.get('priceControl')?.clearValidators();
+      this.editRoomForm.get('roomColorControl')?.clearValidators();
+    } else {
+      this.editRoomForm.get('bedStyleControl')?.setValidators([Validators.required]);
+      this.editRoomForm.get('maxOccupancyControl')?.setValidators([Validators.required]);
+      this.editRoomForm.get('priceControl')?.setValidators([Validators.required]);
+      this.editRoomForm.get('roomColorControl')?.setValidators([Validators.required]);
+    }
+
+    this.editRoomForm.get('bedStyleControl')?.updateValueAndValidity();
   }
 
   onRoomDescriptionChange(selectedOption: RoomDescription) {
-    console.log('Selected room description:', selectedOption, selectedOption.bedStyle);
     this.editRoomForm.patchValue({
       bedStyleControl: selectedOption.bedStyle,
+      roomColorControl: selectedOption.roomColor,
       adaCompliantControl: selectedOption.adaCompliant,
       isSmokingControl: selectedOption.isSmoking,
       maxOccupancyControl: selectedOption.maxOccupancy,
       priceControl: selectedOption.price,
     });
+  }
+
+  editFormSubmit(): void {
+    console.log('I am submitted!');
   }
 }
