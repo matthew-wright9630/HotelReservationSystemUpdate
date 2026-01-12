@@ -82,6 +82,10 @@ export class EmployeeEditRoomComponent {
     return this.editRoomForm.get('roomColorControl');
   }
 
+  get selectedRoomDescription() {
+    return this.editRoomForm.get('selectedRoomDescription');
+  }
+
   // Gets the list of room descriptions from the server and pushes it to roomDescriptionOptions
   updateRoomDescriptionOptions(): void {
     this.httpService.getAllRoomDescriptions().subscribe((data) => {
@@ -154,8 +158,7 @@ export class EmployeeEditRoomComponent {
     } else {
       switch (this.editTypeRadio?.value) {
         case 'Create': {
-          console.log(this.roomRadio?.value, ' ', this.editTypeRadio?.value);
-          const roomImagePath = `${this.roomColorControl?.value.toLowerCase()}_room.png`;
+          const roomImagePath = `assets/${this.roomColorControl?.value.toLowerCase()}_room.png`;
           const roomDescription: RoomDescription = new RoomDescription(
             0,
             this.bedStyleControl?.value,
@@ -167,11 +170,26 @@ export class EmployeeEditRoomComponent {
             true,
             this.roomColorControl?.value
           );
-          console.log(roomDescription);
+          this.httpService.createRoomDescription(roomDescription).subscribe({
+            next: (res) => console.log('Created:', res),
+            error: (err) => console.error(err),
+          });
           break;
         }
         case 'Edit': {
-          console.log(this.roomRadio?.value, ' ', this.editTypeRadio?.value);
+          const roomImagePath = `assets/${this.roomColorControl?.value.toLowerCase()}_room.png`;
+          const roomDescription: RoomDescription = new RoomDescription(
+            this.selectedRoomDescription?.value.id,
+            this.bedStyleControl?.value,
+            this.adaCompliantControl?.value,
+            this.isSmokingControl?.value,
+            roomImagePath,
+            this.maxOccupancyControl?.value,
+            this.priceControl?.value,
+            true,
+            this.roomColorControl?.value
+          );
+          console.log(roomDescription);
           break;
         }
         case 'Delete': {

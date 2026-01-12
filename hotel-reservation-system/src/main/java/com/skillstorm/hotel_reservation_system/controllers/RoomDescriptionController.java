@@ -69,6 +69,7 @@ public class RoomDescriptionController {
     // Creates a room description
     @PostMapping
     public ResponseEntity<RoomDescription> createRoom(@RequestBody RoomDescription roomDescription) {
+        System.out.println(roomDescription);
         try {
             RoomDescription createdRoomDescription = roomDescriptionService.createRoomDescription(roomDescription);
             return new ResponseEntity<>(createdRoomDescription, HttpStatus.CREATED);

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { Employee } from '../employee/employee';
 import { RoomDescription } from '../models/room-description/room-description';
@@ -65,6 +65,16 @@ export class HttpService {
     });
   }
 
+  // Sends the post request to create a new room description to the server.
+  createRoomDescription(roomDescription: RoomDescription): Observable<RoomDescription | null> {
+    return this.http
+      .post<RoomDescription>(this.baseURL + 'room-descriptions', roomDescription, {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
+  }
+
   // Gets the logged-in employee and returns them.
   getCredentials(): Observable<Employee> {
     return this.http.get<Employee>(this.baseURL + 'employees/credentials', {
@@ -72,6 +82,7 @@ export class HttpService {
     });
   }
 
+  // Logs out the user.
   logout(): void {
     this.http.get('http://localhost:8080/logout', { withCredentials: true }).subscribe(() => {
       window.location.href = '/homepage';

@@ -41,7 +41,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/room-descriptions/**").permitAll()
                         // Allows all GET method requests to the /room-descriptions endpoint.
 
-                        .requestMatchers(HttpMethod.POST, "/room-descriptions").hasAnyRole("admin", "manager")
+                        .requestMatchers(HttpMethod.POST, "/room-descriptions").hasAnyRole("ADMIN", "MANAGER")
                         // All POST requests to room descriptions should be made only by an admin or a
                         // manager
 
@@ -59,6 +59,10 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
 
                 .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .oidcUserService(customEmployeeLoginService)
+                        // .userService(customEmployeeLoginService)
+                        )
                         .defaultSuccessUrl("http://localhost:4200/homepage", true) // Angular route
                         .failureUrl("http://localhost:4200/login/error"))
 
@@ -81,7 +85,8 @@ public class SecurityConfig {
                         .accessDeniedHandler((request, response, accessDeniedException) -> {
                             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                             response.setContentType("application/json");
-                            response.getWriter().write("{\"error\": \"forbidden\"}");
+                            String message = accessDeniedException.getMessage();
+                            response.getWriter().write("{\"error\": \"" + message + "\"}");
                         }))
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
