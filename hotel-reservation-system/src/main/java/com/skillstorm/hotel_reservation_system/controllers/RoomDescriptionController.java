@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +34,7 @@ public class RoomDescriptionController {
 
     // Gets all room descriptions
     @GetMapping
-    public ResponseEntity<List<RoomDescription>> getRooms() {
+    public ResponseEntity<List<RoomDescription>> getRoomDescriptions() {
         try {
             List<RoomDescription> roomDescriptions = roomDescriptionService.findAllRooms();
             return new ResponseEntity<>(roomDescriptions, HttpStatus.OK);
@@ -85,13 +86,11 @@ public class RoomDescriptionController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<RoomDescription> updateRoomDescription(@PathVariable String id,
-            @RequestBody RoomDescription roomDescription) {
-        System.out.println(id + " " + roomDescription);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<RoomDescription> updateRoomDescription(@PathVariable long id) {
         try {
-            RoomDescription createdRoomDescription = roomDescriptionService.createRoomDescription(roomDescription);
-            return new ResponseEntity<>(createdRoomDescription, HttpStatus.CREATED);
+            RoomDescription foundRoomDescription = roomDescriptionService.deleteRoomDescription(id);
+            return new ResponseEntity<>(foundRoomDescription, HttpStatus.NO_CONTENT);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().header("message", e.getMessage()).build();
         } catch (Exception e) {

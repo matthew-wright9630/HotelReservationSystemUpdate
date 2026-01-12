@@ -88,13 +88,11 @@ export class EmployeeEditRoomComponent {
 
   // Gets the list of room descriptions from the server and pushes it to roomDescriptionOptions
   updateRoomDescriptionOptions(): void {
+    this.roomDescriptionOptions = [];
     this.httpService.getAllRoomDescriptions().subscribe((data) => {
-      if (data.body === null) {
-        return;
-      }
-      data.body.map((description) => {
-        this.roomDescriptionOptions.push(description);
-      });
+      if (!data.body) return;
+
+      this.roomDescriptionOptions = data.body.filter((room) => !room.deleted);
     });
   }
 
@@ -135,6 +133,17 @@ export class EmployeeEditRoomComponent {
       isSmokingControl: !!selectedOption.isSmoking,
       maxOccupancyControl: selectedOption.maxOccupancy,
       priceControl: selectedOption.price,
+    });
+  }
+
+  resetRoomDescriptionFields(): void {
+    this.editRoomForm.patchValue({
+      bedStyleControl: '',
+      roomColorControl: '',
+      adaCompliantControl: false,
+      isSmokingControl: false,
+      maxOccupancyControl: 0,
+      priceControl: 0,
     });
   }
 
@@ -198,7 +207,20 @@ export class EmployeeEditRoomComponent {
           break;
         }
         case 'Delete': {
-          console.log(this.roomRadio?.value, ' ', this.editTypeRadio?.value);
+          console.log(
+            this.selectedRoomDescription,
+            this.selectedRoomDescription?.value.id,
+            typeof this.selectedRoomDescription?.value.id
+          );
+          this.httpService.deleteRoomDescription(this.selectedRoomDescription?.value.id).subscribe({
+            next: () => {
+              console.log('Deleted Successfully!');
+              this.updateRoomDescriptionOptions();
+              this.resetRoomDescriptionFields();
+              // this.editRoomForm.get('selectedRoomDescription')?.reset();
+            },
+            error: (err) => console.error(err),
+          });
           break;
         }
       }

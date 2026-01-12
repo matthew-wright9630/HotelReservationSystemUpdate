@@ -28,8 +28,14 @@ public class RoomDescriptionService {
         return roomDescriptionRepository.findAll();
     }
 
-    public Optional<RoomDescription> findRoomDescriptionById(long id) {
-        return roomDescriptionRepository.findById((int) id);
+    public RoomDescription findRoomDescriptionById(long id) {
+
+        Optional<RoomDescription> foundRoomDescription = roomDescriptionRepository.findById((int) id);
+        if (foundRoomDescription.isPresent()) {
+            return foundRoomDescription.get();
+        }
+        throw new IllegalArgumentException(
+                "Room Description does not exist. Please try with another room description.");
     }
 
     public List<RoomDescription> findAllAvailableRoomDescriptions(LocalDate startDate, LocalDate endDate) {
@@ -39,7 +45,7 @@ public class RoomDescriptionService {
         List<RoomDescription> roomDescriptions = new ArrayList<>();
 
         for (Room room : foundRooms) {
-            if (!roomDescriptions.contains(room.getRoomDescription())) {
+            if (!roomDescriptions.contains(room.getRoomDescription()) && !room.getRoomDescription().isDeleted()) {
                 roomDescriptions.add(room.getRoomDescription());
             }
         }
@@ -60,9 +66,18 @@ public class RoomDescriptionService {
     }
 
     public RoomDescription updateRoomDescription(RoomDescription roomDescription) {
-        Optional<RoomDescription> foundRoomDescription = findRoomDescriptionById(roomDescription.getId());
-        if (foundRoomDescription.isPresent()) {
+        RoomDescription foundRoomDescription = findRoomDescriptionById(roomDescription.getId());
+        if (foundRoomDescription.getId() > 0) {
             return roomDescriptionRepository.save(roomDescription);
+        }
+        throw new IllegalArgumentException("Room description does not exist");
+    }
+
+    public RoomDescription deleteRoomDescription(long id) {
+        RoomDescription foundRoomDescription = findRoomDescriptionById(id);
+        if (foundRoomDescription.getId() > 0) {
+            roomDescriptionRepository.deleteRoomDescription((int) foundRoomDescription.getId(), true);
+            return foundRoomDescription;
         }
         throw new IllegalArgumentException("Room description does not exist");
     }

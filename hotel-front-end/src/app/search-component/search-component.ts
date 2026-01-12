@@ -75,22 +75,24 @@ export class SearchComponent {
   // Used to add all rooms to the homepage
   addRoomToHomepage() {
     this.httpService.getAllRoomDescriptions().subscribe((data) => {
+      console.log(data?.body);
       const mappedRooms =
-        data.body?.map((newRoom) => {
-          // this.updateRoomAvailability(newRoom);
-          return new RoomDescription(
-            newRoom.id,
-            newRoom.bedStyle,
-            newRoom.adaCompliant,
-            newRoom.isSmoking,
-            newRoom.roomImage,
-            newRoom.maxOccupancy,
-            newRoom.price,
-            newRoom.isAvailable,
-            newRoom.roomColor,
-            newRoom.deleted
-          );
-        }) || [];
+        data.body
+          ?.filter((newRoom) => !newRoom.deleted)
+          .map((newRoom) => {
+            return new RoomDescription(
+              newRoom.id,
+              newRoom.bedStyle,
+              newRoom.adaCompliant,
+              newRoom.isSmoking,
+              newRoom.roomImage,
+              newRoom.maxOccupancy,
+              newRoom.price,
+              newRoom.isAvailable,
+              newRoom.roomColor,
+              newRoom.deleted
+            );
+          }) || [];
       this.roomDescriptions.set(mappedRooms);
 
       this.updateRoomAvailability(mappedRooms);
