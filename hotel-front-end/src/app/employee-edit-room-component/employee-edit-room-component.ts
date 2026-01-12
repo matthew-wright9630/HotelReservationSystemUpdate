@@ -38,7 +38,7 @@ export class EmployeeEditRoomComponent {
       maxOccupancyControl: new FormControl(0, [Validators.required]),
       priceControl: new FormControl(0, [Validators.required]),
       roomColorControl: new FormControl('', [Validators.required]),
-      selectedOption: this.fb.array([], [Validators.required]),
+      selectedRoomDescription: new FormControl(RoomDescription, [Validators.required]),
     });
 
     this.updateRoomDescriptionOptions();
@@ -62,8 +62,26 @@ export class EmployeeEditRoomComponent {
         return;
       }
       data.body.map((description) => {
+        console.log(description);
         this.roomDescriptionOptions.push(description);
       });
+    });
+  }
+
+  ngOnInit() {
+    this.editRoomForm.get('selectedRoomDescription')?.valueChanges.subscribe((selectedOption) => {
+      this.onRoomDescriptionChange(selectedOption);
+    });
+  }
+
+  onRoomDescriptionChange(selectedOption: RoomDescription) {
+    console.log('Selected room description:', selectedOption, selectedOption.bedStyle);
+    this.editRoomForm.patchValue({
+      bedStyleControl: selectedOption.bedStyle,
+      adaCompliantControl: selectedOption.adaCompliant,
+      isSmokingControl: selectedOption.isSmoking,
+      maxOccupancyControl: selectedOption.maxOccupancy,
+      priceControl: selectedOption.price,
     });
   }
 }

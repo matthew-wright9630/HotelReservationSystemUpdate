@@ -26,7 +26,7 @@ export class HeaderComponent {
   }
 
   getLoggedInEmployee() {
-    console.log(this.dataPassService.loggedInEmployee(), 'I am in the homepage');
+    // console.log(this.dataPassService.loggedInEmployee(), 'I am in the homepage');
     return this.dataPassService?.loggedInEmployee();
   }
 

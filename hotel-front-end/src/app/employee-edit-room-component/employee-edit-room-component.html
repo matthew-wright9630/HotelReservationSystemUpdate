@@ -62,42 +62,68 @@
     (editTypeRadio?.value === 'Edit') {
     <div class="edit-form__div">
       <p>Select the room to {{ editTypeRadio?.value }}:</p>
-      <select formControlName="selectedOption">
-        <option value="" disabled>Select an option</option>
+      <select formControlName="selectedRoomDescription">
+        <!-- <option value="" disabled selected>Select the room type</option> -->
 
         @for (option of roomDescriptionOptions; track $index) {
-        <option [value]="option">{{ option }}</option>
+        <option [ngValue]="option">{{ option.bedStyle }}, {{ option.roomColor }}</option>
         }
       </select>
     </div>
     }
-    <div class="edit-form__div">
+    <!-- <div class="edit-form__div">
       <label for="numberOfBedsControl">How many beds will be in the room? </label>
-      <input type="number" id="numberOfBedsControl" name="numberOfBedsControl" />
-    </div>
+      <input
+        type="number"
+        id="numberOfBedsControl"
+        name="numberOfBedsControl"
+        [attr.min]="1"
+        [attr.max]="3"
+      />
+    </div> -->
     <div class="edit-form__div">
-      <label for="bedStyleControl">Bed style? (King, Queen, twin, etc). </label>
-      <input type="text" id="bedStyleControl" name="bedStyleControl" />
+      <label for="bedStyleControl"
+        >How many beds will the room have, and of what style? (King, Queen, twin, etc).
+      </label>
+      <input
+        type="text"
+        id="bedStyleControl"
+        name="bedStyleControl"
+        formControlName="bedStyleControl"
+      />
     </div>
     <div class="edit-form__div">
       <label for="adaCompliantControl">Will the room be ADA compliant? </label>
-      <input type="checkbox" id="adaCompliantControl" name="adaCompliantControl" />
+      <input
+        type="checkbox"
+        id="adaCompliantControl"
+        name="adaCompliantControl"
+        formControlName="adaCompliantControl"
+      />
     </div>
     <div class="edit-form__div">
       <label for="isSmokingControl">Will the room be allow smoking? </label>
-      <input type="checkbox" id="isSmokingControl" name="isSmokingControl" />
-    </div>
-    <div class="edit-form__div">
-      <label for="roomImageControl">Room Images </label>
-      <input type="text" id="roomImageControl" name="roomImageControl" />
+      <input
+        type="checkbox"
+        id="isSmokingControl"
+        name="isSmokingControl"
+        formControlName="isSmokingControl"
+      />
     </div>
     <div class="edit-form__div">
       <label for="maxOccupancyControl">How many people will this room accomodate? </label>
-      <input type="number" id="maxOccupancyControl" name="maxOccupancyControl" />
+      <input
+        type="number"
+        id="maxOccupancyControl"
+        name="maxOccupancyControl"
+        formControlName="maxOccupancyControl"
+        [attr.min]="1"
+        [attr.max]="4"
+      />
     </div>
     <div class="edit-form__div">
       <label for="priceControl">What is the price of the room? </label>
-      <input type="number" id="priceControl" name="priceControl" />
+      <input type="number" id="priceControl" name="priceControl" formControlName="priceControl" />
     </div>
     }
   </form>

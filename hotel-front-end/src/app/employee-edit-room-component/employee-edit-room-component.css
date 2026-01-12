@@ -17,6 +17,10 @@ p {
   justify-content: space-between;
 }
 
+label {
+  max-width: 50%;
+}
+
 input {
   width: 40%;
 }
