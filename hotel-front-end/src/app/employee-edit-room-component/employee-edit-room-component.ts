@@ -90,6 +90,10 @@ export class EmployeeEditRoomComponent {
     return this.editRoomForm.get('selectedRoomDescription');
   }
 
+  get selectedRoom() {
+    return this.editRoomForm.get('selectedRoom');
+  }
+
   // Gets the list of room descriptions from the server and pushes it to roomDescriptionOptions
   updateRoomDescriptionOptions(): void {
     this.roomDescriptionOptions = [];
@@ -201,15 +205,45 @@ export class EmployeeEditRoomComponent {
     if (this.roomRadio?.value === 'Room') {
       switch (this.editTypeRadio?.value) {
         case 'Create': {
-          console.log(this.roomRadio?.value, ' ', this.editTypeRadio?.value);
+          const room: Room = new Room(0, this.selectedRoomDescription?.value, false);
+          console.log(room);
+          this.httpService.createRoom(room).subscribe({
+            next: (res) => {
+              console.log('Created:', res);
+              this.updateRoomOptions();
+              this.resetRoomDescriptionFields();
+            },
+            error: (err) => console.error(err),
+          });
           break;
         }
         case 'Edit': {
-          console.log(this.roomRadio?.value, ' ', this.editTypeRadio?.value);
+          const room: Room = new Room(0, this.selectedRoomDescription?.value.id, false);
+          this.httpService.updateRoom(room).subscribe({
+            next: (res) => {
+              console.log('Updated:', res);
+              this.updateRoomOptions();
+              this.resetRoomDescriptionFields();
+            },
+            error: (err) => console.error(err),
+          });
           break;
         }
         case 'Delete': {
-          console.log(this.roomRadio?.value, ' ', this.editTypeRadio?.value);
+          const room: Room = new Room(
+            this.selectedRoom?.value.id,
+            this.selectedRoomDescription?.value.id,
+            true
+          );
+          console.log(room);
+          this.httpService.deleteRoom(room.id).subscribe({
+            next: () => {
+              console.log('Deleted Successfully!');
+              this.updateRoomOptions();
+              this.resetRoomDescriptionFields();
+            },
+            error: (err) => console.error(err),
+          });
           break;
         }
       }
@@ -230,7 +264,11 @@ export class EmployeeEditRoomComponent {
             false
           );
           this.httpService.createRoomDescription(roomDescription).subscribe({
-            next: (res) => console.log('Created:', res),
+            next: (res) => {
+              console.log('Created:', res);
+              this.updateRoomDescriptionOptions();
+              this.resetRoomDescriptionFields();
+            },
             error: (err) => console.error(err),
           });
           break;
@@ -250,7 +288,11 @@ export class EmployeeEditRoomComponent {
             false
           );
           this.httpService.updateRoomDescription(roomDescription).subscribe({
-            next: (res) => console.log('Updated:', res),
+            next: (res) => {
+              console.log('Updated:', res);
+              this.updateRoomDescriptionOptions();
+              this.resetRoomDescriptionFields();
+            },
             error: (err) => console.error(err),
           });
           break;

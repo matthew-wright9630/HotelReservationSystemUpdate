@@ -12,9 +12,9 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Integer> {
-    @Query("update RoomDescription r set r.deleted = :new_deleted where id = :room_id")
+    @Query("update Room r set r.deleted = :new_deleted where id = :room_id")
     @Modifying
     @Transactional
-    public int deleteRoom(@Param("room_id") int id, @Param("new_deleted") boolean active);
+    public int deleteRoom(@Param("room_id") int id, @Param("new_deleted") boolean deleted);
 
 }

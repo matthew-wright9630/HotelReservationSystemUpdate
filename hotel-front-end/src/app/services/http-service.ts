@@ -30,6 +30,37 @@ export class HttpService {
     });
   }
 
+  // Sends the post request to create a new room description to the server.
+  createRoom(room: Room): Observable<Room | null> {
+    console.log(room);
+    return this.http
+      .post<Room>(this.baseURL + 'rooms', room, {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
+  }
+
+  // Sends the put request to update a room description to the server.
+  updateRoom(room: Room): Observable<Room | null> {
+    return this.http
+      .put<Room>(this.baseURL + 'rooms/' + room.id, room, {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
+  }
+
+  // Sends the delete request of the room description to the server.
+  deleteRoom(id: number): Observable<Room | null> {
+    return this.http
+      .delete<Room>(this.baseURL + 'rooms/' + id, {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
+  }
+
   //ROOM DESCRIPTION requests
 
   getAllRoomDescriptions(): Observable<HttpResponse<RoomDescription[]>> {
