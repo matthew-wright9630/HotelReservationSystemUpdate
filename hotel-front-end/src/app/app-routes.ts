@@ -3,6 +3,7 @@ import { EmployeePortalComponent } from './employee-portal-component/employee-po
 import { SearchComponent } from './search-component/search-component';
 import { AboutPageComponent } from './about-page-component/about-page-component';
 import { FrontPageComponent } from './front-page-component/front-page-component';
+import { OnboardingComponent } from './onboarding-component/onboarding-component';
 
 /**
  * Creates paths to different routes in the application.
@@ -24,6 +25,10 @@ export const routes: Routes = [
   {
     path: 'about-us',
     component: AboutPageComponent,
+  },
+  {
+    path: 'onboarding',
+    component: OnboardingComponent,
   },
   // {
   //   path: 'contact',

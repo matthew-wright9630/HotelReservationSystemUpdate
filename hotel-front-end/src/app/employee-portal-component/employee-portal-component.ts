@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { EmployeeAvailableRoomsComponent } from '../employee-available-rooms-component/employee-available-rooms-component';
 import { EmployeeEditRoomComponent } from '../employee-edit-room-component/employee-edit-room-component';
+import { DataPassService } from '../services/data-pass-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-portal-component',
@@ -20,5 +22,18 @@ export class EmployeePortalComponent {
   displayEditRoomsComponent(): void {
     //This updates the selection element to display the edit-rooms component.
     this.selectionElement = 'edit-rooms';
+  }
+
+  constructor(private router: Router, private datapass: DataPassService) {
+    this.checkUserRole();
+  }
+
+  checkUserRole(): void {
+    if (
+      this.datapass.loggedInUser()?.role !== 'manager' &&
+      this.datapass.loggedInUser()?.role !== 'admin'
+    ) {
+      this.router.navigate(['/homepage']);
+    }
   }
 }

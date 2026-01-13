@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skillstorm.hotel_reservation_system.models.User;
 import com.skillstorm.hotel_reservation_system.services.UserService;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/users")
@@ -67,12 +69,11 @@ public class UserController {
         return ResponseEntity.ok(foundUser);
     }
 
-    // Creates a new user
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateProfile(@PathVariable long id, @RequestBody User user) {
         try {
-            User createdUser = userService.createUser(user);
-            return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+            User updatedUser = userService.updateUser(id, user);
+            return new ResponseEntity<>(updatedUser, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().header("message", e.getMessage()).build();
         } catch (Exception e) {
@@ -80,6 +81,7 @@ public class UserController {
         }
     }
 
+    // Creates a manager. Should only be allowed by Admins.
     @PostMapping("/manager")
     public ResponseEntity<User> createEmployeeUser(@RequestBody User user) {
         try {
@@ -92,6 +94,7 @@ public class UserController {
         }
     }
 
+    // Creates an admin. Should only be allowed by Admins.
     @PostMapping("/admin")
     public ResponseEntity<User> createAdminUser(@RequestBody User user) {
         try {

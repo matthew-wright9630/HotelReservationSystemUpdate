@@ -1,0 +1,192 @@
+<section>
+  <h2>Onboarding</h2>
+  <h3>Please check the following details and update all required fields.</h3>
+  <form [formGroup]="onboardingForm" (ngSubmit)="openConfirmationModal()">
+    <div class="onboarding-form__div">
+      <label for="firstNameControl">First Name* </label>
+      <div class="onboarding-form__input-div">
+        <input
+          type="text"
+          id="firstNameControl"
+          name="firstNameControl"
+          formControlName="firstNameControl"
+        />
+        <div
+          class="error"
+          *ngIf="
+            onboardingForm.get('firstNameControl')?.touched &&
+            onboardingForm.get('firstNameControl')?.invalid
+          "
+        >
+          <span
+            class="onboarding__error-span"
+            *ngIf="onboardingForm.get('firstNameControl')?.errors?.['required']"
+          >
+            First name is required.
+          </span>
+          <span
+            class="onboarding__error-span"
+            *ngIf="onboardingForm.get('firstNameControl')?.errors?.['minlength']"
+          >
+            Must be at least 2 characters.
+          </span>
+          <span
+            class="onboarding__error-span"
+            *ngIf="onboardingForm.get('firstNameControl')?.errors?.['maxlength']"
+          >
+            Cannot exceed 255 characters.
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="onboarding-form__div">
+      <label for="middleNameControl">Middle Name </label>
+      <div class="onboarding-form__input-div">
+        <input
+          type="text"
+          id="middleNameControl"
+          name="middleNameControl"
+          formControlName="middleNameControl"
+        />
+      </div>
+      <div
+        class="error"
+        *ngIf="
+          onboardingForm.get('middleNameControl')?.touched &&
+          onboardingForm.get('middleNameControl')?.invalid
+        "
+      >
+        <span
+          class="onboarding__error-span"
+          *ngIf="onboardingForm.get('middleNameControl')?.errors?.['maxlength']"
+        >
+          Cannot exceed 255 characters.
+        </span>
+      </div>
+    </div>
+    <div class="onboarding-form__div">
+      <label for="lastNameControl">Last Name* </label>
+      <div class="onboarding-form__input-div">
+        <input
+          type="text"
+          id="lastNameControl"
+          name="lastNameControl"
+          formControlName="lastNameControl"
+        />
+        <div
+          class="error"
+          *ngIf="
+            onboardingForm.get('lastNameControl')?.touched &&
+            onboardingForm.get('lastNameControl')?.invalid
+          "
+        >
+          <span
+            class="onboarding__error-span"
+            *ngIf="onboardingForm.get('lastNameControl')?.errors?.['required']"
+          >
+            Last name is required.
+          </span>
+          <span
+            class="onboarding__error-span"
+            *ngIf="onboardingForm.get('lastNameControl')?.errors?.['minlength']"
+          >
+            Must be at least 2 characters.
+          </span>
+          <span
+            class="onboarding__error-span"
+            *ngIf="onboardingForm.get('lastNameControl')?.errors?.['maxlength']"
+          >
+            Cannot exceed 255 characters.
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="onboarding-form__div">
+      <label for="homeAddressControl">Address* </label>
+      <div class="onboarding-form__input-div">
+        <input
+          type="text"
+          id="homeAddressControl"
+          name="homeAddressControl"
+          formControlName="homeAddressControl"
+        />
+        <div
+          class="error"
+          *ngIf="
+            onboardingForm.get('homeAddressControl')?.touched &&
+            onboardingForm.get('homeAddressControl')?.invalid
+          "
+        >
+          <span
+            class="onboarding__error-span"
+            *ngIf="onboardingForm.get('homeAddressControl')?.errors?.['required']"
+          >
+            Address is required.
+          </span>
+          <span
+            class="onboarding__error-span"
+            *ngIf="onboardingForm.get('homeAddressControl')?.errors?.['minlength']"
+          >
+            Must be at least 2 characters.
+          </span>
+          <span
+            class="onboarding__error-span"
+            *ngIf="onboardingForm.get('homeAddressControl')?.errors?.['maxlength']"
+          >
+            Cannot exceed 255 characters.
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="onboarding-form__div">
+      <label for="phoneNumberControl">Phone Number* </label>
+      <div class="onboarding-form__input-div">
+        <input
+          type="number"
+          id="phoneNumberControl"
+          name="phoneNumberControl"
+          formControlName="phoneNumberControl"
+          pattern="[0-9]{10}"
+        />
+        <div
+          class="error"
+          *ngIf="
+            onboardingForm.get('phoneNumberControl')?.touched &&
+            onboardingForm.get('phoneNumberControl')?.invalid
+          "
+        >
+          <span
+            class="onboarding__error-span"
+            *ngIf="onboardingForm.get('phoneNumberControl')?.errors?.['required']"
+          >
+            Phone number is required.
+          </span>
+          <span
+            class="onboarding__error-span"
+            *ngIf="onboardingForm.get('phoneNumberControl')?.errors?.['pattern']"
+          >
+            Please input your phone number in a 10 digit format (1234567890).
+          </span>
+        </div>
+      </div>
+    </div>
+    <button [disabled]="onboardingForm.invalid" type="submit">Submit</button>
+  </form>
+  <div class="modal" *ngIf="showConfirmation">
+    <div class="modal__content">
+      <p class="modal__p">Are you sure you want to submit the changes?</p>
+      <div class="modal__buttons">
+        <button class="modal__btn" (click)="confirmSubmit()">Yes</button>
+        <button class="modal__btn" (click)="cancelSubmit()">No</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal" *ngIf="showSuccessMessage">
+    <div class="modal__content">
+      <p class="modal__p">Success! You can close this window.</p>
+      <div class="modal__buttons">
+        <button (click)="closeSuccessModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</section>

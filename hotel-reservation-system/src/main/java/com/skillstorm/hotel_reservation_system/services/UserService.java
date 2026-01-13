@@ -1,6 +1,7 @@
 package com.skillstorm.hotel_reservation_system.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,17 @@ public class UserService {
             return userRepository.save(user);
         }
         throw new IllegalArgumentException("Attributes have not been provided in the correct manner.");
+    }
+
+    public User updateUser(long id, User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("Not all fields were input correctly.");
+        }
+        Optional<User> foundUser = userRepository.findById((int) id);
+        if (foundUser.isPresent()) {
+            return userRepository.save(user);
+        }
+        throw new IllegalArgumentException("User does not exist");
     }
 
     // Creates a new manager user
