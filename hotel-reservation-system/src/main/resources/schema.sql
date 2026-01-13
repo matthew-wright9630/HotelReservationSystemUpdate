@@ -21,8 +21,9 @@ CREATE TABLE app_user(
 	email VARCHAR(255) NOT NULL,
 	first_name VARCHAR(255) NOT NULL,
 	middle_name VARCHAR(255),
-	last_name VARCHAR(255) NOT NULL,
-	home_address VARCHAR(255) NOT NULL,
+	last_name VARCHAR(255),
+	home_address VARCHAR(255),
+	onboarding_complete BOOLEAN DEFAULT FALSE,
 	phone_number NUMERIC(10)
 	-- 10-digit number (no country codes in the wizarding world)
 );

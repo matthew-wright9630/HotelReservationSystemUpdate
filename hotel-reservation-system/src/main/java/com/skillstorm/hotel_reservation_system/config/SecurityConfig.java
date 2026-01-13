@@ -12,6 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 
 import com.skillstorm.hotel_reservation_system.services.CustomLoginService;
+import com.skillstorm.hotel_reservation_system.services.CustomLoginSuccessHandler;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -19,11 +20,15 @@ import jakarta.servlet.http.HttpServletResponse;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final CustomLoginService customEmployeeLoginService;
+    private final CustomLoginSuccessHandler customLoginSuccessHandler;
+
+    private final CustomLoginService customUserLoginService;
 
     // Constructor injection
-    public SecurityConfig(CustomLoginService customEmployeeLoginService) {
-        this.customEmployeeLoginService = customEmployeeLoginService;
+    public SecurityConfig(CustomLoginService customUserLoginService,
+            CustomLoginSuccessHandler customLoginSuccessHandler) {
+        this.customUserLoginService = customUserLoginService;
+        this.customLoginSuccessHandler = customLoginSuccessHandler;
     }
 
     @Bean
@@ -46,30 +51,18 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
                         // Allows all GET method requests to the /users endpoint.
 
-                        .requestMatchers(HttpMethod.GET, "/employees/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/employees").hasRole("admin")
-                        // All POST requests to the /employees endpoint should be made only by a user
+                        .requestMatchers(HttpMethod.GET, "/Users/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/Users").hasRole("admin")
+                        // All POST requests to the /Users endpoint should be made only by a user
                         // with an admin role.
-                        // This is because only admins should be able to create a new employee.
+                        // This is because only admins should be able to create a new User.
 
                         .anyRequest().authenticated())
 
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(userInfo -> userInfo
-                                .oidcUserService(customEmployeeLoginService)
-                        // .userService(customEmployeeLoginService)
-                        )
-                        .successHandler((req, res, auth) -> {
-                            var oidc = (OidcUser) auth.getPrincipal();
-                            String type = oidc.getAttribute("authorities");
-                            System.out.println(type);
-                            if (type == "ROLE_ADMIN" || type == "ROLE_MANAGER") {
-                                res.sendRedirect("/employee");
-                            } else {
-                                res.sendRedirect("/homepage");
-                            }
-                        })
-                        // .defaultSuccessUrl("http://localhost:4200/homepage", true)
+                                .oidcUserService(customUserLoginService))
+                        .successHandler(customLoginSuccessHandler)
                         .failureUrl("http://localhost:4200/login/error"))
 
                 .logout(logout -> logout
@@ -77,8 +70,7 @@ public class SecurityConfig {
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
                         .deleteCookies("JSESSIONID")
-                        .logoutSuccessUrl("http://localhost:4200/homepage") // angular route
-                )
+                        .logoutSuccessUrl("http://localhost:4200/homepage"))
 
                 .exceptionHandling(exceptions -> exceptions
                         // Handles unauthorized requests and returns a 401 error

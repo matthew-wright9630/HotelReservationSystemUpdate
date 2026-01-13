@@ -21,7 +21,7 @@ public class User {
     private long id;
 
     // An employee can either be an admin or manager
-    @Column(name = "employee_role")
+    @Column(name = "user_role")
     @Enumerated(EnumType.STRING)
     private RoleType role;
 
@@ -43,6 +43,9 @@ public class User {
     @Column(name = "phone_number")
     private int phoneNumber;
 
+    @Column(name = "onboarding_complete")
+    private boolean onboardingComplete;
+
     /*
      * Constructors:
      * No-args, All-args except id, All-args
@@ -59,6 +62,7 @@ public class User {
         this.lastName = lastName;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.onboardingComplete = false;
     }
 
     public User(long id, RoleType role, String email, String firstName, String middleName, String lastName,
@@ -71,6 +75,7 @@ public class User {
         this.lastName = lastName;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.onboardingComplete = false;
     }
 
     // getters, setters, hashcode, equals, toString
@@ -131,12 +136,26 @@ public class User {
         this.middleName = middleName;
     }
 
+    public boolean isOnboardingComplete() {
+        return onboardingComplete;
+    }
+
+    public void setOnboardingComplete(boolean onboardingComplete) {
+        this.onboardingComplete = onboardingComplete;
+    }
+
     public int getPhoneNumber() {
         return phoneNumber;
     }
 
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public boolean isProfileComplete() {
+        return this.firstName != null
+                && this.lastName != null
+                && this.address != null;
     }
 
     @Override
@@ -151,6 +170,7 @@ public class User {
         result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
         result = prime * result + ((address == null) ? 0 : address.hashCode());
         result = prime * result + phoneNumber;
+        result = prime * result + (onboardingComplete ? 1231 : 1237);
         return result;
     }
 
@@ -194,13 +214,15 @@ public class User {
             return false;
         if (phoneNumber != other.phoneNumber)
             return false;
+        if (onboardingComplete != other.onboardingComplete)
+            return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "Employee [id=" + id + ", role=" + role + ", email=" + email + ", firstName=" + firstName
-                + ", middleName=" + middleName + ", lastName=" + lastName + ", address=" + address + ", phoneNumber="
-                + phoneNumber + "]";
+        return "User [id=" + id + ", role=" + role + ", email=" + email + ", firstName=" + firstName + ", middleName="
+                + middleName + ", lastName=" + lastName + ", address=" + address + ", phoneNumber=" + phoneNumber
+                + ", onboardingComplete=" + onboardingComplete + "]";
     }
 }
