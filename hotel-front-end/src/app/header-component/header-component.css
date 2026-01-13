@@ -7,6 +7,7 @@ header {
   border: 1px solid black;
   height: 10vh;
   border-radius: 0.5vw;
+  font-size: 1em;
 }
 
 div {
@@ -14,11 +15,21 @@ div {
   justify-content: center;
   align-items: center;
   height: 100%;
-  gap: 20px;
+  gap: 2vw;
+}
+
+.header__buttons {
+  width: 50%;
+  justify-content: space-around;
+  gap: 0;
 }
 
 .header__link {
   height: 100%;
+}
+
+a {
+  text-align: center;
 }
 
 img {
@@ -28,7 +39,6 @@ img {
 
 p {
   margin: 0;
-  font-size: 16px;
 }
 
 button {

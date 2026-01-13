@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HttpService } from '../services/http-service';
 import { DataPassService } from '../services/data-pass-service';
@@ -24,13 +24,23 @@ export class HeaderComponent {
     });
   }
 
-  getLoggedInEmployee() {
-    // console.log(this.dataPassService.loggedInEmployee(), 'I am in the homepage');
+  getLoggedInUser() {
     return this.dataPassService?.loggedInUser();
   }
 
   logout() {
     this.httpService.logout();
     this.dataPassService.loggedInUser.set(null);
+  }
+
+  // Check if the user is an employee or a guest.
+  employeeUser = signal(false);
+
+  checkRoleType() {
+    if (this.dataPassService.loggedInUser()?.role === 'guest') {
+      this.employeeUser.set(true);
+    } else {
+      this.employeeUser.set(false);
+    }
   }
 }

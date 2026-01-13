@@ -28,19 +28,19 @@ export class ProfileComponent {
     this.profileForm = this.fb.group({
       firstNameControl: new FormControl('', [
         Validators.required,
-        Validators.max(255),
-        Validators.min(2),
+        Validators.maxLength(255),
+        Validators.minLength(2),
       ]),
       lastNameControl: new FormControl('', [
         Validators.required,
-        Validators.max(255),
-        Validators.min(2),
+        Validators.maxLength(255),
+        Validators.minLength(2),
       ]),
       middleNameControl: new FormControl(''),
       homeAddressControl: new FormControl('', [
         Validators.required,
-        Validators.max(255),
-        Validators.min(2),
+        Validators.maxLength(255),
+        Validators.minLength(2),
       ]),
       phoneNumberControl: new FormControl(0, [
         Validators.required,

@@ -5,9 +5,16 @@
     </a>
     <p>The Three Broomsticks</p>
   </div>
-  <div>
+  <div class="header__buttons">
+    <!-- Check if the user is an employee. If yes, display the Employee button. If no, display the booking button -->
+    @if (!employeeUser) {
     <a routerLink="/search" routerLinkActive="active">Booking</a>
-    @if (getLoggedInEmployee() === null) {
+    } @else {
+    <a routerLink="/employee" routerLinkActive="active"
+      >Employee<br />
+      Portal</a
+    >
+    } @if (getLoggedInUser() === null) {
     <button (click)="login()">Login</button>
     } @else {
     <a routerLink="/profile" routerLinkActive="active">Profile</a>
