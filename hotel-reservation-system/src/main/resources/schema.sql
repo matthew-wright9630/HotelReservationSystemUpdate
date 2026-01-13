@@ -11,13 +11,10 @@ DROP TABLE IF EXISTS
 DROP TYPE IF EXISTS pay_status CASCADE;
 DROP TYPE IF EXISTS role_type CASCADE;
 
--- Only allow the following employee roles:
-CREATE TYPE role_type AS ENUM ('admin', 'manager', 'guest');
-
 CREATE TABLE app_user(
 	
 	user_id SERIAL PRIMARY KEY,
-	user_role role_type NOT NULL,
+	user_role VARCHAR(20) NOT NULL,
 	email VARCHAR(255) NOT NULL,
 	first_name VARCHAR(255) NOT NULL,
 	middle_name VARCHAR(255),

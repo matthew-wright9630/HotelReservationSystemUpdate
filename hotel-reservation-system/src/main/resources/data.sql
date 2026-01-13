@@ -5,8 +5,8 @@ INSERT INTO app_user (user_role, email, first_name, last_name, home_address, pho
 VALUES ('admin', 'madam.rosmerta.ttb@gmail.com', 'Madam', 'Rosmerta', 'The Three Broomsticks, Hogsmeade, Scotland ', 1234567890);
 INSERT INTO app_user (user_role, email, first_name, last_name, home_address, phone_number)
 VALUES ('manager', 'darkkn1ght9630@gmail.com', 'Billy', 'Smith', '15 Main St, Scotland', 1234567890);
-INSERT INTO app_user (user_role, email, first_name, middle_name, last_name, home_address, phone_number)
-VALUES ('guest', 'matthew.laura.wright@gmail.com', 'Laura', 'Jacqueline', 'Wright', '4787 Carson Ct, Woodburn IN 46797 ', 2146067487);
+-- INSERT INTO app_user (user_role, email, first_name, middle_name, last_name, home_address, phone_number)
+-- VALUES ('guest', 'matthew.laura.wright@gmail.com', 'Laura', 'Jacqueline', 'Wright', '4787 Carson Ct, Woodburn IN 46797 ', 2146067487);
 
 -- ROOM_DESCRIPTION TABLE --
 INSERT INTO room_description (room_colors, max_occupancy, is_smoking, ada_compliant, bed_style, room_image, price, deleted)

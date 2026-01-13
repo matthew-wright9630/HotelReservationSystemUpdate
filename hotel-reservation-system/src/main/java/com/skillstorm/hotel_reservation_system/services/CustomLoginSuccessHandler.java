@@ -35,13 +35,13 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         User user = userRepository.findByEmail(oidcUser.getEmail());
 
         if (user == null) {
-            response.sendRedirect("/login/error");
+            response.sendRedirect(frontendBaseUrl + "/login/error");
             return;
         }
 
         // Check if onboarding is complete
-        if (!user.isProfileComplete()) {
-            response.sendRedirect("/onboarding");
+        if (!user.isOnboardingComplete()) {
+            response.sendRedirect(frontendBaseUrl + "/onboarding");
             return;
         }
 
