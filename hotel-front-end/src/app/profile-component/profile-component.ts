@@ -1,31 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { User } from '../models/user/user';
 import {
+  FormGroup,
   FormBuilder,
   FormControl,
-  FormGroup,
-  ReactiveFormsModule,
   Validators,
+  ReactiveFormsModule,
 } from '@angular/forms';
+import { DataPassService } from '../services/data-pass-service';
 import { HttpService } from '../services/http-service';
 import { CommonModule } from '@angular/common';
-import { DataPassService } from '../services/data-pass-service';
-import { User } from '../models/user/user';
 
 @Component({
-  selector: 'app-onboarding-component',
+  selector: 'app-profile-component',
   imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './onboarding-component.html',
-  styleUrl: './onboarding-component.css',
+  templateUrl: './profile-component.html',
+  styleUrl: './profile-component.css',
 })
-export class OnboardingComponent {
-  onboardingForm: FormGroup;
+export class ProfileComponent {
+  profileForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private httpService: HttpService,
     private dataPass: DataPassService
   ) {
-    this.onboardingForm = this.fb.group({
+    this.profileForm = this.fb.group({
       firstNameControl: new FormControl('', [
         Validators.required,
         Validators.max(255),
@@ -44,42 +44,51 @@ export class OnboardingComponent {
       ]),
       phoneNumberControl: new FormControl(0, [
         Validators.required,
+        // Enforces that it must be a 10 digit number.
         Validators.pattern('^[0-9]{10}$'),
       ]),
+      onboardingControl: new FormControl(false),
     });
     this.getLoginDetails();
   }
 
+  // Get methods for all the form fields.
+
   get firstNameControl() {
-    return this.onboardingForm.get('firstNameControl');
+    return this.profileForm.get('firstNameControl');
   }
 
   get lastNameControl() {
-    return this.onboardingForm.get('lastNameControl');
+    return this.profileForm.get('lastNameControl');
   }
 
   get middleNameControl() {
-    return this.onboardingForm.get('middleNameControl');
+    return this.profileForm.get('middleNameControl');
   }
 
   get homeAddressControl() {
-    return this.onboardingForm.get('homeAddressControl');
+    return this.profileForm.get('homeAddressControl');
   }
 
   get phoneNumberControl() {
-    return this.onboardingForm.get('phoneNumberControl');
+    return this.profileForm.get('phoneNumberControl');
   }
 
+  get onboardingControl() {
+    return this.profileForm.get('onboardingControl');
+  }
+
+  // Gets the lagin details from the httpService and passes it into the loggedInUser.
   getLoginDetails() {
     this.httpService.getUserInfo().subscribe((data) => {
-      console.log(data);
       this.dataPass.loggedInUser.set(data);
-      this.onboardingForm.patchValue({
+      this.profileForm.patchValue({
         firstNameControl: data.firstName,
         lastNameControl: data.lastName,
         middleNameControl: data.middleName,
         homeAddressControl: data.address,
         phoneNumberControl: data.phoneNumber,
+        onboardingControl: data.onboardingComplete,
       });
     });
   }
@@ -88,7 +97,7 @@ export class OnboardingComponent {
   showConfirmation = false;
 
   openConfirmationModal() {
-    if (!this.onboardingForm.valid) {
+    if (!this.profileForm.valid) {
       return;
     }
     this.showConfirmation = true;
@@ -96,7 +105,7 @@ export class OnboardingComponent {
 
   confirmSubmit() {
     this.showConfirmation = false;
-    this.onboardingFormSubmit();
+    this.profileFormSubmit();
   }
 
   cancelSubmit() {
@@ -105,17 +114,17 @@ export class OnboardingComponent {
 
   // Methods used to open/close the success modal
 
-  showSuccessMessage = false;
+  showSuccessMessage = signal(false);
 
   openSuccessModal() {
-    this.showSuccessMessage = true;
+    this.showSuccessMessage.set(true);
   }
 
   closeSuccessModal() {
-    this.showSuccessMessage = false;
+    this.showSuccessMessage.set(false);
   }
 
-  onboardingFormSubmit(): void {
+  profileFormSubmit(): void {
     const user = this.dataPass.loggedInUser();
     if (user && user.id != null) {
       const updatedUser = new User(
@@ -126,12 +135,13 @@ export class OnboardingComponent {
         this.middleNameControl?.value,
         this.lastNameControl?.value,
         this.homeAddressControl?.value,
-        this.phoneNumberControl?.value
+        this.phoneNumberControl?.value,
+        user.onboardingComplete
       );
       this.httpService.updateProfile(updatedUser).subscribe({
         next: () => {
           this.openSuccessModal();
-          console.log('Test');
+          this.getLoginDetails();
         },
         error: (err) => console.error(err),
       });

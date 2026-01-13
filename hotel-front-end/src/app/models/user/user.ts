@@ -7,6 +7,7 @@ export class User {
   lastName: string;
   address: string;
   phoneNumber: number;
+  onboardingComplete: boolean;
 
   constructor(
     id: number,
@@ -16,7 +17,8 @@ export class User {
     middleName: string,
     lastName: string,
     address: string,
-    phoneNumber: number
+    phoneNumber: number,
+    onboardingComplete: boolean
   ) {
     this.id = id;
     this.role = role;
@@ -26,5 +28,6 @@ export class User {
     this.lastName = lastName;
     this.address = address;
     this.phoneNumber = phoneNumber;
+    this.onboardingComplete = onboardingComplete;
   }
 }

@@ -41,7 +41,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         // Check if onboarding is complete
         if (!user.isOnboardingComplete()) {
-            response.sendRedirect(frontendBaseUrl + "/onboarding");
+            response.sendRedirect(frontendBaseUrl + "/profile");
             return;
         }
 

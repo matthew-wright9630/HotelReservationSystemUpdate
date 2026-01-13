@@ -51,6 +51,7 @@ public class UserService {
         }
         Optional<User> foundUser = userRepository.findById((int) id);
         if (foundUser.isPresent()) {
+            user.setOnboardingComplete(true);
             return userRepository.save(user);
         }
         throw new IllegalArgumentException("User does not exist");

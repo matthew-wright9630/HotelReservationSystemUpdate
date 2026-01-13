@@ -1,10 +1,14 @@
 <section>
-  <h2>Onboarding</h2>
-  <h3>Please check the following details and update all required fields.</h3>
-  <form [formGroup]="onboardingForm" (ngSubmit)="openConfirmationModal()">
-    <div class="onboarding-form__div">
+  <h2>Profile</h2>
+  <form [formGroup]="profileForm" (ngSubmit)="openConfirmationModal()">
+    <!-- If the user has not finished their profile, the below information will be displayed. -->
+    <h3 *ngIf="!onboardingControl?.value">
+      Please check the following details and update all required fields.<br />You will need to
+      submit this before you can perform any actions.
+    </h3>
+    <div class="profile-form__div">
       <label for="firstNameControl">First Name* </label>
-      <div class="onboarding-form__input-div">
+      <div class="profile-form__input-div">
         <input
           type="text"
           id="firstNameControl"
@@ -14,34 +18,34 @@
         <div
           class="error"
           *ngIf="
-            onboardingForm.get('firstNameControl')?.touched &&
-            onboardingForm.get('firstNameControl')?.invalid
+            profileForm.get('firstNameControl')?.touched &&
+            profileForm.get('firstNameControl')?.invalid
           "
         >
           <span
-            class="onboarding__error-span"
-            *ngIf="onboardingForm.get('firstNameControl')?.errors?.['required']"
+            class="profile__error-span"
+            *ngIf="profileForm.get('firstNameControl')?.errors?.['required']"
           >
             First name is required.
           </span>
           <span
-            class="onboarding__error-span"
-            *ngIf="onboardingForm.get('firstNameControl')?.errors?.['minlength']"
+            class="profile__error-span"
+            *ngIf="profileForm.get('firstNameControl')?.errors?.['minlength']"
           >
             Must be at least 2 characters.
           </span>
           <span
-            class="onboarding__error-span"
-            *ngIf="onboardingForm.get('firstNameControl')?.errors?.['maxlength']"
+            class="profile__error-span"
+            *ngIf="profileForm.get('firstNameControl')?.errors?.['maxlength']"
           >
             Cannot exceed 255 characters.
           </span>
         </div>
       </div>
     </div>
-    <div class="onboarding-form__div">
+    <div class="profile-form__div">
       <label for="middleNameControl">Middle Name </label>
-      <div class="onboarding-form__input-div">
+      <div class="profile-form__input-div">
         <input
           type="text"
           id="middleNameControl"
@@ -52,21 +56,21 @@
       <div
         class="error"
         *ngIf="
-          onboardingForm.get('middleNameControl')?.touched &&
-          onboardingForm.get('middleNameControl')?.invalid
+          profileForm.get('middleNameControl')?.touched &&
+          profileForm.get('middleNameControl')?.invalid
         "
       >
         <span
-          class="onboarding__error-span"
-          *ngIf="onboardingForm.get('middleNameControl')?.errors?.['maxlength']"
+          class="profile__error-span"
+          *ngIf="profileForm.get('middleNameControl')?.errors?.['maxlength']"
         >
           Cannot exceed 255 characters.
         </span>
       </div>
     </div>
-    <div class="onboarding-form__div">
+    <div class="profile-form__div">
       <label for="lastNameControl">Last Name* </label>
-      <div class="onboarding-form__input-div">
+      <div class="profile-form__input-div">
         <input
           type="text"
           id="lastNameControl"
@@ -76,34 +80,34 @@
         <div
           class="error"
           *ngIf="
-            onboardingForm.get('lastNameControl')?.touched &&
-            onboardingForm.get('lastNameControl')?.invalid
+            profileForm.get('lastNameControl')?.touched &&
+            profileForm.get('lastNameControl')?.invalid
           "
         >
           <span
-            class="onboarding__error-span"
-            *ngIf="onboardingForm.get('lastNameControl')?.errors?.['required']"
+            class="profile__error-span"
+            *ngIf="profileForm.get('lastNameControl')?.errors?.['required']"
           >
             Last name is required.
           </span>
           <span
-            class="onboarding__error-span"
-            *ngIf="onboardingForm.get('lastNameControl')?.errors?.['minlength']"
+            class="profile__error-span"
+            *ngIf="profileForm.get('lastNameControl')?.errors?.['minlength']"
           >
             Must be at least 2 characters.
           </span>
           <span
-            class="onboarding__error-span"
-            *ngIf="onboardingForm.get('lastNameControl')?.errors?.['maxlength']"
+            class="profile__error-span"
+            *ngIf="profileForm.get('lastNameControl')?.errors?.['maxlength']"
           >
             Cannot exceed 255 characters.
           </span>
         </div>
       </div>
     </div>
-    <div class="onboarding-form__div">
+    <div class="profile-form__div">
       <label for="homeAddressControl">Address* </label>
-      <div class="onboarding-form__input-div">
+      <div class="profile-form__input-div">
         <input
           type="text"
           id="homeAddressControl"
@@ -113,34 +117,34 @@
         <div
           class="error"
           *ngIf="
-            onboardingForm.get('homeAddressControl')?.touched &&
-            onboardingForm.get('homeAddressControl')?.invalid
+            profileForm.get('homeAddressControl')?.touched &&
+            profileForm.get('homeAddressControl')?.invalid
           "
         >
           <span
-            class="onboarding__error-span"
-            *ngIf="onboardingForm.get('homeAddressControl')?.errors?.['required']"
+            class="profile__error-span"
+            *ngIf="profileForm.get('homeAddressControl')?.errors?.['required']"
           >
             Address is required.
           </span>
           <span
-            class="onboarding__error-span"
-            *ngIf="onboardingForm.get('homeAddressControl')?.errors?.['minlength']"
+            class="profile__error-span"
+            *ngIf="profileForm.get('homeAddressControl')?.errors?.['minlength']"
           >
             Must be at least 2 characters.
           </span>
           <span
-            class="onboarding__error-span"
-            *ngIf="onboardingForm.get('homeAddressControl')?.errors?.['maxlength']"
+            class="profile__error-span"
+            *ngIf="profileForm.get('homeAddressControl')?.errors?.['maxlength']"
           >
             Cannot exceed 255 characters.
           </span>
         </div>
       </div>
     </div>
-    <div class="onboarding-form__div">
+    <div class="profile-form__div">
       <label for="phoneNumberControl">Phone Number* </label>
-      <div class="onboarding-form__input-div">
+      <div class="profile-form__input-div">
         <input
           type="number"
           id="phoneNumberControl"
@@ -151,26 +155,26 @@
         <div
           class="error"
           *ngIf="
-            onboardingForm.get('phoneNumberControl')?.touched &&
-            onboardingForm.get('phoneNumberControl')?.invalid
+            profileForm.get('phoneNumberControl')?.touched &&
+            profileForm.get('phoneNumberControl')?.invalid
           "
         >
           <span
-            class="onboarding__error-span"
-            *ngIf="onboardingForm.get('phoneNumberControl')?.errors?.['required']"
+            class="profile__error-span"
+            *ngIf="profileForm.get('phoneNumberControl')?.errors?.['required']"
           >
             Phone number is required.
           </span>
           <span
-            class="onboarding__error-span"
-            *ngIf="onboardingForm.get('phoneNumberControl')?.errors?.['pattern']"
+            class="profile__error-span"
+            *ngIf="profileForm.get('phoneNumberControl')?.errors?.['pattern']"
           >
             Please input your phone number in a 10 digit format (1234567890).
           </span>
         </div>
       </div>
     </div>
-    <button [disabled]="onboardingForm.invalid" type="submit">Submit</button>
+    <button [disabled]="profileForm.invalid" type="submit">Submit</button>
   </form>
   <div class="modal" *ngIf="showConfirmation">
     <div class="modal__content">
@@ -181,7 +185,7 @@
       </div>
     </div>
   </div>
-  <div class="modal" *ngIf="showSuccessMessage">
+  <div class="modal" *ngIf="showSuccessMessage()">
     <div class="modal__content">
       <p class="modal__p">Success! You can close this window.</p>
       <div class="modal__buttons">

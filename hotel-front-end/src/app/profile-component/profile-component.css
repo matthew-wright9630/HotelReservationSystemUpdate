@@ -7,14 +7,14 @@ form {
   margin: 0 auto;
 }
 
-.onboarding-form__div {
+.profile-form__div {
   display: flex;
   justify-content: space-between;
   /* gap: 5vw; */
   align-items: center;
 }
 
-.onboarding-form__input-div {
+.profile-form__input-div {
   display: flex;
   flex-direction: column;
   /* gap: 5vw; */
@@ -52,7 +52,7 @@ input:disabled {
   text-wrap: nowrap;
 }
 
-.onboarding__error-span {
+.profile__error-span {
   color: red;
   font-weight: 400;
 }
