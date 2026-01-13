@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "booking")
 public class Booking {
-    
+
     @Id
     @Column(name = "booking_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,25 +50,25 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "guest_id")
-    private Guest guest;
+    private User guest;
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
-    private Employee employee;
+    private User employee;
 
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
 
-    /* 
-    Constructors:
-        No-args, All-args except id, All-args 
-    */
+    /*
+     * Constructors:
+     * No-args, All-args except id, All-args
+     */
     public Booking() {
     }
 
     public Booking(Instant createdAt, LocalDate checkInDate, LocalDate checkOutDate, int price, byte numberOfGuests,
-            String email, String name, int phoneNumber, Guest guest, Employee employee, Room room) {
+            String email, String name, int phoneNumber, User guest, User employee, Room room) {
         this.createdAt = createdAt;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
@@ -83,7 +83,7 @@ public class Booking {
     }
 
     public Booking(long id, Instant createdAt, LocalDate checkInDate, LocalDate checkOutDate, int price,
-            byte numberOfGuests, String email, String name, int phoneNumber, Guest guest, Employee employee,
+            byte numberOfGuests, String email, String name, int phoneNumber, User guest, User employee,
             Room room) {
         this.id = id;
         this.createdAt = createdAt;
@@ -173,19 +173,19 @@ public class Booking {
         this.phoneNumber = phoneNumber;
     }
 
-    public Guest getGuest() {
+    public User getGuestUser() {
         return guest;
     }
 
-    public void setGuest(Guest guest) {
+    public void setGuestUser(User guest) {
         this.guest = guest;
     }
 
-    public Employee getEmployee() {
+    public User getEmployeeUser() {
         return employee;
     }
 
-    public void setEmployee(Employee employee) {
+    public void setUser(User employee) {
         this.employee = employee;
     }
 

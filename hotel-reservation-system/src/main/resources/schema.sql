@@ -13,12 +13,12 @@ DROP TYPE IF EXISTS pay_status CASCADE;
 DROP TYPE IF EXISTS emp_role CASCADE;
 
 -- Only allow the following employee roles:
-CREATE TYPE emp_role AS ENUM ('admin', 'manager');
+CREATE TYPE role_type AS ENUM ('admin', 'manager', 'guest');
 
-CREATE TABLE employee(
+CREATE TABLE user(
 	
-	employee_id SERIAL PRIMARY KEY,
-	employee_role emp_role NOT NULL,
+	user_id SERIAL PRIMARY KEY,
+	user_role role_type NOT NULL,
 	email VARCHAR(255) NOT NULL,
 	first_name VARCHAR(255) NOT NULL,
 	middle_name VARCHAR(255),
@@ -29,18 +29,18 @@ CREATE TABLE employee(
 );
 
 -- Lookup Table --
-CREATE TABLE guest(
+-- CREATE TABLE guest(
 
-	guest_id SERIAL PRIMARY KEY,
-	email VARCHAR(255) NOT NULL,
-	first_name VARCHAR(255) NOT NULL,
-	middle_name VARCHAR(255),
-	last_name VARCHAR(255) NOT NULL,
-	home_address VARCHAR(255),
-	-- address is a keyword in SQL
-	phone_number NUMERIC(10)
-	-- 10-digit number (no country codes in the wizarding world)
-);
+-- 	guest_id SERIAL PRIMARY KEY,
+-- 	email VARCHAR(255) NOT NULL,
+-- 	first_name VARCHAR(255) NOT NULL,
+-- 	middle_name VARCHAR(255),
+-- 	last_name VARCHAR(255) NOT NULL,
+-- 	home_address VARCHAR(255),
+-- 	-- address is a keyword in SQL
+-- 	phone_number NUMERIC(10)
+-- 	-- 10-digit number (no country codes in the wizarding world)
+-- );
 
 -- Lookup Table --
 CREATE TABLE room_description (
@@ -110,8 +110,8 @@ CREATE TABLE booking(
 	email_on_booking VARCHAR(255) NOT NULL,
 	name_on_booking VARCHAR(255) NOT NULL,
 	phone_on_booking NUMERIC(10) NOT NULL,
-	guest_id INT NOT NULL REFERENCES guest(guest_id),
-	employee_id INT NOT NULL REFERENCES employee(employee_id),
+	guest_id INT NOT NULL REFERENCES user(user_id),
+	employee_id INT REFERENCES user(user_id),
 	room_id INT NOT NULL REFERENCES room(room_id)
 );
 

@@ -7,10 +7,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 
-import com.skillstorm.hotel_reservation_system.services.CustomEmployeeLoginService;
+import com.skillstorm.hotel_reservation_system.services.CustomLoginService;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -18,10 +19,10 @@ import jakarta.servlet.http.HttpServletResponse;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final CustomEmployeeLoginService customEmployeeLoginService;
+    private final CustomLoginService customEmployeeLoginService;
 
     // Constructor injection
-    public SecurityConfig(CustomEmployeeLoginService customEmployeeLoginService) {
+    public SecurityConfig(CustomLoginService customEmployeeLoginService) {
         this.customEmployeeLoginService = customEmployeeLoginService;
     }
 
@@ -58,6 +59,16 @@ public class SecurityConfig {
                                 .oidcUserService(customEmployeeLoginService)
                         // .userService(customEmployeeLoginService)
                         )
+                        .successHandler((req, res, auth) -> {
+                            var oidc = (OidcUser) auth.getPrincipal();
+                            String type = oidc.getAttribute("authorities");
+
+                            if (type == "ROLE_ADMIN" || type == "ROLE_MANAGER") {
+                                res.sendRedirect("/employee");
+                            } else {
+                                res.sendRedirect("/homepage");
+                            }
+                        })
                         .defaultSuccessUrl("http://localhost:4200/homepage", true) // Angular route
                         .failureUrl("http://localhost:4200/login/error"))
 

@@ -17,10 +17,10 @@ import com.skillstorm.hotel_reservation_system.models.Employee;
 import com.skillstorm.hotel_reservation_system.repositories.EmployeeRepository;
 
 @Service
-public class CustomEmployeeLoginService implements OAuth2UserService<OidcUserRequest, OidcUser> {
+public class CustomLoginService implements OAuth2UserService<OidcUserRequest, OidcUser> {
     private final EmployeeRepository employeeRepository;
 
-    public CustomEmployeeLoginService(EmployeeRepository employeeRepository) {
+    public CustomLoginService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
@@ -37,9 +37,6 @@ public class CustomEmployeeLoginService implements OAuth2UserService<OidcUserReq
         if (employee != null && employee.getId() > 0) {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + employee.getRole().name().toUpperCase()));
         }
-
-        System.out.println("User email: " + email);
-        System.out.println("Authorities: " + authorities);
 
         return new DefaultOidcUser(authorities, oidcUser.getIdToken(), oidcUser.getUserInfo());
     }
