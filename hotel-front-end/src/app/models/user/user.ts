@@ -4,7 +4,8 @@ export class User {
   email: string;
   firstName: string;
   middleName: string;
-  homeAddress: string;
+  lastName: string;
+  address: string;
   phoneNumber: number;
 
   constructor(
@@ -13,7 +14,8 @@ export class User {
     email: string,
     firstName: string,
     middleName: string,
-    homeAddress: string,
+    lastName: string,
+    address: string,
     phoneNumber: number
   ) {
     this.id = id;
@@ -21,7 +23,8 @@ export class User {
     this.email = email;
     this.firstName = firstName;
     this.middleName = middleName;
-    this.homeAddress = homeAddress;
+    this.lastName = lastName;
+    this.address = address;
     this.phoneNumber = phoneNumber;
   }
 }

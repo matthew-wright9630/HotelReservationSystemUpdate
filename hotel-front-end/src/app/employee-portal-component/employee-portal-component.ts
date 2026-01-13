@@ -3,6 +3,7 @@ import { EmployeeAvailableRoomsComponent } from '../employee-available-rooms-com
 import { EmployeeEditRoomComponent } from '../employee-edit-room-component/employee-edit-room-component';
 import { DataPassService } from '../services/data-pass-service';
 import { Router } from '@angular/router';
+import { HttpService } from '../services/http-service';
 
 @Component({
   selector: 'app-employee-portal-component',
@@ -24,14 +25,26 @@ export class EmployeePortalComponent {
     this.selectionElement = 'edit-rooms';
   }
 
-  constructor(private router: Router, private datapass: DataPassService) {
-    this.checkUserRole();
+  constructor(
+    private router: Router,
+    private httpService: HttpService,
+    private dataPass: DataPassService
+  ) {
+    this.getLoginDetails();
   }
 
-  checkUserRole(): void {
+  getLoginDetails() {
+    this.httpService.getUserInfo().subscribe((data) => {
+      this.dataPass.loggedInUser.set(data);
+      this.checkUserRole(data.role);
+    });
+  }
+
+  checkUserRole(role: string): void {
+    console.log(this.dataPass.loggedInUser());
     if (
-      this.datapass.loggedInUser()?.role !== 'manager' &&
-      this.datapass.loggedInUser()?.role !== 'admin'
+      this.dataPass.loggedInUser()?.role !== 'manager' &&
+      this.dataPass.loggedInUser()?.role !== 'admin'
     ) {
       this.router.navigate(['/homepage']);
     }

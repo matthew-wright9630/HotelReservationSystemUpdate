@@ -20,7 +20,6 @@ export class HeaderComponent {
 
   getLoginDetails() {
     this.httpService.getUserInfo().subscribe((data) => {
-      console.log(data);
       this.dataPassService.loggedInUser.set(data);
     });
   }

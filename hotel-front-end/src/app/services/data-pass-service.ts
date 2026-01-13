@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { RoomDescription } from '../models/room-description/room-description';
-import { User } from '../user/user';
+import { User } from '../models/user/user';
 import { Room } from '../models/room/room';
 
 @Injectable({

@@ -8,7 +8,7 @@ import { RoomDescriptionComponent } from '../room-description-component/room-des
 import { Observable } from 'rxjs';
 import { DataPassService } from '../services/data-pass-service';
 import { FrontPageComponent } from '../front-page-component/front-page-component';
-import { User } from '../user/user';
+import { User } from '../models/user/user';
 
 /**
  * The Homepage component is the first page that guests will see when entering the website. It pulls a list of rooms from

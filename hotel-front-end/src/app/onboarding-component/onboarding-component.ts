@@ -8,6 +8,8 @@ import {
 } from '@angular/forms';
 import { HttpService } from '../services/http-service';
 import { CommonModule } from '@angular/common';
+import { DataPassService } from '../services/data-pass-service';
+import { User } from '../models/user/user';
 
 @Component({
   selector: 'app-onboarding-component',
@@ -18,7 +20,11 @@ import { CommonModule } from '@angular/common';
 export class OnboardingComponent {
   onboardingForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private httpService: HttpService) {
+  constructor(
+    private fb: FormBuilder,
+    private httpService: HttpService,
+    private dataPass: DataPassService
+  ) {
     this.onboardingForm = this.fb.group({
       firstNameControl: new FormControl('', [
         Validators.required,
@@ -41,6 +47,7 @@ export class OnboardingComponent {
         Validators.pattern('^[0-9]{10}$'),
       ]),
     });
+    this.getLoginDetails();
   }
 
   get firstNameControl() {
@@ -61,6 +68,20 @@ export class OnboardingComponent {
 
   get phoneNumberControl() {
     return this.onboardingForm.get('phoneNumberControl');
+  }
+
+  getLoginDetails() {
+    this.httpService.getUserInfo().subscribe((data) => {
+      console.log(data);
+      this.dataPass.loggedInUser.set(data);
+      this.onboardingForm.patchValue({
+        firstNameControl: data.firstName,
+        lastNameControl: data.lastName,
+        middleNameControl: data.middleName,
+        homeAddressControl: data.address,
+        phoneNumberControl: data.phoneNumber,
+      });
+    });
   }
 
   // Methods used to open/close the confirmation modal
@@ -94,5 +115,26 @@ export class OnboardingComponent {
     this.showSuccessMessage = false;
   }
 
-  onboardingFormSubmit(): void {}
+  onboardingFormSubmit(): void {
+    const user = this.dataPass.loggedInUser();
+    if (user && user.id != null) {
+      const updatedUser = new User(
+        user.id,
+        user.role,
+        user.email,
+        this.firstNameControl?.value,
+        this.middleNameControl?.value,
+        this.lastNameControl?.value,
+        this.homeAddressControl?.value,
+        this.phoneNumberControl?.value
+      );
+      this.httpService.updateProfile(updatedUser).subscribe({
+        next: () => {
+          this.openSuccessModal();
+          console.log('Test');
+        },
+        error: (err) => console.error(err),
+      });
+    }
+  }
 }

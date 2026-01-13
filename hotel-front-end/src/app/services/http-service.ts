@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
-import { User } from '../user/user';
+import { User } from '../models/user/user';
 import { RoomDescription } from '../models/room-description/room-description';
 import { Room } from '../models/room/room';
 
@@ -140,8 +140,17 @@ export class HttpService {
 
   // Logs out the user.
   logout(): void {
-    this.http.get('http://localhost:8080/logout', { withCredentials: true }).subscribe(() => {
+    this.http.get(this.baseURL + '/logout', { withCredentials: true }).subscribe(() => {
       window.location.href = '/homepage';
     });
+  }
+
+  updateProfile(user: User): Observable<User | null> {
+    return this.http
+      .put<User>(this.baseURL + 'users/' + user.id, user, {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
   }
 }
