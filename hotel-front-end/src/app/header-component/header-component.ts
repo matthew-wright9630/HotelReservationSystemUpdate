@@ -21,6 +21,7 @@ export class HeaderComponent {
   getLoginDetails() {
     this.httpService.getUserInfo().subscribe((data) => {
       this.dataPassService.loggedInUser.set(data);
+      this.checkRoleType();
     });
   }
 
@@ -37,7 +38,8 @@ export class HeaderComponent {
   employeeUser = signal(false);
 
   checkRoleType() {
-    if (this.dataPassService.loggedInUser()?.role === 'guest') {
+    if (this.dataPassService.loggedInUser()?.role !== 'guest') {
+      console.log('TRUE!');
       this.employeeUser.set(true);
     } else {
       this.employeeUser.set(false);

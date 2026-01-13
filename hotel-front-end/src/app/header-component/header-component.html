@@ -7,7 +7,7 @@
   </div>
   <div class="header__buttons">
     <!-- Check if the user is an employee. If yes, display the Employee button. If no, display the booking button -->
-    @if (!employeeUser) {
+    @if (!employeeUser()) {
     <a routerLink="/search" routerLinkActive="active">Booking</a>
     } @else {
     <a routerLink="/employee" routerLinkActive="active"
