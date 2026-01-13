@@ -6,3 +6,32 @@ on:
   #push:
     #branches: ["main"]
   workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5.1.0
+        with:
+          aws-region: us-east-1
+          # AWS Access Key ID. Provide this key if you want to assume a role using access keys rather than a web identity token.
+          aws-access-key-id: ${{secrets.ACCESS_KEY_ID}}
+          # AWS Secret Access Key. Required if aws-access-key-id is provided.
+          aws-secret-access-key: ${{SECRET_ACCESS_KEY}}
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v6.1.0
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy
+        run: aws s3 sync HotelReservationSystem/dist/hotelreservationsystem s3://thethreebroomsticks/
+
+        #https://github.com/Rishi-Repos/HotelReservationSystem.git
