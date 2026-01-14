@@ -27,7 +27,7 @@ import { combineLatest } from 'rxjs';
 export class CurrentSelectionComponent {
   bookingSelectionForm: FormGroup;
 
-  selectedSlotIndex: number | null = null;
+  selectedSlotIndex = signal<number>(0);
 
   constructor(
     private fb: FormBuilder,
@@ -46,8 +46,8 @@ export class CurrentSelectionComponent {
         return;
       }
       this.updateRoomDescriptionControl(selection.slotIndex, selection.roomDescription);
-      console.log(selection);
     });
+    this.pickSlot(0);
   }
 
   updateRoomDescriptionControl(slotIndex: number, room: RoomDescription): void {
@@ -77,7 +77,9 @@ export class CurrentSelectionComponent {
     });
 
     this.dataPass.currentSlotIndexSubject.subscribe((index) => {
-      this.selectedSlotIndex = index;
+      if (index) {
+        this.selectedSlotIndex.set(index);
+      }
     });
   }
 
