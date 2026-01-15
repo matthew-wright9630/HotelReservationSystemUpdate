@@ -1,17 +1,18 @@
 <section>
-  @for (slot of roomSlots(); track $index; let i = $index) {
-  <div>
-    <h3>Room {{ i + 1 }}: {{ mockBooking.numberOfRooms }} guests</h3>
-
-    @if (selectedRooms()[i]) {
-    <div class="current-selection__div">
+  <form [formGroup]="bookingSelectionForm" (ngSubmit)="openConfirmationModal()">
+    @for (slot of roomSlots(); track $index; let i = $index) {
+    <div class="selection__div" [class.selected-room]="i === selectedSlotIndex()">
       <div>
+        <h3>Room {{ i + 1 }}:</h3>
+        <button (click)="pickSlot(i)" class="select__btn">Select Room</button>
+      </div>
+      <div *ngIf="roomDescriptionArray.at(i).value !== null; else selectRoom">
         <p>
-          {{ selectedRooms()[i].bedStyle }},<br />
-          {{ selectedRooms()[i].roomColor }} style
+          {{ roomDescriptionArray.at(i).value.bedStyle }},<br />
+          {{ roomDescriptionArray.at(i).value.roomColor }} style
         </p>
 
-        @if (selectedRooms()[i].isSmoking) {
+        @if (roomDescriptionArray.at(i).value.isSmoking) {
         <p>Smoking</p>
         } @else {
         <p>Non-Smoking</p>
@@ -19,22 +20,21 @@
 
         <p>
           Max occupancy:
-          {{ selectedRooms()[i].maxOccupancy }} guests
+          {{ roomDescriptionArray.at(i).value.maxOccupancy }} guests
         </p>
+        {{ roomDescriptionArray.at(i).value.price }} Galleons
       </div>
-
-      {{ selectedRooms()[i].price }} Galleons
     </div>
-    } @else {
-    <p>Please select a room</p>
+    <ng-template #selectRoom>
+      <p>Please select a room</p>
+    </ng-template>
+    <!-- </div> -->
     }
-  </div>
-
-  }
-  <p class="total">Current Total: {{ totalPrice }} Galleons</p>
-  <p class="tax-statement">taxes and fees included</p>
-  <button [disabled]="!bookingButtonAvailable()">Book</button>
-  @if (!bookingButtonAvailable()) {
-  <p class="current-selection__error">Please select {{ mockBooking.numberOfRooms }} rooms</p>
-  }
+    <p class="total">Current Total: {{ totalPrice }} Galleons</p>
+    <p class="tax-statement">taxes and fees included</p>
+    <button class="submit__btn" [disabled]="!bookingButtonAvailable()">Book</button>
+    @if (!bookingButtonAvailable()) {
+    <p class="current-selection__error">Please select rooms</p>
+    }
+  </form>
 </section>

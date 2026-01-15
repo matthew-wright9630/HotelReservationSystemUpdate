@@ -1,6 +1,6 @@
 section {
-  border: 1px black solid;
-  background-color: #966f33;
+  border: 1px white solid;
+  /* background-color: #966f33; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,13 +10,29 @@ section {
   border-radius: 0.5vw;
 }
 
+form {
+  border-radius: 0.5vw;
+  /* background-color: #966f33; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 h3 {
-  background-color: #966f33;
+  /* background-color: #966f33; */
+}
+
+.select__btn {
+  width: 100%;
+  height: 6vh;
+  border-radius: 0.4vw;
 }
 
 div {
-  background-color: #966f33;
-  margin: 5px;
+  /* background-color: #966f33; */
+  margin: 1vw;
   /* border: 1px black solid; */
   border-radius: 0.4vw;
 }
@@ -29,15 +45,13 @@ div {
 }
 
 p {
-  background-color: #966f33;
-  /* padding: 10px; */
-  margin: 5px;
+  /* background-color: #966f33; */
 }
 
 .total {
   padding-bottom: 0;
   margin-bottom: 0;
-  margin-top: 20px;
+  margin-top: 2vh;
 }
 
 .tax-statement {
@@ -46,15 +60,15 @@ p {
   font-size: 12px;
 }
 
-button {
+.submit__btn {
   width: 50%;
-  height: 75px;
+  height: 9vh;
   font-size: 24px;
-  margin-bottom: 10px;
+  margin-bottom: 10%;
   border-radius: 0.4vw;
 }
 
-button:disabled {
+.submit__btn:disabled {
   margin: 10px auto 0;
 }
 
@@ -64,4 +78,19 @@ button:disabled {
   margin: 0;
   padding: 0;
   padding-bottom: 10px;
+}
+
+.selection__div {
+  border: 1px white solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.selected-room {
+  background-color: #966f33;
+}
+
+.selected-room * {
+  background-color: #966f33;
 }
