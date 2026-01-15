@@ -55,7 +55,7 @@ public class SecurityConfig {
                                                 // Allows all GET method requests to the /users endpoint.
 
                                                 .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
-                                                .requestMatchers(HttpMethod.PUT, "/users/*").permitAll()
+                                                .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
                                                 .requestMatchers(HttpMethod.POST, "/users")
                                                 .hasRole("ADMIN")
                                                 .requestMatchers(HttpMethod.POST, "/users/**")

@@ -32,7 +32,11 @@
         <td class="td__btn">
           <div class="btn__div">
             <button (click)="openEditModal(user)">Edit</button>
-            <button>Delete</button>
+            @if (!user?.deleted) {
+            <button (click)="openDeleteConfirmation(user)">Delete</button>
+            } @else {
+            <button (click)="openReactivationConfirmation(user)">Reactivate</button>
+            }
           </div>
         </td>
       </tr>
@@ -272,6 +276,24 @@
           </div>
         </div>
       </form>
+    </div>
+  </div>
+  <div class="modal" *ngIf="showDeleteConfirmation">
+    <div class="modal__content">
+      <p class="modal__p">Are you sure you want to deactivate this user?</p>
+      <div class="modal__buttons">
+        <button class="modal__btn" (click)="confirmDeleteSubmit()">Yes</button>
+        <button type="button" class="modal__btn" (click)="cancelDelete()">No</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal" *ngIf="showReactivationConfirmation">
+    <div class="modal__content">
+      <p class="modal__p">Are you sure you want to reactivate this user?</p>
+      <div class="modal__buttons">
+        <button class="modal__btn" (click)="confirmReactivationSubmit()">Yes</button>
+        <button type="button" class="modal__btn" (click)="cancelReactivation()">No</button>
+      </div>
     </div>
   </div>
   <div class="modal" *ngIf="showConfirmation">

@@ -24,6 +24,15 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public User findUserById(long id) {
+        Optional<User> foundUser = userRepository.findById((int) id);
+        if (foundUser.isPresent()) {
+            return foundUser.get();
+        }
+        throw new IllegalArgumentException(
+                "Room Description does not exist. Please try with another room description.");
+    }
+
     // Finds a specific user by their email address
     public User findUserByEmail(String email) {
         User foundUser = userRepository.findByEmail(email);
@@ -73,5 +82,23 @@ public class UserService {
             return userRepository.save(user);
         }
         throw new IllegalArgumentException("Attributes have not been provided in the correct manner.");
+    }
+
+    public User deleteUser(long id) {
+        User foundUser = findUserById(id);
+        if (foundUser.getId() > 0) {
+            userRepository.deleteUser((int) foundUser.getId(), true);
+            return foundUser;
+        }
+        throw new IllegalArgumentException("Room description does not exist");
+    }
+
+    public User reactivateUser(long id) {
+        User foundUser = findUserById(id);
+        if (foundUser.getId() > 0) {
+            userRepository.reactivateUser((int) foundUser.getId(), false);
+            return foundUser;
+        }
+        throw new IllegalArgumentException("Room description does not exist");
     }
 }

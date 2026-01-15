@@ -156,6 +156,42 @@ export class ManageUsersComponent {
     this.showEditModal = false;
   }
 
+  // Methods used to open/close the delete confirmation modal
+  showDeleteConfirmation = false;
+
+  openDeleteConfirmation(user: User) {
+    this.showDeleteConfirmation = true;
+    this.editType.set('delete');
+    this.selectedUser.set(user);
+  }
+
+  confirmDeleteSubmit() {
+    this.showDeleteConfirmation = false;
+    this.editUserFormSubmit();
+  }
+
+  cancelDelete() {
+    this.showDeleteConfirmation = false;
+  }
+
+  // Methods used to open/close the reactivation confirmation modal
+  showReactivationConfirmation = false;
+
+  openReactivationConfirmation(user: User) {
+    this.showReactivationConfirmation = true;
+    this.editType.set('reactivate');
+    this.selectedUser.set(user);
+  }
+
+  confirmReactivationSubmit() {
+    this.showReactivationConfirmation = false;
+    this.editUserFormSubmit();
+  }
+
+  cancelReactivation() {
+    this.showReactivationConfirmation = false;
+  }
+
   // Methods used to open/close the confirmation modal
   showConfirmation = false;
 
@@ -186,6 +222,7 @@ export class ManageUsersComponent {
   }
 
   editUserFormSubmit(): void {
+    console.log(this.editType());
     if (this.editType() === 'edit') {
       // If the submission type is edit, hits this endpoint and updates the user
       if (this.selectedUser() && this.selectedUser().id != null) {
@@ -273,6 +310,24 @@ export class ManageUsersComponent {
           error: (err) => console.error(err),
         });
       }
+    }
+    // If editType is delete, it will send a delete (deactivation) request to the server.
+    else if (this.editType() === 'delete') {
+      this.httpService.deactivateUser(this.selectedUser().id).subscribe({
+        next: () => {
+          this.openSuccessModal();
+          this.getAllUsers();
+        },
+        error: (err) => console.error(err),
+      });
+    } else if (this.editType() === 'reactivate') {
+      this.httpService.reactivateUser(this.selectedUser().id).subscribe({
+        next: () => {
+          this.openSuccessModal();
+          this.getAllUsers();
+        },
+        error: (err) => console.error(err),
+      });
     }
   }
 }
