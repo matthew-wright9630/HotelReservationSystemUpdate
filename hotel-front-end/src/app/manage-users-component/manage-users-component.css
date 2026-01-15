@@ -2,6 +2,12 @@ section {
   overflow: auto;
 }
 
+.manage-users__header {
+  display: flex;
+  justify-content: space-around;
+  margin: 2vh auto;
+}
+
 h2 {
   text-align: center;
 }
@@ -16,6 +22,7 @@ td,
 th {
   border: 1px white solid;
   height: 10vh;
+  text-align: center;
 }
 
 .td__btn {
@@ -71,6 +78,7 @@ option {
   position: relative;
   width: 70%;
   gap: 1vh;
+  flex-wrap: wrap;
 }
 
 label {

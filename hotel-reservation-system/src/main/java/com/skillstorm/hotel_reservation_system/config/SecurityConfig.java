@@ -56,7 +56,10 @@ public class SecurityConfig {
 
                                                 .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
                                                 .requestMatchers(HttpMethod.PUT, "/users/*").permitAll()
-                                                .requestMatchers(HttpMethod.POST, "/users").hasRole("admin")
+                                                .requestMatchers(HttpMethod.POST, "/users")
+                                                .hasRole("ADMIN")
+                                                .requestMatchers(HttpMethod.POST, "/users/**")
+                                                .hasRole("ADMIN")
                                                 // All POST requests to the /Users endpoint should be made only by a
                                                 // user
                                                 // with an admin role.

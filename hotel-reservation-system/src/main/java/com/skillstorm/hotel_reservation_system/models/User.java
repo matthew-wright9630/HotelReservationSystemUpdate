@@ -41,10 +41,13 @@ public class User {
     private String address;
 
     @Column(name = "phone_number")
-    private int phoneNumber;
+    private long phoneNumber;
 
     @Column(name = "onboarding_complete")
     private boolean onboardingComplete;
+
+    @Column(name = "deleted")
+    private boolean deleted;
 
     /*
      * Constructors:
@@ -53,20 +56,10 @@ public class User {
     public User() {
     }
 
-    public User(RoleType role, String email, String firstName, String middleName, String lastName,
-            String address, int phoneNumber) {
-        this.role = role;
-        this.email = email;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.onboardingComplete = false;
-    }
+    // getters, setters, hashcode, equals, toString
 
     public User(long id, RoleType role, String email, String firstName, String middleName, String lastName,
-            String address, int phoneNumber) {
+            String address, long phoneNumber, boolean onboardingComplete, boolean deleted) {
         this.id = id;
         this.role = role;
         this.email = email;
@@ -75,10 +68,22 @@ public class User {
         this.lastName = lastName;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.onboardingComplete = false;
+        this.onboardingComplete = onboardingComplete;
+        this.deleted = deleted;
     }
 
-    // getters, setters, hashcode, equals, toString
+    public User(RoleType role, String email, String firstName, String middleName, String lastName, String address,
+            long phoneNumber, boolean onboardingComplete, boolean deleted) {
+        this.role = role;
+        this.email = email;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.onboardingComplete = onboardingComplete;
+        this.deleted = deleted;
+    }
 
     public long getId() {
         return id;
@@ -144,11 +149,11 @@ public class User {
         this.onboardingComplete = onboardingComplete;
     }
 
-    public int getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -156,6 +161,14 @@ public class User {
         return this.firstName != null
                 && this.lastName != null
                 && this.address != null;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Override
@@ -169,8 +182,9 @@ public class User {
         result = prime * result + ((middleName == null) ? 0 : middleName.hashCode());
         result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
         result = prime * result + ((address == null) ? 0 : address.hashCode());
-        result = prime * result + phoneNumber;
+        result = prime * result + (int) (phoneNumber ^ (phoneNumber >>> 32));
         result = prime * result + (onboardingComplete ? 1231 : 1237);
+        result = prime * result + (deleted ? 1231 : 1237);
         return result;
     }
 
@@ -216,6 +230,8 @@ public class User {
             return false;
         if (onboardingComplete != other.onboardingComplete)
             return false;
+        if (deleted != other.deleted)
+            return false;
         return true;
     }
 
@@ -223,6 +239,6 @@ public class User {
     public String toString() {
         return "User [id=" + id + ", role=" + role + ", email=" + email + ", firstName=" + firstName + ", middleName="
                 + middleName + ", lastName=" + lastName + ", address=" + address + ", phoneNumber=" + phoneNumber
-                + ", onboardingComplete=" + onboardingComplete + "]";
+                + ", onboardingComplete=" + onboardingComplete + ", deleted=" + deleted + "]";
     }
 }

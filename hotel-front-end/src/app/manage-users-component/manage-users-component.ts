@@ -21,8 +21,17 @@ import { CommonModule } from '@angular/common';
 export class ManageUsersComponent {
   editUserForm: FormGroup;
 
+  // Current option for user roles.
   roleOptions: string[] = ['guest', 'admin', 'manager'];
-  selectedUser = signal<User>(new User(0, '', '', '', '', '', '', 0, false));
+
+  // Signal to select what values should be displayed in the edit modal.
+  selectedUser = signal<User>(new User(0, '', '', '', '', '', '', 0, false, false));
+
+  // Signal for an array of users
+  users = signal<User[]>([]);
+
+  // Signal for determing what type of submission the editForm should do.
+  editType = signal<string>('edit');
 
   constructor(
     private fb: FormBuilder,
@@ -58,8 +67,6 @@ export class ManageUsersComponent {
     this.getAllUsers();
   }
 
-  users = signal<User[]>([]);
-
   getAllUsers() {
     this.httpService.getAllUsers().subscribe((data) => {
       if (data) {
@@ -69,18 +76,34 @@ export class ManageUsersComponent {
     });
   }
 
-  openEditModal(user: User) {
-    this.selectedUser.set(user);
-    console.log(user);
-    this.editUserForm.patchValue({
-      firstNameControl: user.firstName,
-      middleNameControl: user.middleName,
-      lastNameControl: user.lastName,
-      homeAddressControl: user.address,
-      phoneNumberControl: user.phoneNumber,
-      roleControl: user.role,
-      emailControl: user.email,
-    });
+  // Opens the edit modal.
+  // If the user is "null", it creates a blank form. If it is populated, then it will pre-populate the form fields.
+  openEditModal(user: User | null) {
+    if (user) {
+      this.selectedUser.set(user);
+      this.editUserForm.patchValue({
+        firstNameControl: user.firstName,
+        middleNameControl: user.middleName,
+        lastNameControl: user.lastName,
+        homeAddressControl: user.address,
+        phoneNumberControl: user.phoneNumber,
+        roleControl: user.role,
+        emailControl: user.email,
+      });
+      this.editType.set('edit');
+    } else {
+      this.selectedUser.set(new User(0, '', '', '', '', '', '', 0, false, false));
+      this.editUserForm.patchValue({
+        firstNameControl: '',
+        middleNameControl: '',
+        lastNameControl: '',
+        homeAddressControl: '',
+        phoneNumberControl: 0,
+        roleControl: '',
+        emailControl: '',
+      });
+      this.editType.set('create');
+    }
     this.showEditModal = true;
   }
 
@@ -159,25 +182,53 @@ export class ManageUsersComponent {
   }
 
   editUserFormSubmit(): void {
-    if (this.selectedUser() && this.selectedUser().id != null) {
-      const updatedUser = new User(
-        this.selectedUser().id,
-        this.selectedUser().role,
-        this.selectedUser().email,
-        this.firstNameControl?.value,
-        this.middleNameControl?.value,
-        this.lastNameControl?.value,
-        this.homeAddressControl?.value,
-        this.phoneNumberControl?.value,
-        this.selectedUser().onboardingComplete
-      );
-      this.httpService.updateProfile(updatedUser).subscribe({
-        next: () => {
-          this.openSuccessModal();
-          this.getAllUsers();
-        },
-        error: (err) => console.error(err),
-      });
+    if (this.editType() === 'edit') {
+      // If the submission type is edit, hits this endpoint and updates the user
+      if (this.selectedUser() && this.selectedUser().id != null) {
+        const updatedUser = new User(
+          this.selectedUser().id,
+          this.roleControl?.value,
+          this.emailControl?.value,
+          this.firstNameControl?.value,
+          this.middleNameControl?.value,
+          this.lastNameControl?.value,
+          this.homeAddressControl?.value,
+          this.phoneNumberControl?.value,
+          this.selectedUser().onboardingComplete,
+          this.selectedUser().deleted
+        );
+        this.httpService.updateProfile(updatedUser).subscribe({
+          next: () => {
+            this.openSuccessModal();
+            this.getAllUsers();
+          },
+          error: (err) => console.error(err),
+        });
+      }
+    } else if (this.editType() === 'create') {
+      // If the submission type is create, hits this endpoint and creates a new user.
+      // Sends a request dependent on the role (guest, manager, employee).
+      if (this.roleControl?.value === 'guest') {
+        const createdUser = new User(
+          0,
+          this.roleControl?.value,
+          this.emailControl?.value,
+          this.firstNameControl?.value,
+          this.middleNameControl?.value,
+          this.lastNameControl?.value,
+          this.homeAddressControl?.value,
+          this.phoneNumberControl?.value,
+          true,
+          false
+        );
+        this.httpService.createGuest(createdUser).subscribe({
+          next: () => {
+            this.openSuccessModal();
+            this.getAllUsers();
+          },
+          error: (err) => console.error(err),
+        });
+      }
     }
   }
 }

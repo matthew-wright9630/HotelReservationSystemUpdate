@@ -81,6 +81,19 @@ public class UserController {
         }
     }
 
+    // Creates a guest.
+    @PostMapping
+    public ResponseEntity<User> createGuestUser(@RequestBody User user) {
+        try {
+            User createdGuest = userService.createGuest(user);
+            return new ResponseEntity<>(createdGuest, HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().header("message", e.getMessage()).build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().header("message", e.getMessage()).build();
+        }
+    }
+
     // Creates a manager. Should only be allowed by Admins.
     @PostMapping("/manager")
     public ResponseEntity<User> createEmployeeUser(@RequestBody User user) {

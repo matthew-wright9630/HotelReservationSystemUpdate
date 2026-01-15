@@ -136,7 +136,8 @@ export class ProfileComponent {
         this.lastNameControl?.value,
         this.homeAddressControl?.value,
         this.phoneNumberControl?.value,
-        user.onboardingComplete
+        user.onboardingComplete,
+        user.deleted
       );
       this.httpService.updateProfile(updatedUser).subscribe({
         next: () => {

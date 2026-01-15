@@ -161,4 +161,30 @@ export class HttpService {
       })
       .pipe(map((response) => response.body ?? []));
   }
+
+  createGuest(user: User): Observable<User | null> {
+    return this.http
+      .post<User>(this.baseURL + 'users', user, {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
+  }
+
+  createManager(user: User): Observable<User> {
+    return this.http
+      .post<User>(this.baseURL + 'users/manager', {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe((response) => response);
+  }
+
+  createAdmin(user: User): Observable<User> {
+    return this.http
+      .post<User>(this.baseURL + 'users/admin', {
+        observe: 'response',
+      })
+      .pipe((response) => response);
+  }
 }

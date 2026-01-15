@@ -48,6 +48,47 @@ a:hover {
   text-wrap: wrap;
 }
 
+.fc-theme-standard .fc-list-day-cushion {
+  background-color: #966f33;
+}
+
+.fc-list-day-side-text {
+  background-color: #966f33;
+}
+
+.fc-list-day-text {
+  background-color: #966f33;
+}
+
+.fc-toolbar-chunk {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+.fc .fc-button-group {
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2vw;
+}
+
+.fc-button {
+  background-image: none;
+}
+
+.fc .fc-button-primary {
+  background-color: #966f33;
+}
+
+.fc .fc-button-primary:disabled {
+  background-color: #966f33;
+}
+
+.fc .fc-button-primary * {
+  background-color: #966f33;
+}
+
 button:disabled {
   cursor: not-allowed;
   opacity: 0.6;

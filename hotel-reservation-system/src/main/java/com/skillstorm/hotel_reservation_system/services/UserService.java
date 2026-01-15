@@ -37,7 +37,7 @@ public class UserService {
     // Any provided roles are overriden to better handle security.
 
     // Creates a new guest user.
-    public User createUser(User user) {
+    public User createGuest(User user) {
         if (user != null) {
             user.setRole(RoleType.guest);
             return userRepository.save(user);

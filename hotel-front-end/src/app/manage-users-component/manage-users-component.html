@@ -1,5 +1,8 @@
 <section>
-  <h2>Manage Users</h2>
+  <div class="manage-users__header">
+    <h2>Manage Users</h2>
+    <button (click)="openEditModal(null)">Add User</button>
+  </div>
   <table>
     <thead>
       <tr>
@@ -37,7 +40,12 @@
 
   <div class="modal edit__modal" *ngIf="showEditModal">
     <div class="modal__content">
+      @if (selectedUser()) { @if (selectedUser()!.id > 0) {
       <p class="modal__p">What changes need to be made to the account?</p>
+      } @else {
+      <p class="modal__p">Please add the following details</p>
+
+      } }
       <form [formGroup]="editUserForm" (ngSubmit)="openConfirmationModal()">
         <h3>{{ selectedUser()?.firstName }} {{ selectedUser()?.lastName }}</h3>
         <div class="edit-form">

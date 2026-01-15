@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { HttpService } from '../services/http-service';
 import { DataPassService } from '../services/data-pass-service';
 import { forkJoin } from 'rxjs';
+import listWeek from '@fullcalendar/list';
 
 @Component({
   selector: 'app-employee-available-rooms-component',
@@ -22,9 +23,26 @@ export class EmployeeAvailableRoomsComponent {
 
   calendarOptions: CalendarOptions = {
     // Options used for creating the FullCalendar
-    plugins: [dayGridPlugin],
+    plugins: [dayGridPlugin, listWeek],
     eventTimeFormat: {},
-    initialView: 'dayGridMonth',
+    height: '100vw',
+    initialView: window.innerWidth < 900 ? 'listWeek' : 'dayGridMonth',
+    views: {
+      dayGridMonth: {
+        buttonText: 'Month',
+      },
+      listWeek: {
+        buttonText: 'List',
+      },
+    },
+    windowResize: (arg) => {
+      console.log(arg, window.innerWidth);
+      if (window.innerWidth < 900) {
+        arg.view.calendar.changeView('listWeek');
+      } else if (window.innerWidth >= 900) {
+        arg.view.calendar.changeView('dayGridMonth');
+      }
+    },
     events: (fetchInfo, successCallback, failureCallback) => {
       const startDate = new Date(fetchInfo.start);
       const endDate = new Date(fetchInfo.end);
