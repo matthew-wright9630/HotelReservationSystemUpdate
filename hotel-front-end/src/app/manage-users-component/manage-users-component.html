@@ -11,6 +11,7 @@
         <th>Last Name</th>
         <th>Email</th>
         <th>Role</th>
+        <th>Status</th>
         <th>Address</th>
         <th>Phone Number</th>
         <th>Actions</th>
@@ -23,9 +24,10 @@
         <td>{{ user?.firstName }}</td>
         <td>{{ user?.middleName }}</td>
         <td>{{ user?.lastName }}</td>
-        <td>{{ user?.email }}</td>
+        <td class="table__element">{{ user?.email }}</td>
         <td>{{ user?.role }}</td>
-        <td>{{ user?.address }}</td>
+        <td>@if (user?.deleted) { Deactivated } @else { Active }</td>
+        <td class="table__element">{{ user?.address }}</td>
         <td>{{ user?.phoneNumber }}</td>
         <td class="td__btn">
           <div class="btn__div">
