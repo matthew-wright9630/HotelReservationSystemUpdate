@@ -45,12 +45,19 @@ export class EmployeePortalComponent {
   getLoginDetails() {
     this.httpService.getUserInfo().subscribe((data) => {
       this.dataPass.loggedInUser.set(data);
-      this.checkUserRole(data.role);
+      this.checkUserRole();
     });
   }
 
-  checkUserRole(role: string): void {
+  checkUserRole(): void {
+    const role = this.dataPass.loggedInUser()?.role ?? null;
+    if (!role) {
+      this.router.navigate(['/homepage']);
+      return;
+    }
+
     this.userRole.set(role);
+
     if (role !== 'manager' && role !== 'admin') {
       this.router.navigate(['/homepage']);
     }
