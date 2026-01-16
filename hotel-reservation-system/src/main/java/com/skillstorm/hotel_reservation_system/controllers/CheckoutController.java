@@ -17,6 +17,9 @@ import jakarta.annotation.PostConstruct;
 @RestController
 @RequestMapping("/checkout")
 public class CheckoutController {
+
+    @Value("${FRONTEND_BASE_URL}")
+    private String DOMAIN; // To be replaced with AWS deployment
     
     // custom application property
     @Value("${stripe.secret.key}")
@@ -30,8 +33,6 @@ public class CheckoutController {
 
     @PostMapping("/create-session")
     public ResponseEntity<String> createCheckoutSession(@RequestParam String priceId) throws Exception {
-        String DOMAIN = "http://localhost:4200"; // To be replaced with AWS deployment
-
         SessionCreateParams params = SessionCreateParams.builder()
                 .setUiMode(SessionCreateParams.UiMode.EMBEDDED)
                 .setMode(SessionCreateParams.Mode.PAYMENT)
