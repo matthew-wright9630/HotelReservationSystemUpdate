@@ -35,6 +35,9 @@ public class SecurityConfig {
                 http.csrf(csrf -> csrf.disable())
                                 .authorizeHttpRequests(req -> req.requestMatchers(HttpMethod.GET, "/main/loggedout")
                                                 .permitAll()
+                                                // Request matcher for AWS ELB Health Check
+                                                .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
+
                                                 // Request matchers for the /rooms endpoint.
                                                 .requestMatchers(HttpMethod.GET, "/rooms").permitAll()
                                                 .requestMatchers(HttpMethod.GET, "/rooms/availability").permitAll()
