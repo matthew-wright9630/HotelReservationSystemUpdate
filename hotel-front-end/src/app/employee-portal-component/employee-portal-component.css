@@ -9,7 +9,7 @@
 }
 
 .portal__btns {
-  width: 10vw;
+  width: 15vw;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -20,4 +20,23 @@ button {
   background-color: #966f33;
   background-image: none;
   width: 80%;
+  height: 5vh;
+}
+
+@media screen and (max-width: 900px) {
+  .portal {
+    flex-direction: column-reverse;
+    gap: 10vw;
+    min-height: 0;
+  }
+
+  .portal__btns {
+    flex-direction: row;
+    width: 100%;
+    gap: 1vw;
+  }
+
+  button {
+    font-size: 0.8em;
+  }
 }

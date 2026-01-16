@@ -2,6 +2,8 @@
   <div class="portal__components">
     @switch (selectionElement) { @case ('available-rooms') {
     <app-employee-available-rooms-component />
+    } @case ('check-in') {
+    <app-checkin-guests-component />
     } @case ('edit-rooms') {
     <app-employee-edit-room-component />
     } @case ('manage-users') {
@@ -10,9 +12,9 @@
   </div>
   <div class="portal__btns">
     <button (click)="displayAvailableRoomsComponent()">Available Rooms</button>
-    <button (click)="displayEditRoomsComponent()">Check guests in/out</button>
-    <button (click)="displayEditRoomsComponent()">Reservation History</button>
-    <button (click)="displaySearchComponent()">Book a guest</button>
+    <button (click)="displayCheckinGuestComponent()">Check in/out</button>
+    <button (click)="displayEditRoomsComponent()">Reservations</button>
+    <button (click)="displaySearchComponent()">Book guest</button>
 
     @if (this.userRole() === 'admin') {
 

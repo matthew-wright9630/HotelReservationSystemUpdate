@@ -44,6 +44,10 @@ table {
   word-break: break-all;
 }
 
+th {
+  background-color: #966f33;
+}
+
 td,
 th {
   /* border: 1px white solid; */

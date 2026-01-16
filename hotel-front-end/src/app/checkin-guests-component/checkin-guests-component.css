@@ -1,0 +1,59 @@
+section {
+  width: 100%;
+}
+
+.checkin__container {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-around;
+}
+
+.checkin__name-container {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  /* justify-content: center; */
+  gap: 1vw;
+}
+
+.checkin__input-div {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  width: 100%;
+  height: 2vh;
+  background-color: #966f33;
+  text-align: center;
+}
+
+input:disabled {
+  opacity: 0.7;
+}
+
+.email__control {
+  margin-left: 13%;
+}
+
+.checkin__btn-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 5vh;
+}
+
+button {
+  background-color: #966f33;
+  background-image: none;
+  height: 5vh;
+}
+
+p {
+  text-align: center;
+  align-self: center;
+}
+
+.checkin__p {
+  font-size: 1.5em;
+  font-weight: 600;
+}

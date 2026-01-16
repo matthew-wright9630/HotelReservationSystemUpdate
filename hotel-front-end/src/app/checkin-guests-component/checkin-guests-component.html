@@ -1,1 +1,38 @@
-<p>checkin-guests-component works!</p>
+<section>
+  <h3>Which guest is checking in?</h3>
+  <form [formGroup]="checkinForm" (ngSubmit)="lookupReservation()">
+    <div class="checkin__container">
+      <div class="checkin__name-container">
+        <div class="checkin__input-div">
+          <label for="firstNameControl">First Name: </label>
+          <input
+            type="text"
+            id="firstNameControl"
+            name="firstNameControl"
+            formControlName="firstNameControl"
+          />
+        </div>
+        <div class="checkin__input-div">
+          <label for="lastNameControl">Last Name: </label>
+          <input
+            type="text"
+            id="lastNameControl"
+            name="lastNameControl"
+            formControlName="lastNameControl"
+          />
+        </div>
+        <!-- <button>Lookup Reservation</button> -->
+      </div>
+      <p class="checkin__p">Or:</p>
+      <div class="checkin__name-container">
+        <div class="checkin__input-div email__control">
+          <label for="emailControl">Email: </label>
+          <input type="text" id="emailControl" name="emailControl" formControlName="emailControl" />
+        </div>
+      </div>
+    </div>
+    <div class="checkin__btn-div">
+      <button>Lookup Reservation</button>
+    </div>
+  </form>
+</section>
