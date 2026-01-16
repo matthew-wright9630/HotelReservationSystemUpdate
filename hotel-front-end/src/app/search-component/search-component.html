@@ -9,9 +9,10 @@
       [formControl]="filterControl"
     />
     <div class="homepage__rooms">
-      @for (room of filteredRoomDescriptions(); track room.id) {
+      @for (room of filteredRoomDescriptions(); track room.id) { @if (room.isAvailable) {
+
       <app-room-description-component [room]="room"></app-room-description-component>
-      }
+      }}
     </div>
   </section>
   <section class="homepage__current-selection__section">
