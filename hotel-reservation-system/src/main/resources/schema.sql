@@ -108,7 +108,6 @@ CREATE TABLE booking(
 	email_on_booking VARCHAR(255) NOT NULL,
 	name_on_booking VARCHAR(255) NOT NULL,
 	phone_on_booking NUMERIC(10) NOT NULL,
-	checked_in BOOLEAN DEFAULT FALSE,
 	guest_id INT NOT NULL REFERENCES app_user(user_id),
 	employee_id INT REFERENCES app_user(user_id),
 	room_id INT NOT NULL REFERENCES room(room_id)
