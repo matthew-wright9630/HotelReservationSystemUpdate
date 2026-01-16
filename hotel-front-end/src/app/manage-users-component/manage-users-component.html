@@ -1,7 +1,15 @@
 <section>
-  <div class="manage-users__header">
-    <h2>Manage Users</h2>
-    <button (click)="openEditModal(null)">Add User</button>
+  <div class="manage-users">
+    <div class="manage-users__header">
+      <h2>Manage Users</h2>
+      <button class="manage-users__header__btn" (click)="openEditModal(null)">Add User</button>
+    </div>
+    <input
+      class="manage-users__search"
+      type="text"
+      placeholder="Search users..."
+      [formControl]="searchControl"
+    />
   </div>
   <table>
     <thead>
@@ -19,7 +27,7 @@
     </thead>
 
     <tbody>
-      @for (user of users(); track user.id) {
+      @for (user of filteredUsers(); track user.id) {
       <tr>
         <td>{{ user?.firstName }}</td>
         <td>{{ user?.middleName }}</td>

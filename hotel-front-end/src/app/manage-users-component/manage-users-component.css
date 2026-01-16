@@ -2,10 +2,31 @@ section {
   overflow: auto;
 }
 
+.manage-users {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .manage-users__header {
   display: flex;
   justify-content: space-around;
-  margin: 2vh auto;
+  align-items: center;
+  margin-bottom: 2vh;
+}
+
+.manage-users__search {
+  width: 60%;
+  border-radius: 0.5vw;
+  margin: 0 auto 2vh;
+}
+
+::placeholder {
+  color: #fff;
+}
+
+.manage-users__header__btn {
+  height: 5vh;
 }
 
 h2 {

@@ -21,6 +21,7 @@ button {
   opacity: 1;
   transition: 0.3s linear;
   font-size: 16px;
+  border-radius: 0.5vw;
 }
 
 button:hover {
