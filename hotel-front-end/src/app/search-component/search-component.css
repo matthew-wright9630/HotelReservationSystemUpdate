@@ -13,6 +13,16 @@ section {
   margin: 2vh 0 0;
 }
 
+.search-bar {
+  width: 60%;
+  border-radius: 0.5vw;
+  margin: 0 auto 2vh;
+}
+
+::placeholder {
+  color: #fff;
+}
+
 .homepage__room__section {
   width: 60%;
 }

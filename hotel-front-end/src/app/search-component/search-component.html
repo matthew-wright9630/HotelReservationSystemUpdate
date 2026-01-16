@@ -2,8 +2,14 @@
 <div class="homepage">
   <section class="homepage__room__section">
     <h2>Rooms</h2>
+    <input
+      class="search-bar"
+      type="text"
+      placeholder="Filter Rooms"
+      [formControl]="filterControl"
+    />
     <div class="homepage__rooms">
-      @for (room of roomDescriptions(); track room.id) {
+      @for (room of filteredRoomDescriptions(); track room.id) {
       <app-room-description-component [room]="room"></app-room-description-component>
       }
     </div>

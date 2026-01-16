@@ -5,11 +5,12 @@ import { BookingNavbarComponent } from '../booking-navbar-component/booking-navb
 import { HttpService } from '../services/http-service';
 import { CurrentSelectionComponent } from '../current-selection-component/current-selection-component';
 import { RoomDescriptionComponent } from '../room-description-component/room-description-component';
-import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Observable } from 'rxjs';
 import { DataPassService } from '../services/data-pass-service';
 import { FrontPageComponent } from '../front-page-component/front-page-component';
 import { User } from '../models/user/user';
 import { RoomSearchInterface } from '../interfaces/room-search-interface';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 /**
  * The Homepage component is the first page that guests will see when entering the website. It pulls a list of rooms from
@@ -26,6 +27,7 @@ import { RoomSearchInterface } from '../interfaces/room-search-interface';
     CurrentSelectionComponent,
     BookingNavbarComponent,
     FrontPageComponent,
+    ReactiveFormsModule,
   ],
   templateUrl: './search-component.html',
   styleUrl: './search-component.css',
@@ -40,6 +42,10 @@ export class SearchComponent {
       this.updateRoomSearch(searchValue);
     });
   }
+
+  // Variables used for the search bar.
+  filterControl = new FormControl('');
+  filteredRoomDescriptions = signal<RoomDescription[]>([]);
 
   // This creates a signal to roomDescriptions array.
   roomDescriptions = signal<RoomDescription[]>([]);
@@ -70,6 +76,7 @@ export class SearchComponent {
         this.checkRoomDescriptionIsAvailable(room).subscribe((available) => {
           room.isAvailable = available;
           this.roomDescriptions.set([...roomDescriptions]);
+          this.filteredRoomDescriptions.set([...roomDescriptions]);
         });
       });
   }
@@ -106,10 +113,39 @@ export class SearchComponent {
     });
   }
 
+  // Update the search result from the booking navbar
   updateRoomSearch(searchValue: RoomSearchInterface | null) {
     if (searchValue) {
       this.dataPassService.totalNumberOfRooms.set(searchValue.rooms.length);
       this.getAvailableRoomDescriptions(searchValue.checkInDate, searchValue.checkOutDate);
     }
+  }
+
+  ngOnInit() {
+    // On init, subscribes to the change of searchControl and applies a filter based on its value.
+    this.filterControl.valueChanges
+      .pipe(debounceTime(200), distinctUntilChanged())
+      .subscribe((value) => this.applyFilter(value ?? ''));
+  }
+
+  // Applys filtering to the room description table.
+  applyFilter(query: string) {
+    // If the query is null, removes the filter and applys the full room description list.
+    if (query === null) {
+      this.filteredRoomDescriptions.set(this.roomDescriptions());
+    }
+    const queryString = query.toLowerCase();
+
+    const roomDescriptionList = this.roomDescriptions();
+
+    const results = roomDescriptionList.filter((roomDescription) => {
+      console.log(query, roomDescription.bedStyle.toLowerCase().includes(queryString));
+      // Checks the search against each of the fields and returns any rows that match the provided query.
+      return (
+        roomDescription.bedStyle.toLowerCase().includes(queryString) ||
+        roomDescription.roomColor.toLowerCase().includes(queryString)
+      );
+    });
+    this.filteredRoomDescriptions.set(results);
   }
 }
