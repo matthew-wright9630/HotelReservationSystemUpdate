@@ -10,6 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-manage-users-component',
@@ -32,6 +33,10 @@ export class ManageUsersComponent {
 
   // Signal for determing what type of submission the editForm should do.
   editType = signal<string>('edit');
+
+  // variables needed for the search feature.
+  searchControl = new FormControl('');
+  filteredUsers = signal<User[]>([]);
 
   constructor(
     private fb: FormBuilder,
@@ -75,9 +80,52 @@ export class ManageUsersComponent {
     this.httpService.getAllUsers().subscribe((data) => {
       if (data) {
         this.users.set(data);
-        console.log(this.users);
+        this.filteredUsers.set(data);
       }
     });
+  }
+
+  ngOnInit() {
+    // On init, subscribes to the change of searchControl and applies a filter based on its value.
+    this.searchControl.valueChanges
+      .pipe(debounceTime(200), distinctUntilChanged())
+      .subscribe((value) => this.applyFilter(value ?? ''));
+  }
+
+  // Applys filtering to the user table.
+  applyFilter(query: string) {
+    // If the query is null, removes the filter and applys the full user list.
+    if (query === null) {
+      this.filteredUsers.set(this.users());
+    }
+    const queryString = query.toLowerCase();
+
+    const userList = this.users();
+
+    const results = userList.filter((user) => {
+      const phone = user.phoneNumber.toString();
+
+      // If the query is "deactivated" or "active", returns the appropriate users.
+      if (queryString === 'deactivated') {
+        return user.deleted;
+      }
+
+      if (queryString === 'active') {
+        return !user.deleted;
+      }
+
+      // Checks the search against each of the fields and returns any rows that match the provided query.
+      return (
+        user.firstName.toLowerCase().includes(queryString) ||
+        user.lastName.toLowerCase().includes(queryString) ||
+        user.email.toLowerCase().includes(queryString) ||
+        user.role.toLowerCase().includes(queryString) ||
+        user.address.toLowerCase().includes(queryString) ||
+        phone.includes(queryString) ||
+        phone.endsWith(queryString)
+      );
+    });
+    this.filteredUsers.set(results);
   }
 
   // Opens the edit modal.
