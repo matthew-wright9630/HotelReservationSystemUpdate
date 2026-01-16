@@ -15,8 +15,10 @@ section {
 
 .search-bar {
   width: 60%;
+  height: 3vh;
   border-radius: 0.5vw;
   margin: 0 auto 2vh;
+  text-align: center;
 }
 
 ::placeholder {
