@@ -17,10 +17,19 @@ import { CommonModule } from '@angular/common';
 })
 export class RoomDescriptionComponent {
   @Input() room!: RoomDescription;
+  @Input() slotIndex!: number;
 
   constructor(private dataPass: DataPassService) {}
 
-  addRoomToBooking(room: RoomDescription) {
-    this.dataPass.addRoom(room);
+  selectedRoomId: number | null = null;
+
+  ngOnInit() {
+    this.dataPass.selectRoomSubject.subscribe((room) => {
+      this.selectedRoomId = room?.id ?? null;
+    });
+  }
+
+  addRoomToBooking(roomDescription: RoomDescription) {
+    this.dataPass.selectRoom(roomDescription);
   }
 }
