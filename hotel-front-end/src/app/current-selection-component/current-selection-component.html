@@ -2,8 +2,13 @@
   <form [formGroup]="bookingSelectionForm" (ngSubmit)="openConfirmationModal()">
     @for (slot of roomSlots(); track $index; let i = $index) {
     <div class="selection__div" [class.selected-room]="i === selectedSlotIndex()">
-      <div>
-        <h3>Room {{ i + 1 }}:</h3>
+      <div class="select-room__div">
+        <div class="select-room__h3-div">
+          <h3>Room {{ i + 1 }}:</h3>
+          @if (roomsArray()[i] > 0) {
+          <h4>Number of Guests: {{ roomsArray()[i] }}</h4>
+          }
+        </div>
         <button (click)="pickSlot(i)" class="select__btn">Select Room</button>
       </div>
       <div *ngIf="roomDescriptionArray.at(i).value !== null; else selectRoom">
@@ -32,7 +37,13 @@
     }
     <p class="total">Current Total: {{ totalPrice }} Galleons</p>
     <p class="tax-statement">taxes and fees included</p>
-    <button class="submit__btn" [disabled]="!bookingButtonAvailable()">Book</button>
+    <button
+      class="submit__btn"
+      [disabled]="!bookingButtonAvailable()"
+      (click)="bookingSelectionSubmit()"
+    >
+      Book
+    </button>
     @if (!bookingButtonAvailable()) {
     <p class="current-selection__error">Please select rooms</p>
     }

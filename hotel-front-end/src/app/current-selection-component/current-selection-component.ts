@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { HttpService } from '../services/http-service';
 import { CommonModule } from '@angular/common';
 import { RoomDescription } from '../models/room-description/room-description';
@@ -28,6 +28,7 @@ export class CurrentSelectionComponent {
   bookingSelectionForm: FormGroup;
 
   selectedSlotIndex = signal<number>(0);
+  roomsArray = signal<number[]>([]);
 
   constructor(
     private fb: FormBuilder,
@@ -48,6 +49,18 @@ export class CurrentSelectionComponent {
       this.updateRoomDescriptionControl(selection.slotIndex, selection.roomDescription);
     });
     this.pickSlot(0);
+
+    effect(() => {
+      const searchValue = this.dataPass.bookingSearchSignal();
+      if (searchValue) this.roomsArray.set(searchValue?.rooms);
+      this.bookingSelectionForm = this.fb.group({
+        roomDescriptionControl: this.fb.array(
+          Array(this.dataPass.totalNumberOfRooms())
+            .fill(null)
+            .map(() => new FormControl<RoomDescription | null>(null))
+        ),
+      });
+    });
   }
 
   updateRoomDescriptionControl(slotIndex: number, room: RoomDescription): void {

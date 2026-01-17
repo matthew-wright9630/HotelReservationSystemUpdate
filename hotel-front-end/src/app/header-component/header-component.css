@@ -4,7 +4,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid white;
   height: 10vh;
   border-radius: 0.5vw;
   font-size: 1em;
@@ -33,7 +33,7 @@ a {
 }
 
 img {
-  width: 100%;
+  width: auto;
   height: 100%;
 }
 
