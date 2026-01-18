@@ -9,7 +9,7 @@ import { Room } from '../models/room/room';
   providedIn: 'root',
 })
 export class HttpService {
-  baseURL: string = 'http://localhost:8080/';
+  baseURL: string = 'http://thethreebroomsticks.us-east-1.elasticbeanstalk.com:80/';
 
   constructor(private http: HttpClient) {}
 
