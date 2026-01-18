@@ -1,5 +1,5 @@
-name: Front-end Build Pipeline
-run-name: Front-end Build Pipeline
+name: Alt front-end Build Pipeline
+run-name: Alt front-end Build Pipeline
 
 on:
   #Only run build manually for now
