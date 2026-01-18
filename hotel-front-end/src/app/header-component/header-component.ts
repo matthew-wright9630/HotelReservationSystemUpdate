@@ -15,7 +15,7 @@ export class HeaderComponent {
   }
 
   login() {
-    window.location.href = 'https://bridge-logging-collar-rebates.trycloudflare.com/oauth2/authorization/google';
+    window.location.href = 'http://thethreebroomsticks.us-east-1.elasticbeanstalk.com:80/oauth2/authorization/google';
   }
 
   getLoginDetails() {
