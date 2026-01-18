@@ -1,6 +1,13 @@
-<section>
+<section [class.selected-description]="room.id === selectedRoomId">
   <h3>Description of room: {{ room.bedStyle }}, {{ room.roomColor }} style</h3>
   <img [src]="room.roomImage" [alt]="room.bedStyle + ', ' + room.roomColor + ' style'" />
+  <div class="room__amenities">
+    @if (room.adaCompliant) {
+    <img src="../../assets/ada_compliant.png" alt="Ada compliant" />
+    } @if (!room.isSmoking) {
+    <img src="../../assets/non-smoking.png" alt="Ada compliant" />
+    }
+  </div>
   <div>
     @if (room.isAvailable) {
     <p>max occupancy of {{ room.maxOccupancy }} guests</p>

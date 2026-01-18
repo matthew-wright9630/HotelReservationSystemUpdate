@@ -1,21 +1,32 @@
 .homepage {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   gap: 5%;
 }
 
 section {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  margin-left: 10px;
-  margin-top: 10px;
+  margin: 2vh 0 0;
+}
+
+.search-bar {
+  width: 60%;
+  height: 3vh;
+  border-radius: 0.5vw;
+  margin: 0 auto 2vh;
+  text-align: center;
+}
+
+::placeholder {
+  color: #fff;
 }
 
 .homepage__room__section {
-  width: 50%;
+  width: 60%;
 }
 
 .homepage__current-selection__section {
@@ -23,9 +34,11 @@ section {
 }
 
 .homepage__rooms {
-  overflow: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 5%;
+  row-gap: 3vh;
   width: 100%;
-  height: 90vh;
 }
 
 .homepage__current-selection {
@@ -34,4 +47,10 @@ section {
 
 h2 {
   margin: 0 auto;
+}
+
+@media screen and (max-width: 700px) {
+  .homepage__rooms {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

@@ -1,0 +1,196 @@
+<section>
+  <h2>Profile</h2>
+  <form [formGroup]="profileForm" (ngSubmit)="openConfirmationModal()">
+    <!-- If the user has not finished their profile, the below information will be displayed. -->
+    <h3 *ngIf="!onboardingControl?.value">
+      Please check the following details and update all required fields.<br />You will need to
+      submit this before you can perform any actions.
+    </h3>
+    <div class="profile-form__div">
+      <label for="firstNameControl">First Name* </label>
+      <div class="profile-form__input-div">
+        <input
+          type="text"
+          id="firstNameControl"
+          name="firstNameControl"
+          formControlName="firstNameControl"
+        />
+        <div
+          class="error"
+          *ngIf="
+            profileForm.get('firstNameControl')?.touched &&
+            profileForm.get('firstNameControl')?.invalid
+          "
+        >
+          <span
+            class="profile__error-span"
+            *ngIf="profileForm.get('firstNameControl')?.errors?.['required']"
+          >
+            First name is required.
+          </span>
+          <span
+            class="profile__error-span"
+            *ngIf="profileForm.get('firstNameControl')?.errors?.['minlength']"
+          >
+            Must be at least 2 characters.
+          </span>
+          <span
+            class="profile__error-span"
+            *ngIf="profileForm.get('firstNameControl')?.errors?.['maxlength']"
+          >
+            Cannot exceed 255 characters.
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="profile-form__div">
+      <label for="middleNameControl">Middle Name </label>
+      <div class="profile-form__input-div">
+        <input
+          type="text"
+          id="middleNameControl"
+          name="middleNameControl"
+          formControlName="middleNameControl"
+        />
+      </div>
+      <div
+        class="error"
+        *ngIf="
+          profileForm.get('middleNameControl')?.touched &&
+          profileForm.get('middleNameControl')?.invalid
+        "
+      >
+        <span
+          class="profile__error-span"
+          *ngIf="profileForm.get('middleNameControl')?.errors?.['maxlength']"
+        >
+          Cannot exceed 255 characters.
+        </span>
+      </div>
+    </div>
+    <div class="profile-form__div">
+      <label for="lastNameControl">Last Name* </label>
+      <div class="profile-form__input-div">
+        <input
+          type="text"
+          id="lastNameControl"
+          name="lastNameControl"
+          formControlName="lastNameControl"
+        />
+        <div
+          class="error"
+          *ngIf="
+            profileForm.get('lastNameControl')?.touched &&
+            profileForm.get('lastNameControl')?.invalid
+          "
+        >
+          <span
+            class="profile__error-span"
+            *ngIf="profileForm.get('lastNameControl')?.errors?.['required']"
+          >
+            Last name is required.
+          </span>
+          <span
+            class="profile__error-span"
+            *ngIf="profileForm.get('lastNameControl')?.errors?.['minlength']"
+          >
+            Must be at least 2 characters.
+          </span>
+          <span
+            class="profile__error-span"
+            *ngIf="profileForm.get('lastNameControl')?.errors?.['maxlength']"
+          >
+            Cannot exceed 255 characters.
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="profile-form__div">
+      <label for="homeAddressControl">Address* </label>
+      <div class="profile-form__input-div">
+        <input
+          type="text"
+          id="homeAddressControl"
+          name="homeAddressControl"
+          formControlName="homeAddressControl"
+        />
+        <div
+          class="error"
+          *ngIf="
+            profileForm.get('homeAddressControl')?.touched &&
+            profileForm.get('homeAddressControl')?.invalid
+          "
+        >
+          <span
+            class="profile__error-span"
+            *ngIf="profileForm.get('homeAddressControl')?.errors?.['required']"
+          >
+            Address is required.
+          </span>
+          <span
+            class="profile__error-span"
+            *ngIf="profileForm.get('homeAddressControl')?.errors?.['minlength']"
+          >
+            Must be at least 2 characters.
+          </span>
+          <span
+            class="profile__error-span"
+            *ngIf="profileForm.get('homeAddressControl')?.errors?.['maxlength']"
+          >
+            Cannot exceed 255 characters.
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="profile-form__div">
+      <label for="phoneNumberControl">Phone Number* </label>
+      <div class="profile-form__input-div">
+        <input
+          type="number"
+          id="phoneNumberControl"
+          name="phoneNumberControl"
+          formControlName="phoneNumberControl"
+          pattern="[0-9]{10}"
+        />
+        <div
+          class="error"
+          *ngIf="
+            profileForm.get('phoneNumberControl')?.touched &&
+            profileForm.get('phoneNumberControl')?.invalid
+          "
+        >
+          <span
+            class="profile__error-span"
+            *ngIf="profileForm.get('phoneNumberControl')?.errors?.['required']"
+          >
+            Phone number is required.
+          </span>
+          <span
+            class="profile__error-span"
+            *ngIf="profileForm.get('phoneNumberControl')?.errors?.['pattern']"
+          >
+            Please input your phone number in a 10 digit format (1234567890).
+          </span>
+        </div>
+      </div>
+    </div>
+    <button [disabled]="profileForm.invalid" type="submit">Submit</button>
+  </form>
+  <div class="modal" *ngIf="showConfirmation">
+    <div class="modal__content">
+      <p class="modal__p">Are you sure you want to submit the changes?</p>
+      <div class="modal__buttons">
+        <button class="modal__btn" (click)="confirmSubmit()">Yes</button>
+        <button class="modal__btn" (click)="cancelSubmit()">No</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal" *ngIf="showSuccessMessage()">
+    <div class="modal__content">
+      <p class="modal__p">Success! You can close this window.</p>
+      <div class="modal__buttons">
+        <button (click)="closeSuccessModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</section>

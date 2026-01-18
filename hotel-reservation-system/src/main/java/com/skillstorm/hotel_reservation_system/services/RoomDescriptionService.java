@@ -1,6 +1,5 @@
 package com.skillstorm.hotel_reservation_system.services;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,18 +27,24 @@ public class RoomDescriptionService {
         return roomDescriptionRepository.findAll();
     }
 
-    public Optional<RoomDescription> findRoomDescriptionById(long id) {
-        return roomDescriptionRepository.findById((int) id);
+    public RoomDescription findRoomDescriptionById(long id) {
+
+        Optional<RoomDescription> foundRoomDescription = roomDescriptionRepository.findById((int) id);
+        if (foundRoomDescription.isPresent()) {
+            return foundRoomDescription.get();
+        }
+        throw new IllegalArgumentException(
+                "Room Description does not exist. Please try with another room description.");
     }
 
-    public List<RoomDescription> findAllAvailableRoomDescriptions(LocalDate date) {
+    public List<RoomDescription> findAllAvailableRoomDescriptions(LocalDate startDate, LocalDate endDate) {
 
-        List<Room> foundRooms = roomService.findAllAvailableRooms(date);
+        List<Room> foundRooms = roomService.findAllAvailableRooms(startDate, endDate);
 
         List<RoomDescription> roomDescriptions = new ArrayList<>();
 
         for (Room room : foundRooms) {
-            if (!roomDescriptions.contains(room.getRoomDescription())) {
+            if (!roomDescriptions.contains(room.getRoomDescription()) && !room.getRoomDescription().isDeleted()) {
                 roomDescriptions.add(room.getRoomDescription());
             }
         }
@@ -47,15 +52,38 @@ public class RoomDescriptionService {
         return roomDescriptions;
     }
 
-    public boolean findAvailableRoomDescription(long id, LocalDate date) {
+    public boolean findAvailableRoomDescription(long id, LocalDate startDate, LocalDate endDate) {
 
-        return roomService.findAllAvailableRooms(date).stream()
+        return roomService.findAllAvailableRooms(startDate, endDate).stream()
                 .map(Room::getRoomDescription)
                 .anyMatch(rd -> rd.getId() == id);
     }
 
     // Saves a room to the database and returns the newly created room.
     public RoomDescription createRoomDescription(RoomDescription roomDescription) {
+        if (roomDescription == null) {
+            throw new IllegalArgumentException("Not all fields were input correctly.");
+        }
         return roomDescriptionRepository.save(roomDescription);
+    }
+
+    public RoomDescription updateRoomDescription(long id, RoomDescription roomDescription) {
+        if (roomDescription == null) {
+            throw new IllegalArgumentException("Not all fields were input correctly.");
+        }
+        RoomDescription foundRoomDescription = findRoomDescriptionById(id);
+        if (foundRoomDescription.getId() > 0) {
+            return roomDescriptionRepository.save(roomDescription);
+        }
+        throw new IllegalArgumentException("Room description does not exist");
+    }
+
+    public RoomDescription deleteRoomDescription(long id) {
+        RoomDescription foundRoomDescription = findRoomDescriptionById(id);
+        if (foundRoomDescription.getId() > 0) {
+            roomDescriptionRepository.deleteRoomDescription((int) foundRoomDescription.getId(), true);
+            return foundRoomDescription;
+        }
+        throw new IllegalArgumentException("Room description does not exist");
     }
 }

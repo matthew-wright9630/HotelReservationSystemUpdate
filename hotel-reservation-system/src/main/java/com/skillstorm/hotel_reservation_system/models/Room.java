@@ -1,8 +1,5 @@
 package com.skillstorm.hotel_reservation_system.models;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +21,9 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "deleted")
+    private boolean deleted;
+
     // Many rooms may share the same room description.
     @ManyToOne
     @JoinColumn(name = "room_description_id")
@@ -32,13 +32,20 @@ public class Room {
     public Room() {
     }
 
-    public Room(long id, RoomDescription roomDescription) {
+    public Room(long id, RoomDescription roomDescription, boolean deleted) {
         this.id = id;
         this.roomDescription = roomDescription;
+        this.deleted = deleted;
+    }
+
+    public Room(RoomDescription roomDescription, boolean deleted) {
+        this.roomDescription = roomDescription;
+        this.deleted = deleted;
     }
 
     public Room(RoomDescription roomDescription) {
         this.roomDescription = roomDescription;
+        this.deleted = false;
     }
 
     public long getId() {
@@ -47,6 +54,14 @@ public class Room {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     public RoomDescription getRoomDescription() {
@@ -62,6 +77,7 @@ public class Room {
         final int prime = 31;
         int result = 1;
         result = prime * result + (int) (id ^ (id >>> 32));
+        result = prime * result + (deleted ? 1231 : 1237);
         result = prime * result + ((roomDescription == null) ? 0 : roomDescription.hashCode());
         return result;
     }
@@ -77,6 +93,8 @@ public class Room {
         Room other = (Room) obj;
         if (id != other.id)
             return false;
+        if (deleted != other.deleted)
+            return false;
         if (roomDescription == null) {
             if (other.roomDescription != null)
                 return false;
@@ -87,6 +105,7 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room [id=" + id + ", roomDescription=" + roomDescription + "]";
+        return "Room [id=" + id + ", deleted=" + deleted + ", roomDescription=" + roomDescription + "]";
     }
+
 }

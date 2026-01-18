@@ -1,0 +1,167 @@
+section {
+  overflow: auto;
+}
+
+.manage-users {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.manage-users__header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 2vh;
+}
+
+.manage-users__search {
+  width: 60%;
+  border-radius: 0.5vw;
+  margin: 0 auto 2vh;
+}
+
+::placeholder {
+  color: #fff;
+}
+
+.manage-users__header__btn {
+  height: 5vh;
+}
+
+h2 {
+  text-align: center;
+}
+
+table {
+  border: 1px white solid;
+  min-width: 50vw;
+  overflow: auto;
+}
+
+.table__element {
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+td,
+th {
+  /* border: 1px white solid; */
+  height: 10vh;
+  min-width: 4rem;
+  text-align: center;
+}
+
+table td,
+table th {
+  border: 1px solid #ccc;
+  /* padding: 1vh 1vw; */
+}
+
+.td__btn {
+  display: flex;
+  min-width: 10vw;
+  justify-content: center;
+}
+
+.btn__div {
+  width: 5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5vh;
+}
+
+button {
+  background-image: none;
+  background-color: #966f33;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3vh;
+  /* align-items: center; */
+}
+
+.edit-modal__content {
+  width: 70%;
+}
+
+.edit-form__div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+select {
+  width: 60%;
+  text-align: center;
+  background-color: #966f33;
+}
+
+option {
+  background-color: white;
+  color: black;
+  text-align: center;
+}
+
+.edit-form__input-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 70%;
+  gap: 1vh;
+  flex-wrap: wrap;
+}
+
+label {
+  width: 5vw;
+}
+
+input {
+  width: 100%;
+  height: 3.5vh;
+  background-color: #966f33;
+  text-align: center;
+}
+
+input:disabled {
+  opacity: 0.7;
+}
+
+.error {
+  position: absolute;
+  top: 4.2vh;
+  left: 0;
+  text-wrap: nowrap;
+}
+
+.edit__error-span {
+  color: red;
+  font-weight: 400;
+}
+
+.edit-form__btn-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal__p {
+  width: 100%;
+}
+
+.modal__buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 3vw;
+  width: 100%;
+}
+
+.modal__btn {
+  width: 40%;
+}

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
-import { Employee } from '../models/employee/employee';
+import { User } from '../models/user/user';
 import { RoomDescription } from '../models/room-description/room-description';
 import { Room } from '../models/room/room';
 
@@ -9,7 +9,7 @@ import { Room } from '../models/room/room';
   providedIn: 'root',
 })
 export class HttpService {
-  baseURL: string = 'http://localhost:8080/';
+  baseURL: string = 'http://thethreebroomsticks.us-east-1.elasticbeanstalk.com:80/';
 
   constructor(private http: HttpClient) {}
 
@@ -18,13 +18,48 @@ export class HttpService {
     return this.http.get<Room[]>(this.baseURL + 'rooms', { observe: 'response' });
   }
 
-  getAllAvailableRooms(date: Date): Observable<HttpResponse<Room[]>> {
-    const isoDate = date.toISOString().split('T')[0];
-    const params = new HttpParams().set('date', isoDate);
+  getAllAvailableRooms(startDate: Date, endDate: Date): Observable<HttpResponse<Room[]>> {
+    const isoStartDate = startDate.toISOString().split('T')[0];
+    const isoEndDate = endDate.toISOString().split('T')[0];
+    let params = new HttpParams();
+    params = params.append('startDate', isoStartDate);
+    params = params.append('endDate', isoEndDate);
     return this.http.get<Room[]>(this.baseURL + 'rooms/availability', {
       observe: 'response',
       params: params,
     });
+  }
+
+  // Sends the post request to create a new room description to the server.
+  createRoom(room: Room): Observable<Room | null> {
+    console.log(room);
+    return this.http
+      .post<Room>(this.baseURL + 'rooms', room, {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
+  }
+
+  // Sends the put request to update a room description to the server.
+  updateRoom(room: Room): Observable<Room | null> {
+    console.log(room);
+    return this.http
+      .put<Room>(this.baseURL + 'rooms/' + room.id, room, {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
+  }
+
+  // Sends the delete request of the room description to the server.
+  deleteRoom(id: number): Observable<Room | null> {
+    return this.http
+      .delete<Room>(this.baseURL + 'rooms/' + id, {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
   }
 
   //ROOM DESCRIPTION requests
@@ -35,29 +70,147 @@ export class HttpService {
     });
   }
 
-  getAllAvailableRoomDescriptions(date: Date): Observable<HttpResponse<RoomDescription[]>> {
-    const isoDate = date.toISOString().split('T')[0];
-    const params = new HttpParams().set('date', isoDate);
+  getAllAvailableRoomDescriptions(
+    startDate: string,
+    endDate: string
+  ): Observable<HttpResponse<RoomDescription[]>> {
+    // const isoStartDate = startDate.toISOString().split('T')[0];
+    // const isoEndDate = endDate.toISOString().split('T')[0];
+    let params = new HttpParams();
+    params = params.append('startDate', startDate);
+    params = params.append('endDate', endDate);
     return this.http.get<RoomDescription[]>(this.baseURL + 'room-descriptions/availability', {
       observe: 'response',
       params: params,
     });
   }
 
-  checkRoomDescriptionIsAvailable(id: number, date: Date): Observable<boolean> {
-    const isoDate = date.toISOString().split('T')[0];
+  checkRoomDescriptionIsAvailable(id: number, startDate: Date, endDate: Date): Observable<boolean> {
+    const isoStartDate = startDate.toISOString().split('T')[0];
+    const isoEndDate = endDate.toISOString().split('T')[0];
     let params = new HttpParams();
-    params = params.append('date', isoDate);
+    params = params.append('startDate', isoStartDate);
+    params = params.append('endDate', isoEndDate);
     params = params.append('roomDescriptionId', id.toString());
     return this.http.get<boolean>(this.baseURL + 'room-descriptions/room-available', {
       params: params,
     });
   }
 
+  // Sends the post request to create a new room description to the server.
+  createRoomDescription(roomDescription: RoomDescription): Observable<RoomDescription | null> {
+    return this.http
+      .post<RoomDescription>(this.baseURL + 'room-descriptions', roomDescription, {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
+  }
+
+  // Sends the put request to update a room description to the server.
+  updateRoomDescription(roomDescription: RoomDescription): Observable<RoomDescription | null> {
+    return this.http
+      .put<RoomDescription>(
+        this.baseURL + 'room-descriptions/' + roomDescription.id,
+        roomDescription,
+        {
+          observe: 'response',
+          withCredentials: true,
+        }
+      )
+      .pipe(map((response) => response.body));
+  }
+
+  // Sends the delete request of the room description to the server.
+  deleteRoomDescription(id: number): Observable<RoomDescription | null> {
+    return this.http
+      .delete<RoomDescription>(this.baseURL + 'room-descriptions/' + id, {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
+  }
+
   // Gets the logged-in employee and returns them.
-  getCredentials(): Observable<Employee> {
-    return this.http.get<Employee>(this.baseURL + 'employees/credentials', {
+  getUserInfo(): Observable<User> {
+    return this.http.get<User>(this.baseURL + 'users/user', {
       withCredentials: true,
     });
+  }
+
+  // Logs out the user.
+  logout(): void {
+    this.http.get(this.baseURL + 'oauth/logout', { withCredentials: true }).subscribe(() => {
+      window.location.href = '/homepage';
+    });
+  }
+
+  // Gets all users from the server
+  getAllUsers(): Observable<User[]> {
+    return this.http
+      .get<User[]>(this.baseURL + 'users', {
+        observe: 'response',
+      })
+      .pipe(map((response) => response.body ?? []));
+  }
+
+  // Sends a put request to the server for a specific user.
+  updateProfile(user: User): Observable<User | null> {
+    return this.http
+      .put<User>(this.baseURL + 'users/' + user.id, user, {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
+  }
+
+  // Sends a post request to the server to create a guest user.
+  createGuest(user: User): Observable<User | null> {
+    return this.http
+      .post<User>(this.baseURL + 'users', user, {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
+  }
+
+  // Sends a post request to the server to create a manager user.
+  createManager(user: User): Observable<User | null> {
+    return this.http
+      .post<User>(this.baseURL + 'users/manager', user, {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
+  }
+
+  // Sends a post request to the server to create a admin user.
+  createAdmin(user: User): Observable<User | null> {
+    return this.http
+      .post<User>(this.baseURL + 'users/admin', user, {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
+  }
+
+  // Sends the delete request of the specified user to the server.
+  deactivateUser(id: number): Observable<User | null> {
+    return this.http
+      .delete<User>(this.baseURL + 'users/' + id, {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
+  }
+
+  // Sends the reactivation request of the specified user to the server.
+  reactivateUser(id: number): Observable<User | null> {
+    return this.http
+      .put<User>(this.baseURL + 'users/reactivate/' + id, {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response));
   }
 }

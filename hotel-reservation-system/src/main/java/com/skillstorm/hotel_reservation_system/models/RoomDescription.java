@@ -56,6 +56,9 @@ public class RoomDescription {
     @Column
     private String roomImage;
 
+    @Column(name = "deleted")
+    private boolean deleted;
+
     // One room description can match multiple
     @OneToMany(mappedBy = "roomDescription")
     @JsonIgnore
@@ -65,7 +68,7 @@ public class RoomDescription {
     }
 
     public RoomDescription(long id, RoomColors roomColor, int maxOccupancy, boolean isSmoking, boolean adaCompliant,
-            String bedStyle, int price, String roomImage) {
+            String bedStyle, int price, String roomImage, boolean deleted) {
         this.id = id;
         this.roomColor = roomColor;
         this.maxOccupancy = maxOccupancy;
@@ -74,6 +77,19 @@ public class RoomDescription {
         this.bedStyle = bedStyle;
         this.price = price;
         this.roomImage = roomImage;
+        this.deleted = deleted;
+    }
+
+    public RoomDescription(RoomColors roomColor, int maxOccupancy, boolean isSmoking, boolean adaCompliant,
+            String bedStyle, int price, String roomImage, boolean deleted) {
+        this.roomColor = roomColor;
+        this.maxOccupancy = maxOccupancy;
+        this.isSmoking = isSmoking;
+        this.adaCompliant = adaCompliant;
+        this.bedStyle = bedStyle;
+        this.price = price;
+        this.roomImage = roomImage;
+        this.deleted = deleted;
     }
 
     public RoomDescription(RoomColors roomColor, int maxOccupancy, boolean isSmoking, boolean adaCompliant,
@@ -85,6 +101,7 @@ public class RoomDescription {
         this.bedStyle = bedStyle;
         this.price = price;
         this.roomImage = roomImage;
+        this.deleted = false;
     }
 
     public long getId() {
@@ -151,6 +168,14 @@ public class RoomDescription {
         this.roomImage = roomImage;
     }
 
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
     public Set<Room> getRooms() {
         return rooms;
     }
@@ -171,6 +196,7 @@ public class RoomDescription {
         result = prime * result + ((bedStyle == null) ? 0 : bedStyle.hashCode());
         result = prime * result + price;
         result = prime * result + ((roomImage == null) ? 0 : roomImage.hashCode());
+        result = prime * result + (deleted ? 1231 : 1237);
         result = prime * result + ((rooms == null) ? 0 : rooms.hashCode());
         return result;
     }
@@ -206,6 +232,8 @@ public class RoomDescription {
                 return false;
         } else if (!roomImage.equals(other.roomImage))
             return false;
+        if (deleted != other.deleted)
+            return false;
         if (rooms == null) {
             if (other.rooms != null)
                 return false;
@@ -218,7 +246,7 @@ public class RoomDescription {
     public String toString() {
         return "RoomDescription [id=" + id + ", roomColor=" + roomColor + ", maxOccupancy=" + maxOccupancy
                 + ", isSmoking=" + isSmoking + ", adaCompliant=" + adaCompliant + ", bedStyle=" + bedStyle + ", price="
-                + price + ", roomImage=" + roomImage + "]";
+                + price + ", roomImage=" + roomImage + ", deleted=" + deleted + "]";
     }
 
 }

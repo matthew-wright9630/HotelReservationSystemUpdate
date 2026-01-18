@@ -1,0 +1,23 @@
+.portal {
+  display: flex;
+  justify-content: space-between;
+  min-height: 70vh;
+}
+
+.portal__components {
+  width: 85%;
+}
+
+.portal__btns {
+  width: 10vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+button {
+  background-color: #966f33;
+  background-image: none;
+  width: 80%;
+}

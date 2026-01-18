@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "booking")
 public class Booking {
-    
+
     @Id
     @Column(name = "booking_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,27 +48,30 @@ public class Booking {
     @Column(name = "phone_on_booking")
     private int phoneNumber;
 
+    @Column(name = "checked_in")
+    private boolean checkedIn;
+
     @ManyToOne
     @JoinColumn(name = "guest_id")
-    private Guest guest;
+    private User guest;
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
-    private Employee employee;
+    private User employee;
 
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
 
-    /* 
-    Constructors:
-        No-args, All-args except id, All-args 
-    */
+    /*
+     * Constructors:
+     * No-args, All-args except id, All-args
+     */
     public Booking() {
     }
 
     public Booking(Instant createdAt, LocalDate checkInDate, LocalDate checkOutDate, int price, byte numberOfGuests,
-            String email, String name, int phoneNumber, Guest guest, Employee employee, Room room) {
+            String email, String name, int phoneNumber, boolean checkedIn, User guest, User employee, Room room) {
         this.createdAt = createdAt;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
@@ -77,13 +80,15 @@ public class Booking {
         this.email = email;
         this.name = name;
         this.phoneNumber = phoneNumber;
+        this.checkedIn = checkedIn;
         this.guest = guest;
         this.employee = employee;
         this.room = room;
     }
 
     public Booking(long id, Instant createdAt, LocalDate checkInDate, LocalDate checkOutDate, int price,
-            byte numberOfGuests, String email, String name, int phoneNumber, Guest guest, Employee employee,
+            byte numberOfGuests, String email, String name, int phoneNumber, boolean checkedIn, User guest,
+            User employee,
             Room room) {
         this.id = id;
         this.createdAt = createdAt;
@@ -94,6 +99,7 @@ public class Booking {
         this.email = email;
         this.name = name;
         this.phoneNumber = phoneNumber;
+        this.checkedIn = checkedIn;
         this.guest = guest;
         this.employee = employee;
         this.room = room;
@@ -173,19 +179,27 @@ public class Booking {
         this.phoneNumber = phoneNumber;
     }
 
-    public Guest getGuest() {
+    public boolean isCheckedIn() {
+        return checkedIn;
+    }
+
+    public void setCheckedIn(boolean checkedIn) {
+        this.checkedIn = checkedIn;
+    }
+
+    public User getGuestUser() {
         return guest;
     }
 
-    public void setGuest(Guest guest) {
+    public void setGuestUser(User guest) {
         this.guest = guest;
     }
 
-    public Employee getEmployee() {
+    public User getEmployeeUser() {
         return employee;
     }
 
-    public void setEmployee(Employee employee) {
+    public void setUser(User employee) {
         this.employee = employee;
     }
 
@@ -210,6 +224,7 @@ public class Booking {
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + phoneNumber;
+        result = prime * result + (checkedIn ? 1231 : 1237);
         result = prime * result + ((guest == null) ? 0 : guest.hashCode());
         result = prime * result + ((employee == null) ? 0 : employee.hashCode());
         result = prime * result + ((room == null) ? 0 : room.hashCode());
@@ -258,6 +273,8 @@ public class Booking {
             return false;
         if (phoneNumber != other.phoneNumber)
             return false;
+        if (checkedIn != other.checkedIn)
+            return false;
         if (guest == null) {
             if (other.guest != null)
                 return false;
@@ -280,8 +297,7 @@ public class Booking {
     public String toString() {
         return "Booking [id=" + id + ", createdAt=" + createdAt + ", checkInDate=" + checkInDate + ", checkOutDate="
                 + checkOutDate + ", price=" + price + ", numberOfGuests=" + numberOfGuests + ", email=" + email
-                + ", name=" + name + ", phoneNumber=" + phoneNumber + ", guest=" + guest + ", employee=" + employee
-                + ", room=" + room + "]";
+                + ", name=" + name + ", phoneNumber=" + phoneNumber + ", checkedIn=" + checkedIn + ", guest=" + guest
+                + ", employee=" + employee + ", room=" + room + "]";
     }
-
 }

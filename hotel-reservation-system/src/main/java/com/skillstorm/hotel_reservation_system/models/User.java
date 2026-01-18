@@ -1,25 +1,29 @@
 package com.skillstorm.hotel_reservation_system.models;
 
-import java.util.Set;
+import com.skillstorm.hotel_reservation_system.enums.RoleType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "guest")
-public class Guest {
-    
+@Table(name = "app_user")
+public class User {
+
     @Id
-    @Column(name = "guest_id")
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    // An employee can either be an guest, admin, or manager
+    @Column(name = "user_role")
+    @Enumerated(EnumType.STRING)
+    private RoleType role;
 
     @Column
     private String email;
@@ -27,65 +31,82 @@ public class Guest {
     @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name")
-    private String lastName;
-
     @Column(name = "middle_name")
     private String middleName;
+
+    @Column(name = "last_name")
+    private String lastName;
 
     @Column(name = "home_address")
     private String address;
 
     @Column(name = "phone_number")
-    private int phoneNumber;
+    private long phoneNumber;
 
-    @ManyToMany
-    @JoinTable(name = "guest_payment",
-        joinColumns=
-            @JoinColumn(name="guest_id"),
-        inverseJoinColumns=
-            @JoinColumn(name="payment_info_id")
-    )
-    private Set<PaymentInfo> paymentInfo;
+    @Column(name = "onboarding_complete")
+    private boolean onboardingComplete;
 
-    /* 
-    Constructors:
-        No-args, All-args except id, All-args 
-    */
-    public Guest() {
-    }
-    
-    public Guest(String email, String firstName, String lastName, String middleName, String address, int phoneNumber,
-            Set<PaymentInfo> paymentInfo) {
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.middleName = middleName;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.paymentInfo = paymentInfo;
-    }
-    
-    public Guest(long id, String email, String firstName, String lastName, String middleName, String address,
-            int phoneNumber, Set<PaymentInfo> paymentInfo) {
-        this.id = id;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.middleName = middleName;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.paymentInfo = paymentInfo;
+    @Column(name = "deleted")
+    private boolean deleted;
+
+    /*
+     * Constructors:
+     * No-args, All-args except id, All-args
+     */
+    public User() {
     }
 
     // getters, setters, hashcode, equals, toString
-    
+
+    public User(long id, RoleType role, String email, String firstName, String middleName, String lastName,
+            String address, long phoneNumber, boolean onboardingComplete, boolean deleted) {
+        this.id = id;
+        this.role = role;
+        this.email = email;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.onboardingComplete = onboardingComplete;
+        this.deleted = deleted;
+    }
+
+    public User(RoleType role, String email, String firstName, String middleName, String lastName, String address,
+            long phoneNumber, boolean onboardingComplete, boolean deleted) {
+        this.role = role;
+        this.email = email;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.onboardingComplete = onboardingComplete;
+        this.deleted = deleted;
+    }
+
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public RoleType getRole() {
+        return role;
+    }
+
+    public void setRole(RoleType role) {
+        this.role = role;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getEmail() {
@@ -120,28 +141,34 @@ public class Guest {
         this.middleName = middleName;
     }
 
-    public String getAddress() {
-        return address;
+    public boolean isOnboardingComplete() {
+        return onboardingComplete;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setOnboardingComplete(boolean onboardingComplete) {
+        this.onboardingComplete = onboardingComplete;
     }
 
-    public int getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public Set<PaymentInfo> getPaymentInfo() {
-        return paymentInfo;
+    public boolean isProfileComplete() {
+        return this.firstName != null
+                && this.lastName != null
+                && this.address != null;
     }
 
-    public void setPaymentInfo(Set<PaymentInfo> paymentInfo) {
-        this.paymentInfo = paymentInfo;
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Override
@@ -149,13 +176,15 @@ public class Guest {
         final int prime = 31;
         int result = 1;
         result = prime * result + (int) (id ^ (id >>> 32));
+        result = prime * result + ((role == null) ? 0 : role.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-        result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
         result = prime * result + ((middleName == null) ? 0 : middleName.hashCode());
+        result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
         result = prime * result + ((address == null) ? 0 : address.hashCode());
-        result = prime * result + phoneNumber;
-        result = prime * result + ((paymentInfo == null) ? 0 : paymentInfo.hashCode());
+        result = prime * result + (int) (phoneNumber ^ (phoneNumber >>> 32));
+        result = prime * result + (onboardingComplete ? 1231 : 1237);
+        result = prime * result + (deleted ? 1231 : 1237);
         return result;
     }
 
@@ -167,8 +196,10 @@ public class Guest {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Guest other = (Guest) obj;
+        User other = (User) obj;
         if (id != other.id)
+            return false;
+        if (role != other.role)
             return false;
         if (email == null) {
             if (other.email != null)
@@ -180,15 +211,15 @@ public class Guest {
                 return false;
         } else if (!firstName.equals(other.firstName))
             return false;
-        if (lastName == null) {
-            if (other.lastName != null)
-                return false;
-        } else if (!lastName.equals(other.lastName))
-            return false;
         if (middleName == null) {
             if (other.middleName != null)
                 return false;
         } else if (!middleName.equals(other.middleName))
+            return false;
+        if (lastName == null) {
+            if (other.lastName != null)
+                return false;
+        } else if (!lastName.equals(other.lastName))
             return false;
         if (address == null) {
             if (other.address != null)
@@ -197,19 +228,17 @@ public class Guest {
             return false;
         if (phoneNumber != other.phoneNumber)
             return false;
-        if (paymentInfo == null) {
-            if (other.paymentInfo != null)
-                return false;
-        } else if (!paymentInfo.equals(other.paymentInfo))
+        if (onboardingComplete != other.onboardingComplete)
+            return false;
+        if (deleted != other.deleted)
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "Guest [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
-                + ", middleName=" + middleName + ", address=" + address + ", phoneNumber=" + phoneNumber
-                + ", paymentInfo=" + paymentInfo + "]";
+        return "User [id=" + id + ", role=" + role + ", email=" + email + ", firstName=" + firstName + ", middleName="
+                + middleName + ", lastName=" + lastName + ", address=" + address + ", phoneNumber=" + phoneNumber
+                + ", onboardingComplete=" + onboardingComplete + ", deleted=" + deleted + "]";
     }
-       
 }

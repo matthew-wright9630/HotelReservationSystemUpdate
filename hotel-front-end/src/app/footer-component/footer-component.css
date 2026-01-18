@@ -1,12 +1,12 @@
 footer {
-  margin: 20px auto;
+  margin: 8% auto 4%;
   padding: 0 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid white;
   border-radius: 0.5vw;
-  height: 100px;
+  height: 10vh;
 }
 
 .footer__link {
@@ -14,7 +14,7 @@ footer {
 }
 
 img {
-  width: 100px;
+  width: auto;
   height: 100%;
 }
 

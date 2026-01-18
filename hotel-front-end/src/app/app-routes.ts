@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
+import { EmployeePortalComponent } from './employee-portal-component/employee-portal-component';
 import { SearchComponent } from './search-component/search-component';
 import { AboutPageComponent } from './about-page-component/about-page-component';
 import { FrontPageComponent } from './front-page-component/front-page-component';
 import { BookingComponent } from './booking-component/booking-component';
+import { ProfileComponent } from './profile-component/profile-component';
 
 /**
  * Creates paths to different routes in the application.
@@ -18,6 +20,10 @@ export const routes: Routes = [
     component: SearchComponent,
   },
   {
+    path: 'employee',
+    component: EmployeePortalComponent,
+  },
+  {
     path: 'about-us',
     component: AboutPageComponent,
   },
@@ -25,6 +31,9 @@ export const routes: Routes = [
     path: 'booking',
     component: BookingComponent,
   }
+    path: 'profile',
+    component: ProfileComponent,
+  },
   // {
   //   path: 'contact',
   //   component: ContactComponent,

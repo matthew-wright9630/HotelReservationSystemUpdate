@@ -13,6 +13,7 @@ export class RoomDescription {
   price: number;
   isAvailable: boolean;
   roomColor: string;
+  deleted: boolean;
 
   //constructor
   constructor(
@@ -24,7 +25,8 @@ export class RoomDescription {
     maxOccupancy: number,
     price: number,
     isAvailable: boolean,
-    roomColor: string
+    roomColor: string,
+    deleted: boolean
   ) {
     this.id = id;
     this.bedStyle = bedStyle;
@@ -35,5 +37,6 @@ export class RoomDescription {
     this.price = price;
     this.isAvailable = isAvailable;
     this.roomColor = roomColor;
+    this.deleted = deleted;
   }
 }
