@@ -18,7 +18,7 @@ export class HeaderComponent {
   }
 
   login() {
-    window.location.href = '/oauth2/authorization/google';
+    window.location.href = 'https://dun8rqxzjkgrc.cloudfront.net/login/oauth2/code/google';
   }
 
   getLoginDetails() {

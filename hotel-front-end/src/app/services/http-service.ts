@@ -145,7 +145,7 @@ export class HttpService {
   // Logs out the user.
   logout(): void {
     this.http.get(this.baseURL + 'oauth/logout', { withCredentials: true }).subscribe(() => {
-      window.location.href = '/homepage';
+      window.location.href = '/';
     });
   }
 

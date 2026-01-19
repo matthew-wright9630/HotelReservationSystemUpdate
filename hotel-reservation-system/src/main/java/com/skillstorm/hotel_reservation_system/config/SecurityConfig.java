@@ -80,7 +80,7 @@ public class SecurityConfig {
                                                 .userInfoEndpoint(userInfo -> userInfo
                                                                 .oidcUserService(customUserLoginService))
                                                 .successHandler(customLoginSuccessHandler)
-                                                .failureUrl("https://dun8rqxzjkgrc.cloudfront.net/login/error"))
+                                                .failureUrl("http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/login/error"))
 
                                 .logout(logout -> logout
                                                 .logoutUrl("/logout")
@@ -88,7 +88,7 @@ public class SecurityConfig {
                                                 .clearAuthentication(true)
                                                 .deleteCookies("JSESSIONID")
                                                 .logoutSuccessUrl(
-                                                                "https://dun8rqxzjkgrc.cloudfront.net/"))
+                                                                "http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/"))
 
                                 .exceptionHandling(exceptions -> exceptions
                                                 // Handles unauthorized requests and returns a 401 error
