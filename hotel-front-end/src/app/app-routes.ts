@@ -12,7 +12,7 @@ import { ProfileComponent } from './profile-component/profile-component';
 
 export const routes: Routes = [
   {
-    path: 'homepage',
+    path: '/',
     component: FrontPageComponent,
   },
   {
@@ -34,7 +34,7 @@ export const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
-  }
+  },
   // {
   //   path: 'contact',
   //   component: ContactComponent,

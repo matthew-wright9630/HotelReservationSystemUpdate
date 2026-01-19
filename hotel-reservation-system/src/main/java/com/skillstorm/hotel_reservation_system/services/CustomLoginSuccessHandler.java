@@ -48,7 +48,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         // Redirect based on role
         switch (user.getRole()) {
             case admin, manager -> response.sendRedirect(frontendBaseUrl + "/employee");
-            default -> response.sendRedirect(frontendBaseUrl + "/homepage");
+            default -> response.sendRedirect(frontendBaseUrl + "/");
         }
     }
 }

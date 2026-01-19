@@ -37,7 +37,7 @@ export class EmployeePortalComponent {
   constructor(
     private router: Router,
     private httpService: HttpService,
-    private dataPass: DataPassService
+    private dataPass: DataPassService,
   ) {
     this.getLoginDetails();
   }
@@ -52,14 +52,14 @@ export class EmployeePortalComponent {
   checkUserRole(): void {
     const role = this.dataPass.loggedInUser()?.role ?? null;
     if (!role) {
-      this.router.navigate(['/homepage']);
+      this.router.navigate(['/']);
       return;
     }
 
     this.userRole.set(role);
 
     if (role !== 'manager' && role !== 'admin') {
-      this.router.navigate(['/homepage']);
+      this.router.navigate(['/']);
     }
   }
 }
