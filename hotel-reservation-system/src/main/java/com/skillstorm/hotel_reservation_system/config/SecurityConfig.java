@@ -70,8 +70,10 @@ public class SecurityConfig {
 
                                                 .requestMatchers(HttpMethod.POST, "/checkout/**").permitAll()
 
-                                                .requestMatchers(HttpMethod.GET, "/booking").permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/booking**").permitAll()
                                                 .requestMatchers(HttpMethod.POST, "/booking").permitAll()
+                                                .requestMatchers(HttpMethod.PUT, "/booking**").permitAll()
+                                                .requestMatchers(HttpMethod.DELETE, "/booking**").permitAll()
 
                                                 .anyRequest().authenticated())
 

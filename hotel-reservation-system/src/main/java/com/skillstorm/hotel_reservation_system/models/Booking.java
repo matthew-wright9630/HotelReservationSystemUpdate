@@ -51,6 +51,9 @@ public class Booking {
     @Column(name = "checked_in")
     private boolean checkedIn;
 
+    @Column
+    private boolean deleted;
+
     @ManyToOne
     @JoinColumn(name = "guest_id")
     private User guest;
@@ -71,7 +74,8 @@ public class Booking {
     }
 
     public Booking(Instant createdAt, LocalDate checkInDate, LocalDate checkOutDate, int price, byte numberOfGuests,
-            String email, String name, int phoneNumber, boolean checkedIn, User guest, User employee, Room room) {
+            String email, String name, int phoneNumber, boolean checkedIn, boolean deleted, User guest, User employee,
+            Room room) {
         this.createdAt = createdAt;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
@@ -84,10 +88,12 @@ public class Booking {
         this.guest = guest;
         this.employee = employee;
         this.room = room;
+        this.deleted = deleted;
     }
 
     public Booking(long id, Instant createdAt, LocalDate checkInDate, LocalDate checkOutDate, int price,
-            byte numberOfGuests, String email, String name, int phoneNumber, boolean checkedIn, User guest,
+            byte numberOfGuests, String email, String name, int phoneNumber, boolean checkedIn, boolean deleted,
+            User guest,
             User employee,
             Room room) {
         this.id = id;
@@ -103,6 +109,7 @@ public class Booking {
         this.guest = guest;
         this.employee = employee;
         this.room = room;
+        this.deleted = deleted;
     }
 
     // getters, setters, hashcode, equals, toString
@@ -187,6 +194,14 @@ public class Booking {
         this.checkedIn = checkedIn;
     }
 
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
     public User getGuestUser() {
         return guest;
     }
@@ -225,6 +240,7 @@ public class Booking {
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + phoneNumber;
         result = prime * result + (checkedIn ? 1231 : 1237);
+        result = prime * result + (deleted ? 1231 : 1237);
         result = prime * result + ((guest == null) ? 0 : guest.hashCode());
         result = prime * result + ((employee == null) ? 0 : employee.hashCode());
         result = prime * result + ((room == null) ? 0 : room.hashCode());
@@ -275,6 +291,8 @@ public class Booking {
             return false;
         if (checkedIn != other.checkedIn)
             return false;
+        if (deleted != other.deleted)
+            return false;
         if (guest == null) {
             if (other.guest != null)
                 return false;
@@ -297,7 +315,7 @@ public class Booking {
     public String toString() {
         return "Booking [id=" + id + ", createdAt=" + createdAt + ", checkInDate=" + checkInDate + ", checkOutDate="
                 + checkOutDate + ", price=" + price + ", numberOfGuests=" + numberOfGuests + ", email=" + email
-                + ", name=" + name + ", phoneNumber=" + phoneNumber + ", checkedIn=" + checkedIn + ", guest=" + guest
-                + ", employee=" + employee + ", room=" + room + "]";
+                + ", name=" + name + ", phoneNumber=" + phoneNumber + ", checkedIn=" + checkedIn + ", deleted="
+                + deleted + ", guest=" + guest + ", employee=" + employee + ", room=" + room + "]";
     }
 }

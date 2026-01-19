@@ -111,7 +111,8 @@ CREATE TABLE booking(
 	checked_in BOOLEAN DEFAULT FALSE,
 	guest_id INT NOT NULL REFERENCES app_user(user_id),
 	employee_id INT REFERENCES app_user(user_id),
-	room_id INT NOT NULL REFERENCES room(room_id)
+	room_id INT NOT NULL REFERENCES room(room_id),
+	deleted BOOLEAN DEFAULT FALSE
 );
 
 -- Only allow the following statuses
