@@ -12,9 +12,10 @@ export class Booking {
   name: string;
   phoneNumber: number;
   checkedIn: boolean;
-  guest: User;
-  employee: User;
+  guestUser: User;
+  employeeUser: User | null;
   room: Room;
+  deleted: boolean;
 
   constructor(
     id: number,
@@ -27,9 +28,10 @@ export class Booking {
     name: string,
     phoneNumber: number,
     checkedIn: boolean,
-    guest: User,
-    employee: User,
+    guestUser: User,
+    employeeUser: User | null,
     room: Room,
+    deleted: boolean,
   ) {
     this.id = id;
     this.createdAt = createdAt;
@@ -41,8 +43,9 @@ export class Booking {
     this.name = name;
     this.phoneNumber = phoneNumber;
     this.checkedIn = checkedIn;
-    this.guest = guest;
-    this.employee = employee;
+    this.guestUser = guestUser;
+    this.employeeUser = employeeUser;
     this.room = room;
+    this.deleted = deleted;
   }
 }

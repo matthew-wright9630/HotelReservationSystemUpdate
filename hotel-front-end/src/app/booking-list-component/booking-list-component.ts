@@ -74,8 +74,8 @@ export class BookingListComponent {
         Validators.minLength(2),
       ]),
       createdAtControl: new FormControl(''),
-      checkInDateControl: new FormControl(new Date(), [Validators.required]),
-      checkOutDateControl: new FormControl(new Date(), [Validators.required]),
+      checkInDateControl: new FormControl<Date>(new Date(), [Validators.required]),
+      checkOutDateControl: new FormControl<Date>(new Date(), [Validators.required]),
       priceControl: new FormControl(0, [Validators.required]),
       numberOfGuestsControl: new FormControl(1, [Validators.required]),
       checkIn: new FormControl(false),
@@ -89,7 +89,7 @@ export class BookingListComponent {
       checkOutDateControl: new FormControl({ value: new Date(), disabled: true }),
       priceControl: new FormControl({ value: 0, disabled: true }),
       numberOfGuestsControl: new FormControl({ value: 1, disabled: true }),
-      employeeNameControl: new FormControl({ value: '', disabled: true }),
+      employeeUserNameControl: new FormControl({ value: '', disabled: true }),
       roomControl: new FormControl({
         value: new Room(0, this.newRoomDescription, false),
         disabled: true,
@@ -103,6 +103,7 @@ export class BookingListComponent {
     this.httpService.getAllBookings().subscribe({
       next: (data) => {
         if (data) {
+          console.log(data);
           this.foundBookings.set(data);
           this.filteredBookings.set(data);
         }
@@ -143,8 +144,8 @@ export class BookingListComponent {
     return this.viewBookingForm.get('numberOfGuestsControl') as FormControl;
   }
 
-  get employeeNameControl() {
-    return this.viewBookingForm.get('employeeNameControl') as FormControl;
+  get employeeUserNameControl() {
+    return this.viewBookingForm.get('employeeUserNameControl') as FormControl;
   }
 
   get roomControl() {
@@ -196,8 +197,8 @@ export class BookingListComponent {
         emailControl: booking.email,
         priceControl: booking.price,
         numberOfGuestsControl: booking.numberOfGuests,
-        guestControl: booking.guest,
-        employeeControl: booking.employee,
+        guestUserControl: booking.guestUser,
+        employeeUserControl: booking.employeeUser,
         roomControl: booking.room,
       });
     this.showEditModal = true;
@@ -217,8 +218,8 @@ export class BookingListComponent {
         emailControl: booking.email,
         priceControl: booking.price,
         numberOfGuestsControl: booking.numberOfGuests,
-        guestControl: booking.guest,
-        employeeControl: booking.employee?.firstName + ' ' + booking.employee?.lastName,
+        guestUserControl: booking.guestUser,
+        employeeUserControl: booking.employeeUser?.firstName + ' ' + booking.employeeUser?.lastName,
         roomControl: booking.room,
       });
     }
@@ -314,8 +315,52 @@ export class BookingListComponent {
 
   editBookingFormSubmit(): void {
     if (this.editType() === 'edit') {
-    } else if (this.editType() === 'delete') {
-    } else if (this.editType() === 'reactivate') {
+      console.log(
+        this.selectedBooking()!.id,
+        this.selectedBooking()!.createdAt,
+        this.checkInDateControl.value.toISOString().split('T')[0],
+        this.checkOutDateControl.value.toISOString().split('T')[0],
+        this.priceControl.value,
+        this.numberOfGuestsControl.value,
+        this.emailControl.value,
+        this.nameControl.value,
+        this.phoneNumberControl.value,
+        this.checkIn.value,
+        this.selectedBooking()!.guestUser,
+        this.selectedBooking()?.employeeUser ?? null,
+        this.roomControl.value,
+        false,
+      );
+      // If the submission type is edit, hits this endpoint and updates the user
+      if (this.selectedBooking() && this.selectedBooking()?.id != null) {
+        if (this.selectedBooking !== null) {
+          const updatedBooking = new Booking(
+            this.selectedBooking()!.id,
+            this.selectedBooking()!.createdAt,
+            this.checkInDateControl.value.toISOString().split('T')[0],
+            this.checkOutDateControl.value.toISOString().split('T')[0],
+            this.priceControl.value,
+            this.numberOfGuestsControl.value,
+            this.emailControl.value,
+            this.nameControl.value,
+            this.phoneNumberControl.value,
+            this.checkIn.value,
+            this.selectedBooking()!.guestUser,
+            this.selectedBooking()?.employeeUser ?? null,
+            this.roomControl.value,
+            false,
+          );
+          this.httpService.updateBooking(updatedBooking).subscribe({
+            next: () => {
+              this.openSuccessModal();
+              this.findAllBookings();
+            },
+            error: (err) => console.error(err),
+          });
+        }
+      } else if (this.editType() === 'delete') {
+      } else if (this.editType() === 'reactivate') {
+      }
     }
   }
 }
