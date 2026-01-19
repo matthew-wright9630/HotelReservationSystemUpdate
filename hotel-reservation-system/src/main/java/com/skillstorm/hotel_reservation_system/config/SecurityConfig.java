@@ -67,7 +67,7 @@ public class SecurityConfig {
                                                 // user
                                                 // with an admin role.
                                                 // This is because only admins should be able to create a new User.
-                                                       
+
                                                 .requestMatchers(HttpMethod.POST, "/checkout/**").permitAll()
 
                                                 .requestMatchers(HttpMethod.GET, "/booking").permitAll()
@@ -86,7 +86,8 @@ public class SecurityConfig {
                                                 .invalidateHttpSession(true)
                                                 .clearAuthentication(true)
                                                 .deleteCookies("JSESSIONID")
-                                                .logoutSuccessUrl("http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/homepage"))
+                                                .logoutSuccessUrl(
+                                                                "http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/homepage"))
 
                                 .exceptionHandling(exceptions -> exceptions
                                                 // Handles unauthorized requests and returns a 401 error
@@ -104,7 +105,9 @@ public class SecurityConfig {
                                                 }))
                                 .cors(cors -> cors.configurationSource(request -> {
                                         CorsConfiguration config = new CorsConfiguration();
-                                        config.setAllowedOrigins(List.of("http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/"));
+                                        config.setAllowedOrigins(List.of("http://localhost:4200",
+                                                        "http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com",
+                                                        "https://dun8rqxzjkgrc.cloudfront.net"));
                                         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                                         config.setAllowCredentials(true);
                                         config.setAllowedHeaders(List.of("*"));
