@@ -35,6 +35,8 @@ jobs:
           DB_USERNAME: ${{secrets.DB_USERNAME}}
           DB_PASSWORD: ${{secrets.DB_PASSWORD}}
           FRONTEND_BASE_URL: ${{secrets.FRONTEND_BASE_URL}}
+          STRIPE_PUBLISHABLE: ${{secrets.STRIPE_PUBLISHABLE}}
+          STRIPE_SECRET: ${{secrets.STRIPE_SECRET}}
 
       - name: Deploy
         working-directory: hotel-reservation-system/target
