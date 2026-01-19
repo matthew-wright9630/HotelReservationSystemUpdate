@@ -88,7 +88,7 @@ public class SecurityConfig {
                                                 .clearAuthentication(true)
                                                 .deleteCookies("JSESSIONID")
                                                 .logoutSuccessUrl(
-                                                                "http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/homepage"))
+                                                                "http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/"))
 
                                 .exceptionHandling(exceptions -> exceptions
                                                 // Handles unauthorized requests and returns a 401 error
