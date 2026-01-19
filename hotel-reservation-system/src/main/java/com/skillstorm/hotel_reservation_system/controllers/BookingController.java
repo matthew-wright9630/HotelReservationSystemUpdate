@@ -17,32 +17,33 @@ import com.skillstorm.hotel_reservation_system.services.BookingService;
 
 @RestController
 @RequestMapping("/booking")
-@CrossOrigin({ "http://localhost:4200/, http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/" })
+@CrossOrigin({ "http://localhost:4200/, http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/",
+        "https://dun8rqxzjkgrc.cloudfront.net/api/" })
 public class BookingController {
-  private BookingService bookingService;
+    private BookingService bookingService;
 
-  public BookingController(BookingService bookingService) {
-      this.bookingService = bookingService;
-  }
+    public BookingController(BookingService bookingService) {
+        this.bookingService = bookingService;
+    }
 
-  @GetMapping
-  public ResponseEntity<List<Booking>> getBookings() {
-      try {
-          List<Booking> bookings = bookingService.findAllBookings();
-          return new ResponseEntity<>(bookings, HttpStatus.OK);
-      } catch (Exception e) {
-          return ResponseEntity.internalServerError().header("message", e.getMessage()).build();
-      }
-  }
+    @GetMapping
+    public ResponseEntity<List<Booking>> getBookings() {
+        try {
+            List<Booking> bookings = bookingService.findAllBookings();
+            return new ResponseEntity<>(bookings, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().header("message", e.getMessage()).build();
+        }
+    }
 
-  @PostMapping
-  public ResponseEntity<Booking> createRoom(@RequestBody Booking booking) {
-      try {
-          Booking createdBooking = bookingService.createBooking(booking);
-          return new ResponseEntity<>(createdBooking, HttpStatus.CREATED);
-      } catch (Exception e) {
-          return ResponseEntity.internalServerError().header("message", e.getMessage()).build();
-      }
-  }
+    @PostMapping
+    public ResponseEntity<Booking> createRoom(@RequestBody Booking booking) {
+        try {
+            Booking createdBooking = bookingService.createBooking(booking);
+            return new ResponseEntity<>(createdBooking, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().header("message", e.getMessage()).build();
+        }
+    }
 
 }
