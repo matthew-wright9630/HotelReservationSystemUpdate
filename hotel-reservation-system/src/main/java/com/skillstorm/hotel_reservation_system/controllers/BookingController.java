@@ -16,7 +16,7 @@ import com.skillstorm.hotel_reservation_system.models.RoomDescription;
 import com.skillstorm.hotel_reservation_system.services.BookingService;
 
 @RestController
-@RequestMapping("/booking")
+@RequestMapping("/api/booking")
 @CrossOrigin({ "http://localhost:4200/, http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/",
         "https://dun8rqxzjkgrc.cloudfront.net" })
 public class BookingController {

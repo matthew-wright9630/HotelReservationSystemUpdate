@@ -15,12 +15,12 @@ import com.stripe.param.checkout.SessionCreateParams;
 import jakarta.annotation.PostConstruct;
 
 @RestController
-@RequestMapping("/checkout")
+@RequestMapping("/api/checkout")
 public class CheckoutController {
 
     @Value("${FRONTEND_BASE_URL}")
     private String DOMAIN; // To be replaced with AWS deployment
-    
+
     // custom application property
     @Value("${stripe.secret.key}")
     private String secretKey;

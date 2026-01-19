@@ -39,39 +39,40 @@ public class SecurityConfig {
                                                 .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
 
                                                 // Request matchers for the /rooms endpoint.
-                                                .requestMatchers(HttpMethod.GET, "/rooms").permitAll()
-                                                .requestMatchers(HttpMethod.GET, "/rooms/availability").permitAll()
-                                                .requestMatchers(HttpMethod.POST, "/rooms").permitAll()
-                                                .requestMatchers(HttpMethod.PUT, "/rooms").hasAnyRole("ADMIN")
-                                                .requestMatchers(HttpMethod.DELETE, "/rooms").hasAnyRole("ADMIN")
+                                                .requestMatchers(HttpMethod.GET, "/api/rooms").permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/api/rooms/availability").permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/api/rooms").permitAll()
+                                                .requestMatchers(HttpMethod.PUT, "/api/rooms").hasAnyRole("ADMIN")
+                                                .requestMatchers(HttpMethod.DELETE, "/api/rooms").hasAnyRole("ADMIN")
 
                                                 // Request matchers for the /room-descriptions endpoint.
-                                                .requestMatchers(HttpMethod.GET, "/room-descriptions/**").permitAll()
-                                                .requestMatchers(HttpMethod.POST, "/room-descriptions")
+                                                .requestMatchers(HttpMethod.GET, "/api/room-descriptions/**")
+                                                .permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/api/room-descriptions")
                                                 .hasAnyRole("ADMIN")
-                                                .requestMatchers(HttpMethod.PUT, "/room-descriptions")
+                                                .requestMatchers(HttpMethod.PUT, "/api/room-descriptions")
                                                 .hasAnyRole("ADMIN")
-                                                .requestMatchers(HttpMethod.DELETE, "/room-descriptions")
+                                                .requestMatchers(HttpMethod.DELETE, "/api/room-descriptions")
                                                 .hasAnyRole("ADMIN")
 
-                                                .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/api/users/**").permitAll()
                                                 // Allows all GET method requests to the /users endpoint.
 
-                                                .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
-                                                .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
-                                                .requestMatchers(HttpMethod.POST, "/users")
+                                                .requestMatchers(HttpMethod.GET, "/api/users/**").permitAll()
+                                                .requestMatchers(HttpMethod.PUT, "/api/users/**").permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/api/users")
                                                 .hasRole("ADMIN")
-                                                .requestMatchers(HttpMethod.POST, "/users/**")
+                                                .requestMatchers(HttpMethod.POST, "/api/users/**")
                                                 .hasRole("ADMIN")
                                                 // All POST requests to the /Users endpoint should be made only by a
                                                 // user
                                                 // with an admin role.
                                                 // This is because only admins should be able to create a new User.
 
-                                                .requestMatchers(HttpMethod.POST, "/checkout/**").permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/api/checkout/**").permitAll()
 
-                                                .requestMatchers(HttpMethod.GET, "/booking").permitAll()
-                                                .requestMatchers(HttpMethod.POST, "/booking").permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/api/booking").permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/api/booking").permitAll()
 
                                                 .anyRequest().authenticated())
 

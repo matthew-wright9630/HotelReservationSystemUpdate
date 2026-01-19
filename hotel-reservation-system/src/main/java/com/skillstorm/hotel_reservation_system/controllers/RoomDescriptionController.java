@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 // Controller for handling traffic to the room-descriptions endpoint
 @RestController
-@RequestMapping("/room-descriptions")
+@RequestMapping("/api/room-descriptions")
 @CrossOrigin({ "http://localhost:4200/", "http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/",
         "https://dun8rqxzjkgrc.cloudfront.net" })
 public class RoomDescriptionController {
