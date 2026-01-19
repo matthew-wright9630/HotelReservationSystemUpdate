@@ -63,11 +63,12 @@ export class EmployeePortalComponent {
     private httpService: HttpService,
     private dataPass: DataPassService,
   ) {
-    // this.getLoginDetails();
+    this.getLoginDetails();
   }
 
   getLoginDetails() {
     this.httpService.getUserInfo().subscribe((data) => {
+      console.log(data);
       this.dataPass.loggedInUser.set(data);
       this.checkUserRole();
     });

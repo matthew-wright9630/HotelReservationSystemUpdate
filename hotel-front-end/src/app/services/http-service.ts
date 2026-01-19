@@ -71,7 +71,7 @@ export class HttpService {
   getAllRoomDescriptions(): Observable<HttpResponse<RoomDescription[]>> {
     return this.http.get<RoomDescription[]>(this.baseURL + 'room-descriptions', {
       observe: 'response',
-      withCredentials: true,
+      // withCredentials: true,
     });
   }
 

@@ -50,16 +50,16 @@ export class CheckinGuestsComponent {
     // this.httpService.checkinGuest(email, this.dataPass.loggedInUser).subscribe({});
   }
 
-  lookupReservation() {
-    if (this.emailControl?.value) {
-      console.log('Email: ', this.emailControl.value);
-    }
-    this.httpService.getAllBookings().subscribe({
-      next: (data) => {
-        console.log(data);
-        if (data) this.foundBookings.set(data);
-      },
-      error: (err) => console.error(err),
-    });
-  }
+  // lookupReservation() {
+  //   if (this.emailControl?.value) {
+  //     console.log('Email: ', this.emailControl.value);
+  //   }
+  //   this.httpService.getAllBookings().subscribe({
+  //     next: (data) => {
+  //       console.log(data);
+  //       if (data) this.foundBookings.set(data);
+  //     },
+  //     error: (err) => console.error(err),
+  //   });
+  // }
 }

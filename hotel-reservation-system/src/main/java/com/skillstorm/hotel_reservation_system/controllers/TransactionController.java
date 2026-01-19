@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/transaction")
+@RequestMapping("/transaction")
 @CrossOrigin({ "http://localhost:4200/, http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/",
-                "https://dun8rqxzjkgrc.cloudfront.net" })
+        "https://dun8rqxzjkgrc.cloudfront.net" })
 public class TransactionController {
 
 }

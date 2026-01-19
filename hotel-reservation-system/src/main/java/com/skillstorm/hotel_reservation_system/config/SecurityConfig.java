@@ -39,40 +39,40 @@ public class SecurityConfig {
                                                 .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
 
                                                 // Request matchers for the /rooms endpoint.
-                                                .requestMatchers(HttpMethod.GET, "/api/rooms").permitAll()
-                                                .requestMatchers(HttpMethod.GET, "/api/rooms/availability").permitAll()
-                                                .requestMatchers(HttpMethod.POST, "/api/rooms").permitAll()
-                                                .requestMatchers(HttpMethod.PUT, "/api/rooms").hasAnyRole("ADMIN")
-                                                .requestMatchers(HttpMethod.DELETE, "/api/rooms").hasAnyRole("ADMIN")
+                                                .requestMatchers(HttpMethod.GET, "/rooms").permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/rooms/availability").permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/rooms").permitAll()
+                                                .requestMatchers(HttpMethod.PUT, "/rooms").hasAnyRole("ADMIN")
+                                                .requestMatchers(HttpMethod.DELETE, "/rooms").hasAnyRole("ADMIN")
 
                                                 // Request matchers for the /room-descriptions endpoint.
-                                                .requestMatchers(HttpMethod.GET, "/api/room-descriptions/**")
+                                                .requestMatchers(HttpMethod.GET, "/room-descriptions/**")
                                                 .permitAll()
-                                                .requestMatchers(HttpMethod.POST, "/api/room-descriptions")
+                                                .requestMatchers(HttpMethod.POST, "/room-descriptions")
                                                 .hasAnyRole("ADMIN")
-                                                .requestMatchers(HttpMethod.PUT, "/api/room-descriptions")
+                                                .requestMatchers(HttpMethod.PUT, "/room-descriptions")
                                                 .hasAnyRole("ADMIN")
-                                                .requestMatchers(HttpMethod.DELETE, "/api/room-descriptions")
+                                                .requestMatchers(HttpMethod.DELETE, "/room-descriptions")
                                                 .hasAnyRole("ADMIN")
 
-                                                .requestMatchers(HttpMethod.GET, "/api/users/**").permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
                                                 // Allows all GET method requests to the /users endpoint.
 
-                                                .requestMatchers(HttpMethod.GET, "/api/users/**").permitAll()
-                                                .requestMatchers(HttpMethod.PUT, "/api/users/**").permitAll()
-                                                .requestMatchers(HttpMethod.POST, "/api/users")
+                                                .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
+                                                .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/users")
                                                 .hasRole("ADMIN")
-                                                .requestMatchers(HttpMethod.POST, "/api/users/**")
+                                                .requestMatchers(HttpMethod.POST, "/users/**")
                                                 .hasRole("ADMIN")
                                                 // All POST requests to the /Users endpoint should be made only by a
                                                 // user
                                                 // with an admin role.
                                                 // This is because only admins should be able to create a new User.
 
-                                                .requestMatchers(HttpMethod.POST, "/api/checkout/**").permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/checkout/**").permitAll()
 
-                                                .requestMatchers(HttpMethod.GET, "/api/booking").permitAll()
-                                                .requestMatchers(HttpMethod.POST, "/api/booking").permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/booking").permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/booking").permitAll()
 
                                                 .anyRequest().authenticated())
 
@@ -80,7 +80,7 @@ public class SecurityConfig {
                                                 .userInfoEndpoint(userInfo -> userInfo
                                                                 .oidcUserService(customUserLoginService))
                                                 .successHandler(customLoginSuccessHandler)
-                                                .failureUrl("http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/login/error"))
+                                                .failureUrl("http://localhost:8080/login/oauth2/code/google"))
 
                                 .logout(logout -> logout
                                                 .logoutUrl("/logout")
@@ -88,7 +88,7 @@ public class SecurityConfig {
                                                 .clearAuthentication(true)
                                                 .deleteCookies("JSESSIONID")
                                                 .logoutSuccessUrl(
-                                                                "http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/homepage"))
+                                                                "http://localhost:4200/homepage"))
 
                                 .exceptionHandling(exceptions -> exceptions
                                                 // Handles unauthorized requests and returns a 401 error

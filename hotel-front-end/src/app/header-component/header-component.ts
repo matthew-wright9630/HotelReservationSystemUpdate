@@ -18,8 +18,7 @@ export class HeaderComponent {
   }
 
   login() {
-    window.location.href =
-      'TheThreeBroomsticks.us-east-1.elasticbeanstalk.com/oauth2/authorization/google';
+    window.location.href = 'http://localhost:8080/oauth2/authorization/google';
   }
 
   getLoginDetails() {
