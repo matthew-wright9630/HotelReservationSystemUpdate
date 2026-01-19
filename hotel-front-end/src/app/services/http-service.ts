@@ -9,7 +9,7 @@ import { Room } from '../models/room/room';
   providedIn: 'root',
 })
 export class HttpService {
-  baseURL: string = 'http://localhost:8080/';
+  baseURL: string = 'http://thethreebroomsticks.us-east-1.elasticbeanstalk.com:80/';
 
   constructor(private http: HttpClient) {}
 
@@ -71,14 +71,14 @@ export class HttpService {
   }
 
   getAllAvailableRoomDescriptions(
-    startDate: Date,
-    endDate: Date
+    startDate: string,
+    endDate: string
   ): Observable<HttpResponse<RoomDescription[]>> {
-    const isoStartDate = startDate.toISOString().split('T')[0];
-    const isoEndDate = endDate.toISOString().split('T')[0];
+    // const isoStartDate = startDate.toISOString().split('T')[0];
+    // const isoEndDate = endDate.toISOString().split('T')[0];
     let params = new HttpParams();
-    params = params.append('startDate', isoStartDate);
-    params = params.append('endDate', isoEndDate);
+    params = params.append('startDate', startDate);
+    params = params.append('endDate', endDate);
     return this.http.get<RoomDescription[]>(this.baseURL + 'room-descriptions/availability', {
       observe: 'response',
       params: params,

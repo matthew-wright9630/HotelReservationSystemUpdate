@@ -114,3 +114,7 @@ button:disabled {
   border-radius: 8px;
   text-align: center;
 }
+
+img {
+  border-radius: 0.5vw;
+}

@@ -10,7 +10,7 @@ To start a local development server, run:
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Once the server is running, open your browser and navigate to `http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/`. The application will automatically reload whenever you modify any of the source files.
 
 ## Code scaffolding
 

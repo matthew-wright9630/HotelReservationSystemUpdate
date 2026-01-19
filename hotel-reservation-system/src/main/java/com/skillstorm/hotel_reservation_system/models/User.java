@@ -20,7 +20,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    // An employee can either be an admin or manager
+    // An employee can either be an guest, admin, or manager
     @Column(name = "user_role")
     @Enumerated(EnumType.STRING)
     private RoleType role;

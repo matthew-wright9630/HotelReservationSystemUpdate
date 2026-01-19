@@ -3,6 +3,7 @@ import { EmployeePortalComponent } from './employee-portal-component/employee-po
 import { SearchComponent } from './search-component/search-component';
 import { AboutPageComponent } from './about-page-component/about-page-component';
 import { FrontPageComponent } from './front-page-component/front-page-component';
+import { BookingComponent } from './booking-component/booking-component';
 import { ProfileComponent } from './profile-component/profile-component';
 
 /**
@@ -27,6 +28,9 @@ export const routes: Routes = [
     component: AboutPageComponent,
   },
   {
+    path: 'booking',
+    component: BookingComponent,
+  }
     path: 'profile',
     component: ProfileComponent,
   },

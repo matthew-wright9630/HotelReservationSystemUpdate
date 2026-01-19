@@ -3,7 +3,8 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { RoomDescription } from '../models/room-description/room-description';
 import { User } from '../models/user/user';
 import { Room } from '../models/room/room';
-import { RoomSelectionInterface } from '../room-selection-interface';
+import { RoomSelectionInterface } from '../interfaces/room-selection-interface';
+import { RoomSearchInterface } from '../interfaces/room-search-interface';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +34,8 @@ export class DataPassService {
     this.numberOfRoomsSubject.next(count);
   }
 
+  bookingSearchSignal = signal<RoomSearchInterface | null>(null);
+
   // Creates a signal to allow the system to use the logged-in employee.
   loggedInUser = signal<User | null>(null);
 
@@ -54,24 +57,4 @@ export class DataPassService {
   }
 
   currentSelectionSignal: Signal<Room[] | null> = signal<Room[] | null>([]);
-
-  // This method adds a room to the current-selection component
-
-  // This method removes a room to the current-selection component
-  // removeRoom(roomId: number) {
-  //   const current = this.currentRoomSelectionSubject.value;
-  //   const updated = current.filter((selectedRoom) => selectedRoom.id !== roomId);
-
-  //   this.currentRoomSelectionSubject.next(updated);
-  // }
-
-  // // This method takes a room and allows it to be updated
-  // // (removed from the array, then added again)
-  // updateRoom(updatedRoom: RoomDescription) {
-  //   const current = this.currentRoomSelectionSubject.value;
-
-  //   const updated = current.map((room) => (room.id === updatedRoom.id ? updatedRoom : room));
-
-  //   this.currentRoomSelectionSubject.next(updated);
-  // }
 }

@@ -1,0 +1,9 @@
+section {
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  border: 0.1vw black solid;
+  background-color: #966f33;
+  margin: 20px auto;
+  border-radius: 0.5vw;
+}

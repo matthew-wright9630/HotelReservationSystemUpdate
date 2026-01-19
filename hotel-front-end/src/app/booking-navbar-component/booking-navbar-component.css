@@ -1,9 +1,9 @@
 /* Entire booking navbar level */
 nav {
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: center;
-  border: 0.1vw black solid;
+  border: 0.1vw white solid;
   background-color: #966f33;
   margin: 20px auto;
   border-radius: 0.5vw;
@@ -37,7 +37,7 @@ form {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  border: 0.1vw black solid;
+  border: 0.1vw white solid;
   border-radius: 0.5vw;
   margin: 0.5vw;
 }
@@ -98,7 +98,7 @@ input {
 }
 
 label {
-/*   font-weight: 400; */
+  /*   font-weight: 400; */
   font-size: 1.1vw;
   margin-bottom: 0.8vw;
 }
