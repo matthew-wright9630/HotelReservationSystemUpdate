@@ -187,6 +187,7 @@ export class BookingListComponent {
 
   openEditModal(booking: Booking | null) {
     this.selectedBooking.set(booking);
+    console.log(booking);
     if (booking)
       this.editBookingForm.patchValue({
         nameControl: booking.name,
@@ -252,6 +253,7 @@ export class BookingListComponent {
   showDeleteConfirmation = false;
 
   openDeleteConfirmation(booking: Booking) {
+    console.log(this.filteredBookings, booking);
     this.showDeleteConfirmation = true;
     this.editType.set('delete');
     this.selectedBooking.set(booking);
@@ -314,40 +316,25 @@ export class BookingListComponent {
   }
 
   editBookingFormSubmit(): void {
+    console.log(this.editType(), this.selectedBooking());
     if (this.editType() === 'edit') {
-      console.log(
-        this.selectedBooking()!.id,
-        this.selectedBooking()!.createdAt,
-        this.checkInDateControl.value.toISOString().split('T')[0],
-        this.checkOutDateControl.value.toISOString().split('T')[0],
-        this.priceControl.value,
-        this.numberOfGuestsControl.value,
-        this.emailControl.value,
-        this.nameControl.value,
-        this.phoneNumberControl.value,
-        this.checkIn.value,
-        this.selectedBooking()!.guestUser,
-        this.selectedBooking()?.employeeUser ?? null,
-        this.roomControl.value,
-        false,
-      );
-      // If the submission type is edit, hits this endpoint and updates the user
+      // If the submission type is edit, hits this endpoint and updates the booking
       if (this.selectedBooking() && this.selectedBooking()?.id != null) {
         if (this.selectedBooking !== null) {
           const updatedBooking = new Booking(
             this.selectedBooking()!.id,
             this.selectedBooking()!.createdAt,
-            this.checkInDateControl.value.toISOString().split('T')[0],
-            this.checkOutDateControl.value.toISOString().split('T')[0],
-            this.priceControl.value,
-            this.numberOfGuestsControl.value,
-            this.emailControl.value,
-            this.nameControl.value,
-            this.phoneNumberControl.value,
-            this.checkIn.value,
+            this.editBookingForm.get('checkInDateControl')?.value,
+            this.editBookingForm.get('checkOutDateControl')?.value,
+            this.editBookingForm.get('priceControl')?.value,
+            this.editBookingForm.get('numberOfGuestsControl')?.value,
+            this.editBookingForm.get('emailControl')?.value,
+            this.editBookingForm.get('nameControl')?.value,
+            this.editBookingForm.get('phoneNumberControl')?.value,
+            this.editBookingForm.get('checkIn')?.value,
             this.selectedBooking()!.guestUser,
             this.selectedBooking()?.employeeUser ?? null,
-            this.roomControl.value,
+            this.roomControl?.value,
             false,
           );
           this.httpService.updateBooking(updatedBooking).subscribe({
@@ -358,8 +345,29 @@ export class BookingListComponent {
             error: (err) => console.error(err),
           });
         }
-      } else if (this.editType() === 'delete') {
+      }
+    } else if (this.editType() === 'delete') {
+      if (this.selectedBooking() !== null) {
+        const booking = this.selectedBooking();
+        if (booking !== null && booking !== undefined) {
+          this.httpService.deactivateBooking(booking.id).subscribe({
+            next: () => {
+              console.log('Booking deactivated');
+              this.findAllBookings();
+            },
+            error: (err) => console.error(err),
+          });
+        }
       } else if (this.editType() === 'reactivate') {
+        if (this.selectedBooking() !== null) {
+          const booking = this.selectedBooking();
+          if (booking !== null && booking !== undefined) {
+            this.httpService.reactivateBooking(booking.id).subscribe({
+              next: () => console.log('Booking reactivated'),
+              error: (err) => console.error(err),
+            });
+          }
+        }
       }
     }
   }

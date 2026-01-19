@@ -46,8 +46,8 @@ export class CheckinGuestsComponent {
     return this.checkinForm.get('confirmationNumberControl');
   }
 
-  checkinGuest(): void {
-    console.log('Check in...');
+  checkinGuest(email: string): void {
+    // this.httpService.checkinGuest(email, this.dataPass.loggedInUser).subscribe({});
   }
 
   lookupReservation() {

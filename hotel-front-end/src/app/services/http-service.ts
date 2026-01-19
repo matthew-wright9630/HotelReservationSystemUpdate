@@ -10,9 +10,9 @@ import { Booking } from '../models/booking/booking';
   providedIn: 'root',
 })
 export class HttpService {
-  baseURL: string = '/api/';
+  // baseURL: string = '/api/';
   // baseURL: string = 'http://thethreebroomsticks.us-east-1.elasticbeanstalk.com:80/';
-  // baseURL: string = 'http://localhost:8080/';
+  baseURL: string = 'http://localhost:8080/';
 
   constructor(private http: HttpClient) {}
 
@@ -231,18 +231,30 @@ export class HttpService {
       .pipe(map((response) => response.body));
   }
 
+  checkinGuest(email: string, employee: User): Observable<Booking | null> {
+    let params = new HttpParams();
+    params = params.append('email', email);
+    return this.http
+      .put<Booking>(this.baseURL + 'booking/checkin', employee, {
+        observe: 'response',
+        params: params,
+      })
+      .pipe(map((response) => response.body));
+  }
+
   updateBooking(booking: Booking): Observable<Booking | null> {
     console.log(booking);
     return this.http
       .put<Booking>(this.baseURL + 'booking/' + booking.id, booking, {
         observe: 'response',
-        // withCredentials: true,
+        withCredentials: true,
       })
       .pipe(map((response) => response.body));
   }
 
   // Sends the delete request of the specified booking to the server.
   deactivateBooking(id: number): Observable<Booking | null> {
+    console.log(id);
     return this.http
       .delete<Booking>(this.baseURL + 'booking/' + id, {
         observe: 'response',

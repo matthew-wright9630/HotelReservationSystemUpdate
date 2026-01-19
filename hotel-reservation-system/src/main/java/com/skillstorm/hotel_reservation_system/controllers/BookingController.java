@@ -41,6 +41,16 @@ public class BookingController {
         }
     }
 
+    @GetMapping("/email")
+    public ResponseEntity<List<Booking>> getBookingsByEmail(@RequestParam String email) {
+        try {
+            List<Booking> bookings = bookingService.findBookingsByEmail(email);
+            return new ResponseEntity<>(bookings, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().header("message", e.getMessage()).build();
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Booking> getBookingById(@PathVariable long id) {
         try {
@@ -71,7 +81,7 @@ public class BookingController {
         }
     }
 
-    @PutMapping("checkin/{id}")
+    @PutMapping("/checkin/{id}")
     public ResponseEntity<Booking> editBooking(@PathVariable long id, @RequestBody User employee) {
         try {
             Booking updatedBooking = bookingService.checkinGuest(id, employee);

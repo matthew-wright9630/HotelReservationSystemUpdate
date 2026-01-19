@@ -35,6 +35,15 @@ public class BookingService {
     throw new IllegalArgumentException("Booking does not exist");
   }
 
+  // Finds a specific booking by a user's email address
+  public List<Booking> findBookingsByEmail(String email) {
+    List<Booking> foundBooking = bookingRepository.findAllByEmail(email);
+    if (foundBooking != null) {
+      return foundBooking;
+    }
+    throw new IllegalArgumentException("User does not exist");
+  }
+
   public Booking updateBooking(long id, Booking booking) {
     if (booking == null) {
       throw new IllegalArgumentException("Not all fields were input correctly.");

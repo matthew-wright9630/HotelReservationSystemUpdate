@@ -1,5 +1,7 @@
 package com.skillstorm.hotel_reservation_system.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,6 +14,8 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
+
+    public List<Booking> findAllByEmail(String email);
 
     @Query("update Booking b set b.deleted = :new_deleted where id = :booking_id")
     @Modifying
