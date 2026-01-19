@@ -3,22 +3,27 @@
   <img [src]="room.roomImage" [alt]="room.bedStyle + ', ' + room.roomColor + ' style'" />
   <div class="room__amenities">
     @if (room.adaCompliant) {
-    <img src="../../assets/ada_compliant.png" alt="Ada compliant" />
-    } @if (!room.isSmoking) {
-    <img src="../../assets/non-smoking.png" alt="Ada compliant" />
+      <img src="../../assets/ada_compliant.png" alt="Ada compliant" />
+    }
+    @if (!room.isSmoking) {
+      <img src="../../assets/non-smoking.png" alt="Ada compliant" />
     }
   </div>
-  <div>
-    @if (room.isAvailable) {
-    <p>max occupancy of {{ room.maxOccupancy }} guests</p>
-    } @else {
-    <p class="room__unavailable">
-      Sorry, this room is already booked for these dates. Try booking after 12/28/2025
-    </p>
-    }
+  @if (showErrors) {
     <div>
-      <p>${{ room.price }}</p>
-      <button [disabled]="!room.isAvailable" (click)="addRoomToBooking(room)">Select</button>
+      @if (room.isAvailable) {
+        <p>max occupancy of {{ room.maxOccupancy }} guests</p>
+      } @else {
+        <p class="room__unavailable">
+          Sorry, this room is already booked for these dates. Try booking after 12/28/2025
+        </p>
+      }
+      <div>
+        <p>${{ room.price }}</p>
+        <button [disabled]="!room.isAvailable" (click)="addRoomToBooking(room)">Select</button>
+      </div>
     </div>
-  </div>
+  } @else {
+    <p>Price: ${{ room.price }}</p>
+  }
 </section>

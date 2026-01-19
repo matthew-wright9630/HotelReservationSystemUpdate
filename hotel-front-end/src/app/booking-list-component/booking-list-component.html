@@ -1,4 +1,4 @@
-<!-- <section>
+<section>
   <div class="bookings">
     <div class="bookings__header">
       <h2>Manage Reservations</h2>
@@ -30,9 +30,9 @@
           <td>{{ booking?.checkOutDate }}</td>
           <td class="td__btn">
             <div class="btn__div">
-              <button (click)="openEditModal(user)">Edit</button>
-              <button (click)="openDeleteConfirmation(user)">Cancel</button>]
-              <button (click)="openReactivationConfirmation(user)">See all Details</button>
+              <button (click)="openEditModal(booking)">Edit</button>
+              <button (click)="openDeleteConfirmation(booking)">Cancel</button>
+              <button (click)="openViewModal(booking)">See all Details</button>
             </div>
           </td>
         </tr>
@@ -40,119 +40,49 @@
     </tbody>
   </table>
 
-  <div class="modal edit__modal" *ngIf="showEditModal">
-    <div class="modal__content edit-modal__content">
-      @if (selectedUser()) {
-        @if (selectedUser()!.id > 0) {
-          <p class="modal__p">What changes need to be made to the account?</p>
+  <div class="modal" *ngIf="showEditModal">
+    <div class="modal__content edit_booking__container">
+      @if (selectedBooking()) {
+        @if (selectedBooking()!.id > 0) {
+          <p class="modal__p">What changes need to be made to the booking?</p>
         } @else {
           <p class="modal__p">Please add the following details</p>
         }
       }
-      <form [formGroup]="editUserForm" (ngSubmit)="openConfirmationModal()">
-        <h3>{{ selectedUser()?.firstName }} {{ selectedUser()?.lastName }}</h3>
+      <form [formGroup]="editBookingForm" (ngSubmit)="openConfirmationModal()">
+        <h3>{{ selectedBooking()?.name }}</h3>
         <div class="edit-form">
           <div class="edit-form__div">
-            <p>Role:</p>
-            <select formControlName="roleControl">
-              @for (option of roleOptions; track $index) {
-                <option [ngValue]="option">{{ option }}</option>
-              }
-            </select>
-          </div>
-          <div class="edit-form__div">
-            <label for="firstNameControl">First Name* </label>
+            <label for="nameControl">Name* </label>
             <div class="edit-form__input-div">
               <input
                 type="text"
-                id="firstNameControl"
-                name="firstNameControl"
-                formControlName="firstNameControl"
+                id="nameControl"
+                name="nameControl"
+                formControlName="nameControl"
               />
               <div
                 class="error"
                 *ngIf="
-                  editUserForm.get('firstNameControl')?.touched &&
-                  editUserForm.get('firstNameControl')?.invalid
+                  editBookingForm.get('nameControl')?.touched &&
+                  editBookingForm.get('nameControl')?.invalid
                 "
               >
                 <span
                   class="edit__error-span"
-                  *ngIf="editUserForm.get('firstNameControl')?.errors?.['required']"
+                  *ngIf="editBookingForm.get('nameControl')?.errors?.['required']"
                 >
-                  First name is required.
+                  Name is required.
                 </span>
                 <span
                   class="edit__error-span"
-                  *ngIf="editUserForm.get('firstNameControl')?.errors?.['minlength']"
+                  *ngIf="editBookingForm.get('nameControl')?.errors?.['minlength']"
                 >
                   Must be at least 2 characters.
                 </span>
                 <span
                   class="edit__error-span"
-                  *ngIf="editUserForm.get('firstNameControl')?.errors?.['maxlength']"
-                >
-                  Cannot exceed 255 characters.
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="edit-form__div">
-            <label for="middleNameControl">Middle Name </label>
-            <div class="edit-form__input-div">
-              <input
-                type="text"
-                id="middleNameControl"
-                name="middleNameControl"
-                formControlName="middleNameControl"
-              />
-            </div>
-            <div
-              class="error"
-              *ngIf="
-                editUserForm.get('middleNameControl')?.touched &&
-                editUserForm.get('middleNameControl')?.invalid
-              "
-            >
-              <span
-                class="edit__error-span"
-                *ngIf="editUserForm.get('middleNameControl')?.errors?.['maxlength']"
-              >
-                Cannot exceed 255 characters.
-              </span>
-            </div>
-          </div>
-          <div class="edit-form__div">
-            <label for="lastNameControl">Last Name* </label>
-            <div class="edit-form__input-div">
-              <input
-                type="text"
-                id="lastNameControl"
-                name="lastNameControl"
-                formControlName="lastNameControl"
-              />
-              <div
-                class="error"
-                *ngIf="
-                  editUserForm.get('lastNameControl')?.touched &&
-                  editUserForm.get('lastNameControl')?.invalid
-                "
-              >
-                <span
-                  class="edit__error-span"
-                  *ngIf="editUserForm.get('lastNameControl')?.errors?.['required']"
-                >
-                  Last name is required.
-                </span>
-                <span
-                  class="edit__error-span"
-                  *ngIf="editUserForm.get('lastNameControl')?.errors?.['minlength']"
-                >
-                  Must be at least 2 characters.
-                </span>
-                <span
-                  class="edit__error-span"
-                  *ngIf="editUserForm.get('lastNameControl')?.errors?.['maxlength']"
+                  *ngIf="editBookingForm.get('nameControl')?.errors?.['maxlength']"
                 >
                   Cannot exceed 255 characters.
                 </span>
@@ -171,25 +101,25 @@
               <div
                 class="error"
                 *ngIf="
-                  editUserForm.get('emailControl')?.touched &&
-                  editUserForm.get('emailControl')?.invalid
+                  editBookingForm.get('emailControl')?.touched &&
+                  editBookingForm.get('emailControl')?.invalid
                 "
               >
                 <span
                   class="edit__error-span"
-                  *ngIf="editUserForm.get('emailControl')?.errors?.['required']"
+                  *ngIf="editBookingForm.get('emailControl')?.errors?.['required']"
                 >
                   Email is required.
                 </span>
                 <span
                   class="edit__error-span"
-                  *ngIf="editUserForm.get('emailControl')?.errors?.['minlength']"
+                  *ngIf="editBookingForm.get('emailControl')?.errors?.['minlength']"
                 >
                   Must be at least 2 characters.
                 </span>
                 <span
                   class="edit__error-span"
-                  *ngIf="editUserForm.get('emailControl')?.errors?.['maxlength']"
+                  *ngIf="editBookingForm.get('emailControl')?.errors?.['maxlength']"
                 >
                   Cannot exceed 255 characters.
                 </span>
@@ -197,38 +127,51 @@
             </div>
           </div>
           <div class="edit-form__div">
-            <label for="homeAddressControl">Address* </label>
+            <label for="checkInDateControl">Check-in Date* </label>
             <div class="edit-form__input-div">
               <input
                 type="text"
-                id="homeAddressControl"
-                name="homeAddressControl"
-                formControlName="homeAddressControl"
+                id="checkInDateControl"
+                name="checkInDateControl"
+                formControlName="checkInDateControl"
               />
               <div
                 class="error"
                 *ngIf="
-                  editUserForm.get('homeAddressControl')?.touched &&
-                  editUserForm.get('homeAddressControl')?.invalid
+                  editBookingForm.get('checkInDateControl')?.touched &&
+                  editBookingForm.get('checkInDateControl')?.invalid
                 "
               >
                 <span
                   class="edit__error-span"
-                  *ngIf="editUserForm.get('homeAddressControl')?.errors?.['required']"
+                  *ngIf="editBookingForm.get('checkInDateControl')?.errors?.['required']"
                 >
-                  Address is required.
+                  Check-in Date is required.
                 </span>
+              </div>
+            </div>
+          </div>
+          <div class="edit-form__div">
+            <label for="checkOutDateControl">Check-out Date* </label>
+            <div class="edit-form__input-div">
+              <input
+                type="text"
+                id="checkOutDateControl"
+                name="checkOutDateControl"
+                formControlName="checkOutDateControl"
+              />
+              <div
+                class="error"
+                *ngIf="
+                  editBookingForm.get('checkOutDateControl')?.touched &&
+                  editBookingForm.get('checkOutDateControl')?.invalid
+                "
+              >
                 <span
                   class="edit__error-span"
-                  *ngIf="editUserForm.get('homeAddressControl')?.errors?.['minlength']"
+                  *ngIf="editBookingForm.get('checkOutDateControl')?.errors?.['required']"
                 >
-                  Must be at least 2 characters.
-                </span>
-                <span
-                  class="edit__error-span"
-                  *ngIf="editUserForm.get('homeAddressControl')?.errors?.['maxlength']"
-                >
-                  Cannot exceed 255 characters.
+                  Check-out Date is required.
                 </span>
               </div>
             </div>
@@ -246,27 +189,77 @@
               <div
                 class="error"
                 *ngIf="
-                  editUserForm.get('phoneNumberControl')?.touched &&
-                  editUserForm.get('phoneNumberControl')?.invalid
+                  editBookingForm.get('phoneNumberControl')?.touched &&
+                  editBookingForm.get('phoneNumberControl')?.invalid
                 "
               >
                 <span
                   class="edit__error-span"
-                  *ngIf="editUserForm.get('phoneNumberControl')?.errors?.['required']"
+                  *ngIf="editBookingForm.get('phoneNumberControl')?.errors?.['required']"
                 >
                   Phone number is required.
                 </span>
                 <span
                   class="edit__error-span"
-                  *ngIf="editUserForm.get('phoneNumberControl')?.errors?.['pattern']"
+                  *ngIf="editBookingForm.get('phoneNumberControl')?.errors?.['pattern']"
                 >
                   Please input your phone number in a 10 digit format (1234567890).
                 </span>
               </div>
             </div>
           </div>
+          <div class="edit-form__div">
+            <label for="priceControl">Price* </label>
+            <div class="edit-form__input-div">
+              <input
+                type="number"
+                id="priceControl"
+                name="priceControl"
+                formControlName="priceControl"
+              />
+              <div
+                class="error"
+                *ngIf="
+                  editBookingForm.get('priceControl')?.touched &&
+                  editBookingForm.get('priceControl')?.invalid
+                "
+              >
+                <span
+                  class="edit__error-span"
+                  *ngIf="editBookingForm.get('priceControl')?.errors?.['required']"
+                >
+                  Price is required.
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="edit-form__div">
+            <label for="numberOfGuestsControl">numberOfGuests* </label>
+            <div class="edit-form__input-div">
+              <input
+                type="number"
+                id="numberOfGuestsControl"
+                name="numberOfGuestsControl"
+                formControlName="numberOfGuestsControl"
+              />
+              <div
+                class="error"
+                *ngIf="
+                  editBookingForm.get('numberOfGuestsControl')?.touched &&
+                  editBookingForm.get('numberOfGuestsControl')?.invalid
+                "
+              >
+                <span
+                  class="edit__error-span"
+                  *ngIf="editBookingForm.get('numberOfGuestsControl')?.errors?.['required']"
+                >
+                  Number of guests is required.
+                </span>
+              </div>
+            </div>
+          </div>
           <div class="edit-form__btn-div">
-            <button [disabled]="editUserForm.invalid" type="submit" class="modal__btn">
+            <button [disabled]="editBookingForm.invalid" type="submit" class="modal__btn">
               Submit
             </button>
             <button type="button" class="modal__btn" (click)="cancelEditModal()">Cancel</button>
@@ -275,9 +268,122 @@
       </form>
     </div>
   </div>
+  <div class="modal" *ngIf="showViewModal">
+    <div class="modal__content view_booking__container">
+      @if (selectedBooking()) {
+        @if (selectedBooking()!.id > 0) {
+          <p class="modal__p">Reservation details</p>
+        }
+      }
+      <form [formGroup]="viewBookingForm">
+        <div class="view-form">
+          <div class="view-form__div">
+            <label for="nameControl">Name </label>
+            <div class="view-form__input-div">
+              <input
+                type="text"
+                id="nameControl"
+                name="nameControl"
+                formControlName="nameControl"
+              />
+            </div>
+          </div>
+          <div class="view-form__div">
+            <label for="emailControl">Email </label>
+            <div class="view-form__input-div">
+              <input
+                type="text"
+                id="emailControl"
+                name="emailControl"
+                formControlName="emailControl"
+              />
+            </div>
+          </div>
+          <div class="view-form__div">
+            <label for="checkInDateControl">Check-in Date </label>
+            <div class="view-form__input-div">
+              <input
+                type="text"
+                id="checkInDateControl"
+                name="checkInDateControl"
+                formControlName="checkInDateControl"
+              />
+            </div>
+          </div>
+          <div class="view-form__div">
+            <label for="checkOutDateControl">Check-out Date </label>
+            <div class="view-form__input-div">
+              <input
+                type="text"
+                id="checkOutDateControl"
+                name="checkOutDateControl"
+                formControlName="checkOutDateControl"
+              />
+            </div>
+          </div>
+          <div class="view-form__div">
+            <label for="phoneNumberControl">Phone Number </label>
+            <div class="view-form__input-div">
+              <input
+                type="number"
+                id="phoneNumberControl"
+                name="phoneNumberControl"
+                formControlName="phoneNumberControl"
+                pattern="[0-9]{10}"
+              />
+            </div>
+          </div>
+          <div class="view-form__div">
+            <label for="priceControl">Price </label>
+            <div class="view-form__input-div">
+              <input
+                type="number"
+                id="priceControl"
+                name="priceControl"
+                formControlName="priceControl"
+              />
+            </div>
+          </div>
+          <div class="view-form__div">
+            <label for="numberOfGuestsControl">numberOfGuests </label>
+            <div class="view-form__input-div">
+              <input
+                type="number"
+                id="numberOfGuestsControl"
+                name="numberOfGuestsControl"
+                formControlName="numberOfGuestsControl"
+              />
+            </div>
+          </div>
+          <div class="view-form__div">
+            <label for="employeeNameControl">Name of employee who checked in</label>
+            <div class="view-form__input-div">
+              <input
+                type="number"
+                id="employeeNameControl"
+                name="employeeNameControl"
+                formControlName="employeeNameControl"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="view-form__div">
+          @if (selectedRoomDescription() !== null) {
+            <app-room-description-component
+              [room]="selectedRoomDescription()"
+              [showErrors]="false"
+            ></app-room-description-component>
+          }
+        </div>
+        <div class="view-form__btn-div">
+          <button type="button" class="modal__btn" (click)="cancelViewModal()">close</button>
+        </div>
+      </form>
+    </div>
+  </div>
   <div class="modal" *ngIf="showDeleteConfirmation">
     <div class="modal__content">
-      <p class="modal__p">Are you sure you want to deactivate this user?</p>
+      <p class="modal__p">Are you sure you want to cancel this reservation?</p>
       <div class="modal__buttons">
         <button class="modal__btn" (click)="confirmDeleteSubmit()">Yes</button>
         <button type="button" class="modal__btn" (click)="cancelDelete()">No</button>
@@ -310,4 +416,4 @@
       </div>
     </div>
   </div>
-</section> -->
+</section>

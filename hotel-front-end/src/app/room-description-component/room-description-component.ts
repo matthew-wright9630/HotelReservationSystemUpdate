@@ -18,6 +18,8 @@ import { CommonModule } from '@angular/common';
 export class RoomDescriptionComponent {
   @Input() room!: RoomDescription;
   @Input() slotIndex!: number;
+  @Input() showErrors = true;
+  @Input() showSelect = true;
 
   constructor(private dataPass: DataPassService) {}
 
