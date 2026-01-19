@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HttpService } from '../services/http-service';
 import { DataPassService } from '../services/data-pass-service';
@@ -13,6 +13,8 @@ import { DataPassService } from '../services/data-pass-service';
 })
 export class CheckinGuestsComponent {
   checkinForm: FormGroup;
+
+  foundBookings = signal<[]>([]);
 
   constructor(
     private fb: FormBuilder,
@@ -44,13 +46,9 @@ export class CheckinGuestsComponent {
   }
 
   lookupReservation() {
-    if (this.confirmationNumberControl?.value) {
-      console.log('Confirmation Number: ', this.confirmationNumberControl.value);
+    if (this.emailControl?.value) {
+      console.log('Email: ', this.emailControl.value);
     }
-    console.log(
-      this.firstNameControl?.value,
-      this.lastNameControl?.value,
-      this.emailControl?.value
-    );
+    console.log(this.firstNameControl?.value, this.lastNameControl?.value);
   }
 }

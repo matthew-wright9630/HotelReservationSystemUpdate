@@ -213,4 +213,10 @@ export class HttpService {
       })
       .pipe(map((response) => response));
   }
+
+  // Sends a request to the server to get all bookings connected to a guest where the checkin date is the current date.
+  // getBookingByUser(user: User): Observable<string[] | null> {
+  //   const mockDataArray = [user.firstName, user.lastName, ];
+  //   return mockDataArray;
+  // }
 }

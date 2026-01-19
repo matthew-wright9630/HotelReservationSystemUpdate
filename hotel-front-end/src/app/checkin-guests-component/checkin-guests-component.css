@@ -1,5 +1,8 @@
 section {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5vh;
 }
 
 .checkin__container {
@@ -56,4 +59,39 @@ p {
 .checkin__p {
   font-size: 1.5em;
   font-weight: 600;
+}
+
+table {
+  border: 1px white solid;
+  min-width: 50vw;
+  overflow: auto;
+}
+
+.table__element {
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+th {
+  background-color: #966f33;
+}
+
+td,
+th {
+  /* border: 1px white solid; */
+  height: 10vh;
+  min-width: 4rem;
+  text-align: center;
+}
+
+table td,
+table th {
+  border: 1px solid #ccc;
+  /* padding: 1vh 1vw; */
+}
+
+.td__btn {
+  display: flex;
+  min-width: 10vw;
+  justify-content: center;
 }
