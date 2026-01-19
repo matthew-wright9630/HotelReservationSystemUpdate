@@ -10,12 +10,16 @@ import { DataPassService } from '../services/data-pass-service';
   styleUrl: './header-component.css',
 })
 export class HeaderComponent {
-  constructor(private httpService: HttpService, private dataPassService: DataPassService) {
+  constructor(
+    private httpService: HttpService,
+    private dataPassService: DataPassService,
+  ) {
     this.getLoginDetails();
   }
 
   login() {
-    window.location.href = 'http://thethreebroomsticks.us-east-1.elasticbeanstalk.com:80/login/oauth2/authorization/google';
+    window.location.href =
+      'http://thethreebroomsticks.us-east-1.elasticbeanstalk.com//oauth2/authorization/google';
   }
 
   getLoginDetails() {
