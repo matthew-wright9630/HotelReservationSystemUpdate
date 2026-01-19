@@ -19,7 +19,7 @@ export class HeaderComponent {
 
   login() {
     window.location.href =
-      'http://TheThreeBroomsticks.us-east-1.elasticbeanstalk.com/oauth2/authorization/google';
+      'https://dun8rqxzjkgrc.cloudfront.net/login/oauth2/code/google';
   }
 
   getLoginDetails() {
