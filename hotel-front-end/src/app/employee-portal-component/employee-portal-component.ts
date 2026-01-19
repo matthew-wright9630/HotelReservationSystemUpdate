@@ -54,7 +54,7 @@ export class EmployeePortalComponent {
   constructor(
     private router: Router,
     private httpService: HttpService,
-    private dataPass: DataPassService
+    private dataPass: DataPassService,
   ) {
     this.getLoginDetails();
   }

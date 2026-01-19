@@ -90,8 +90,11 @@ table th {
   /* padding: 1vh 1vw; */
 }
 
-.td__btn {
-  display: flex;
-  min-width: 10vw;
-  justify-content: center;
+.table__element {
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.table__btn {
+  height: auto;
 }

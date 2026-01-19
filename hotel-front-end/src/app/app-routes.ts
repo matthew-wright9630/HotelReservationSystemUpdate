@@ -30,7 +30,8 @@ export const routes: Routes = [
   {
     path: 'booking',
     component: BookingComponent,
-  }
+  },
+  {
     path: 'profile',
     component: ProfileComponent,
   },

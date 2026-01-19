@@ -10,7 +10,10 @@ import { DataPassService } from '../services/data-pass-service';
   styleUrl: './header-component.css',
 })
 export class HeaderComponent {
-  constructor(private httpService: HttpService, private dataPassService: DataPassService) {
+  constructor(
+    private httpService: HttpService,
+    private dataPassService: DataPassService,
+  ) {
     this.getLoginDetails();
   }
 

@@ -3,6 +3,7 @@ import { Component, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HttpService } from '../services/http-service';
 import { DataPassService } from '../services/data-pass-service';
+import { Booking } from '../models/booking/booking';
 
 @Component({
   selector: 'app-checkin-guests-component',
@@ -14,12 +15,12 @@ import { DataPassService } from '../services/data-pass-service';
 export class CheckinGuestsComponent {
   checkinForm: FormGroup;
 
-  foundBookings = signal<[]>([]);
+  foundBookings = signal<Booking[]>([]);
 
   constructor(
     private fb: FormBuilder,
     private httpService: HttpService,
-    private dataPass: DataPassService
+    private dataPass: DataPassService,
   ) {
     this.checkinForm = this.fb.group({
       firstNameControl: new FormControl(''),
@@ -45,10 +46,20 @@ export class CheckinGuestsComponent {
     return this.checkinForm.get('confirmationNumberControl');
   }
 
+  checkinGuest(): void {
+    console.log('Check in...');
+  }
+
   lookupReservation() {
     if (this.emailControl?.value) {
       console.log('Email: ', this.emailControl.value);
     }
-    console.log(this.firstNameControl?.value, this.lastNameControl?.value);
+    this.httpService.getAllBookings().subscribe({
+      next: (data) => {
+        console.log(data);
+        if (data) this.foundBookings.set(data);
+      },
+      error: (err) => console.error(err),
+    });
   }
 }

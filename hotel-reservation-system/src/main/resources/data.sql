@@ -47,3 +47,6 @@ INSERT INTO room (room_description_id, deleted) VALUES (5, false);
 INSERT INTO room (room_description_id, deleted) VALUES (6, false);
 INSERT INTO room (room_description_id, deleted) VALUES (6, false);
 INSERT INTO room (room_description_id, deleted) VALUES (8, false);
+
+INSERT INTO booking (check_in_date, check_out_date, price, number_of_guests, email_on_booking, name_on_booking, phone_on_booking, checked_in, guest_id, employee_id, room_id)
+VALUES ('2026-01-19', '2026-01-20', 175, 2, 'matthew.laura.wright@gmail.com', 'Laura Wright', 2146067487, FALSE, 5, 1, 7);

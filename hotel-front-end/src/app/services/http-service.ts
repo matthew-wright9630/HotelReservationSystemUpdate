@@ -4,6 +4,7 @@ import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { User } from '../models/user/user';
 import { RoomDescription } from '../models/room-description/room-description';
 import { Room } from '../models/room/room';
+import { Booking } from '../models/booking/booking';
 
 @Injectable({
   providedIn: 'root',
@@ -72,7 +73,7 @@ export class HttpService {
 
   getAllAvailableRoomDescriptions(
     startDate: string,
-    endDate: string
+    endDate: string,
   ): Observable<HttpResponse<RoomDescription[]>> {
     // const isoStartDate = startDate.toISOString().split('T')[0];
     // const isoEndDate = endDate.toISOString().split('T')[0];
@@ -116,7 +117,7 @@ export class HttpService {
         {
           observe: 'response',
           withCredentials: true,
-        }
+        },
       )
       .pipe(map((response) => response.body));
   }
@@ -215,8 +216,11 @@ export class HttpService {
   }
 
   // Sends a request to the server to get all bookings connected to a guest where the checkin date is the current date.
-  // getBookingByUser(user: User): Observable<string[] | null> {
-  //   const mockDataArray = [user.firstName, user.lastName, ];
-  //   return mockDataArray;
-  // }
+  getAllBookings(): Observable<Booking[] | null> {
+    return this.http
+      .get<Booking[]>(this.baseURL + 'booking', {
+        observe: 'response',
+      })
+      .pipe(map((response) => response.body));
+  }
 }

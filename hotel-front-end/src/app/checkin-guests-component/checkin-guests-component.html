@@ -39,6 +39,8 @@
       <tr>
         <th>Name</th>
         <th>Guest Email</th>
+        <th>Check-in Date</th>
+        <th>Check-out Date</th>
         <th>Room Type</th>
         <th>Room Colors</th>
         <th>Actions</th>
@@ -46,28 +48,19 @@
     </thead>
 
     <tbody>
-      <!-- @for (user of filteredUsers(); track user.id) {
-      <tr>
-        <td>{{ user?.firstName }}</td>
-        <td>{{ user?.middleName }}</td>
-        <td>{{ user?.lastName }}</td>
-        <td class="table__element">{{ user?.email }}</td>
-        <td>{{ user?.role }}</td>
-        <td>@if (user?.deleted) { Deactivated } @else { Active }</td>
-        <td class="table__element">{{ user?.address }}</td>
-        <td>{{ user?.phoneNumber }}</td>
-        <td class="td__btn">
-          <div class="btn__div">
-            <button (click)="openEditModal(user)">Edit</button>
-            @if (!user?.deleted) {
-            <button (click)="openDeleteConfirmation(user)">Delete</button>
-            } @else {
-            <button (click)="openReactivationConfirmation(user)">Reactivate</button>
-            }
-          </div>
-        </td>
-      </tr>
-      } -->
+      @for (booking of foundBookings(); track booking.id) {
+        <tr>
+          <td>{{ booking?.name }}</td>
+          <td class="table__element">{{ booking?.email }}</td>
+          <td>{{ booking?.checkInDate }}</td>
+          <td>{{ booking?.checkOutDate }}</td>
+          <td>{{ booking?.room?.roomDescription?.bedStyle }}</td>
+          <td>{{ booking?.room?.roomDescription?.roomColor }}</td>
+          <td>
+            <button class="table__btn" (click)="checkinGuest()">Check in?</button>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
 </section>
