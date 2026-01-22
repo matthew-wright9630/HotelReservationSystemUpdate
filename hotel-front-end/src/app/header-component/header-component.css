@@ -1,48 +1,25 @@
-header {
-  margin: 4% auto;
-  padding: 0 30px;
+.logo-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid white;
-  height: 10vh;
-  border-radius: 0.5vw;
-  font-size: 1em;
-}
-
-div {
-  display: flex;
-  justify-content: center;
   align-items: center;
   height: 100%;
-  gap: 2vw;
 }
 
-.header__buttons {
-  width: 50%;
-  justify-content: space-around;
-  gap: 0;
-}
-
-.header__link {
+.logo-container img {
   height: 100%;
-}
-
-a {
-  text-align: center;
-}
-
-img {
+  max-height: 64px;
   width: auto;
-  height: 100%;
 }
 
-p {
-  margin: 0;
+.spacer {
+  flex: 1 1 auto;
 }
 
-button {
-  background-image: none;
-  background: transparent;
-  border: none;
+.mat-toolbar-row a[mat-raised-button],
+.mat-toolbar-row button[mat-raised-button] {
+  margin-right: 8px;
+}
+
+.mat-toolbar-row a[mat-raised-button]:last-child,
+.mat-toolbar-row button[mat-raised-button]:last-child {
+  margin-right: 0;
 }

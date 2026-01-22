@@ -1,18 +1,60 @@
-article {
-  border: 0.1vw white solid;
-  background-color: #966f33;
-  margin: 20px auto;
-  border-radius: 0.5vw;
+.feature-section {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px;
+  background-color: var(--md-sys-color-surface-container-high);
+  border-radius: 12px;
+  margin-bottom: 32px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .feature-image {
+    width: 50%;
+    border-radius: 12px;
+  }
+
+  .feature-text {
+    flex: 1;
+    font-size: 1rem;
+    color: var(--md-sys-color-on-surface);
+  }
 }
 
-p {
+.rooms-section {
+  .room-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    img {
+      width: calc(25% - 12px);
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      img {
+        width: calc(50% - 8px);
+      }
+    }
+  }
+
+  p {
+    margin-top: 16px;
+    font-size: 0.875rem;
+    color: var(--md-sys-color-on-surface-variant);
+  }
+}
+/* p {
   margin: 1vw 0 1vw 6vw;
   font-size: 1.3vw;
   background-color: transparent;
 }
 
-/* image */
-#frontFacadeImg {
+image #frontFacadeImg {
   width: 90%;
   display: block;
   justify-self: center;
@@ -29,4 +71,4 @@ p {
 
 #roomImagesDiv img {
   max-width: 22%;
-}
+} */

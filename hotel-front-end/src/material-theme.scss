@@ -62,6 +62,12 @@
       inverse-tertiary: #c7ca99,
     )
   );
+  @include mat.toolbar-overrides(
+    (
+      container-background-color: #785836,
+      container-text-color: #ffffff,
+    )
+  );
 }
 
 /* Dark Theme */
@@ -146,4 +152,81 @@
       regular-weight: 400,
     )
   );
+}
+
+body {
+  background-color: var(--mat-sys-surface);
+}
+
+// header.header {
+//   background-color: var(--mat-sys-primary);
+//   color: --mat-sys-on-primary;
+//   height: 64px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   padding: 0;
+// }
+
+article {
+  background-color: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.mat-mdc-raised-button.mat-primary:not(:disabled) {
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+}
+
+.mat-mdc-raised-button.mat-on-primary:not(:disabled) {
+  background-color: var(--mat-sys-on-primary);
+  color: var(--mat-sys-primary);
+}
+
+.mat-mdc-raised-button.mat-accent:not(:disabled),
+.mat-mdc-raised-button.mat-secondary:not(:disabled) {
+  background-color: var(--mat-sys-secondary);
+  color: var(--mat-sys-on-secondary);
+}
+
+.mat-mdc-raised-button.mat-accent:not(:disabled),
+.mat-mdc-raised-button.mat-tertiary:not(:disabled) {
+  background-color: var(--mat-sys-tertiary);
+  color: var(--mat-sys-on-tertiary);
+}
+
+.mat-mdc-raised-button.mat-warn:not(:disabled),
+.mat-mdc-raised-button.mat-error:not(:disabled) {
+  background-color: var(--mat-sys-error);
+  color: var(--mat-sys-on-error);
+}
+
+.mat-mdc-stoked-button.mat-on-primary:not(:disabled) {
+  background-color: var(--mat-sys-on-primary);
+  color: var(--mat-sys-primary);
+}
+
+.mat-mdc-raised-button:not([color]):hover {
+  background-color: var(--mat-color-tertiary-container);
+  color: var(--mat-color-on-tertiary);
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+// article:hover {
+//   background-color: var(--mat-sys-primary-container);
+// }
+
+.dark article {
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-color-on-primary);
+}
+
+footer {
+  background-color: var(--mat-sys-secondary);
 }

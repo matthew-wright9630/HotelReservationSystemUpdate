@@ -2,10 +2,12 @@ import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HttpService } from '../services/http-service';
 import { DataPassService } from '../services/data-pass-service';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-header-component',
-  imports: [RouterLink],
+  imports: [RouterLink, MatToolbarModule, MatButtonModule],
   templateUrl: './header-component.html',
   styleUrl: './header-component.css',
 })
@@ -18,8 +20,7 @@ export class HeaderComponent {
   }
 
   login() {
-    window.location.href =
-      'https://dun8rqxzjkgrc.cloudfront.net/api/login/oauth2/code/google';
+    window.location.href = 'https://dun8rqxzjkgrc.cloudfront.net/api/login/oauth2/code/google';
   }
 
   getLoginDetails() {
