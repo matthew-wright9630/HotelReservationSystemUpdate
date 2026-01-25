@@ -90,16 +90,22 @@ p {
 }
 
 .selection__div {
-  border: 1px white solid;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 85%;
 }
 
 .selected-room {
-  background-color: #966f33;
+  background-color: var(--mat-sys-primary);
 }
 
 .selected-room * {
-  background-color: #966f33;
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+}
+
+.selected-room button {
+  background-color: var(--mat-sys-tertiary-container);
+  color: var(--mat-sys-on-tertiary-container);
 }
