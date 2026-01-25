@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skillstorm.hotel_reservation_system.models.Booking;
-import com.skillstorm.hotel_reservation_system.models.RoomDescription;
 import com.skillstorm.hotel_reservation_system.services.BookingService;
 
 @RestController

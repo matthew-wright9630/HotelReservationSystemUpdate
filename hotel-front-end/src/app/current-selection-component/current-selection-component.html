@@ -1,39 +1,43 @@
-<section>
-  <form [formGroup]="bookingSelectionForm" (ngSubmit)="openConfirmationModal()">
+<mat-card>
+  <form
+    [formGroup]="bookingSelectionForm"
+    (ngSubmit)="openConfirmationModal()"
+    class="mat-bg-primary-container"
+  >
     @for (slot of roomSlots(); track $index; let i = $index) {
-    <div class="selection__div" [class.selected-room]="i === selectedSlotIndex()">
-      <div class="select-room__div">
-        <div class="select-room__h3-div">
-          <h3>Room {{ i + 1 }}:</h3>
-          @if (roomsArray()[i] > 0) {
-          <h4>Number of Guests: {{ roomsArray()[i] }}</h4>
-          }
+      <div class="selection__div" [class.selected-room]="i === selectedSlotIndex()">
+        <div class="select-room__div">
+          <mat-card-title class="select-room__h3-div">
+            <h3>Room {{ i + 1 }}:</h3>
+            @if (roomsArray()[i] > 0) {
+              <h4>Number of Guests: {{ roomsArray()[i] }}</h4>
+            }
+          </mat-card-title>
+          <button (click)="pickSlot(i)" class="select__btn">Select Room</button>
         </div>
-        <button (click)="pickSlot(i)" class="select__btn">Select Room</button>
-      </div>
-      <div *ngIf="roomDescriptionArray.at(i).value !== null; else selectRoom">
-        <p>
-          {{ roomDescriptionArray.at(i).value.bedStyle }},<br />
-          {{ roomDescriptionArray.at(i).value.roomColor }} style
-        </p>
+        <div *ngIf="roomDescriptionArray.at(i).value !== null; else selectRoom">
+          <p>
+            {{ roomDescriptionArray.at(i).value.bedStyle }},<br />
+            {{ roomDescriptionArray.at(i).value.roomColor }} style
+          </p>
 
-        @if (roomDescriptionArray.at(i).value.isSmoking) {
-        <p>Smoking</p>
-        } @else {
-        <p>Non-Smoking</p>
-        }
+          @if (roomDescriptionArray.at(i).value.isSmoking) {
+            <p>Smoking</p>
+          } @else {
+            <p>Non-Smoking</p>
+          }
 
-        <p>
-          Max occupancy:
-          {{ roomDescriptionArray.at(i).value.maxOccupancy }} guests
-        </p>
-        {{ roomDescriptionArray.at(i).value.price }} Galleons
+          <p>
+            Max occupancy:
+            {{ roomDescriptionArray.at(i).value.maxOccupancy }} guests
+          </p>
+          {{ roomDescriptionArray.at(i).value.price }} Galleons
+        </div>
       </div>
-    </div>
-    <ng-template #selectRoom>
-      <p>Please select a room</p>
-    </ng-template>
-    <!-- </div> -->
+      <ng-template #selectRoom>
+        <p>Please select a room</p>
+      </ng-template>
+      <!-- </div> -->
     }
     <p class="total">Current Total: {{ totalPrice }} Galleons</p>
     <p class="tax-statement">taxes and fees included</p>
@@ -45,7 +49,7 @@
       Book
     </button>
     @if (!bookingButtonAvailable()) {
-    <p class="current-selection__error">Please select rooms</p>
+      <p class="current-selection__error">Please select rooms</p>
     }
   </form>
-</section>
+</mat-card>

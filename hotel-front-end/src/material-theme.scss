@@ -1,5 +1,9 @@
 @use '@angular/material' as mat;
 
+html {
+  @include mat.system-classes();
+}
+
 /* Light Theme */
 :root,
 :host {
@@ -156,6 +160,7 @@
 
 body {
   background-color: var(--mat-sys-surface);
+  margin: 0;
 }
 
 // header.header {
@@ -175,47 +180,10 @@ article {
   border-radius: 8px;
 }
 
-.mat-mdc-raised-button.mat-primary:not(:disabled) {
-  background-color: var(--mat-sys-primary);
-  color: var(--mat-sys-on-primary);
-}
-
-.mat-mdc-raised-button.mat-on-primary:not(:disabled) {
-  background-color: var(--mat-sys-on-primary);
-  color: var(--mat-sys-primary);
-}
-
-.mat-mdc-raised-button.mat-accent:not(:disabled),
-.mat-mdc-raised-button.mat-secondary:not(:disabled) {
-  background-color: var(--mat-sys-secondary);
-  color: var(--mat-sys-on-secondary);
-}
-
-.mat-mdc-raised-button.mat-accent:not(:disabled),
-.mat-mdc-raised-button.mat-tertiary:not(:disabled) {
-  background-color: var(--mat-sys-tertiary);
-  color: var(--mat-sys-on-tertiary);
-}
-
-.mat-mdc-raised-button.mat-warn:not(:disabled),
-.mat-mdc-raised-button.mat-error:not(:disabled) {
-  background-color: var(--mat-sys-error);
-  color: var(--mat-sys-on-error);
-}
-
-.mat-mdc-stoked-button.mat-on-primary:not(:disabled) {
-  background-color: var(--mat-sys-on-primary);
-  color: var(--mat-sys-primary);
-}
-
-.mat-mdc-raised-button:not([color]):hover {
-  background-color: var(--mat-color-tertiary-container);
-  color: var(--mat-color-on-tertiary);
-}
-
 img {
   width: 100%;
   height: auto;
+  border-radius: 8px;
 }
 
 // article:hover {
@@ -227,6 +195,32 @@ img {
   color: var(--mat-color-on-primary);
 }
 
+section {
+  // background-color: var(--mat-sys-secondary);
+}
+
+mat-sidenav {
+  height: 100%;
+}
+
+.mat-drawer-container {
+  background-color: var(--mat-color-on-primary-container) !important;
+}
+
 footer {
   background-color: var(--mat-sys-secondary);
+}
+
+button {
+  border-radius: 8px;
+}
+
+button {
+  opacity: 1;
+  transition: 0.2s linear;
+}
+
+button:hover {
+  cursor: pointer;
+  opacity: 0.6;
 }

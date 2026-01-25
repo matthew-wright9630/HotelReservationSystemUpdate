@@ -6,9 +6,7 @@
     </div>
     <span class="spacer"></span>
     <!-- Check if the user is an employee. If yes, display the Employee button. If no, display the booking button -->
-    <a mat-raised-button routerLink="/homepage" class="mdc-margin-end-2" routerLinkActive="active"
-      >Homepage</a
-    >
+    <a mat-raised-button routerLink="/homepage" routerLinkActive="active">Homepage</a>
     @if (!employeeUser()) {
       <a mat-raised-button routerLink="/search" routerLinkActive="active">Booking</a>
     } @else {

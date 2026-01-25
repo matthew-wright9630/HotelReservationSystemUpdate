@@ -1,24 +1,31 @@
-<app-booking-navbar-component />
-<div class="homepage">
-  <section class="homepage__room__section">
-    <h2>Rooms</h2>
-    <input
-      class="search-bar"
-      type="text"
-      placeholder="Filter Rooms..."
-      [formControl]="filterControl"
-    />
-    <div class="homepage__rooms">
-      @for (room of filteredRoomDescriptions(); track room.id) { @if (room.isAvailable) {
-
-      <app-room-description-component [room]="room"></app-room-description-component>
-      }}
-    </div>
-  </section>
-  <section class="homepage__current-selection__section">
-    <h2>Reservation Summary</h2>
-    <div class="homepage__current-selection">
-      <app-current-selection-component></app-current-selection-component>
-    </div>
-  </section>
-</div>
+<article>
+  <app-booking-navbar-component />
+  <mat-sidenav-container class="search-compontent">
+    <mat-sidenav-content class="content mat-bg-primary-container">
+      <div class="search-container" align="center">
+        <h2>Rooms</h2>
+        <input
+          class="search-bar mat-bg-seconary-container mat-text-on-secondary-container"
+          type="text"
+          placeholder="Filter Rooms..."
+          [formControl]="filterControl"
+        />
+      </div>
+      <div class="homepage__rooms">
+        @for (room of filteredRoomDescriptions(); track room.id) {
+          @if (room.isAvailable) {
+            <app-room-description-component [room]="room"></app-room-description-component>
+          }
+        }
+      </div>
+    </mat-sidenav-content>
+    <mat-sidenav mode="side" opened class="sidebar mat-bg-primary-container">
+      <div class="sidebar-content">
+        <h2>Reservation Summary</h2>
+        <div class="homepage__current-selection">
+          <app-current-selection-component></app-current-selection-component>
+        </div>
+      </div>
+    </mat-sidenav>
+  </mat-sidenav-container>
+</article>
