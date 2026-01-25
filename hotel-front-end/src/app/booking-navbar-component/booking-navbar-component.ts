@@ -1,5 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCardModule } from '@angular/material/card';
 import {
   FormArray,
   FormBuilder,
@@ -13,7 +17,13 @@ import { DataPassService } from '../services/data-pass-service';
 
 @Component({
   selector: 'app-booking-navbar-component',
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatCardModule,
+  ],
   templateUrl: './booking-navbar-component.html',
   styleUrl: './booking-navbar-component.css',
 })
@@ -27,7 +37,10 @@ export class BookingNavbarComponent {
   todayString: String | null = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   tomorrowString: String | null = this.datePipe.transform(this.tomorrow, 'yyyy-MM-dd');
 
-  constructor(private fb: FormBuilder, private dataPass: DataPassService) {
+  constructor(
+    private fb: FormBuilder,
+    private dataPass: DataPassService,
+  ) {
     this.findRoomsForm = this.fb.group({
       checkInDate: new FormControl(this.todayString, [Validators.required]),
       checkOutDate: new FormControl(this.tomorrowString, [Validators.required]),

@@ -1,78 +1,127 @@
 <!-- Allow users to specify when they want to visit and their room requirements -->
 
-<nav>
-  <h3>Start a new booking</h3>
-  <form [formGroup]="findRoomsForm">
-    <div id="checkInDiv">
-      <label for="checkInDate">Check-In Date</label>
-      <input
-        type="date"
-        id="checkInDate"
-        name="checkInDate"
-        [attr.min]="todayString"
-        formControlName="checkInDate"
-      />
-    </div>
-    <div id="checkOutDiv">
-      <label for="checkOutDate">Check-Out Date</label>
-      <input
-        type="date"
-        id="checkOutDate"
-        name="checkOutDate"
-        [attr.min]="tomorrowString"
-        [attr.default]="tomorrowString"
-        formControlName="checkOutDate"
-      />
-    </div>
-    <div id="roomsSelector" formArrayName="rooms">
-      <h6>Number of Guests</h6>
-      <!-- Dynamically add number of rooms to search for -->
-      @for (room of rooms.controls; track $index){
-      <div class="roomInputDiv">
-        <label [for]="'room-' + $index" class="numGuestsLabel">Room {{ $index + 1 }}:</label>
-        <input
-          [id]="'room-' + $index"
-          class="numGuestsInputs"
-          type="number"
-          [attr.min]="1"
-          [attr.max]="4"
-          [attr.default]="1"
-          [formControlName]="$index"
-        />
-        <!-- Need to hide button for first instance in array. 
-                        Clicking any of the remove buttons always deletes the last field in the form array. -->
-      </div>
-      }
-      <!-- Only allow upto four rooms-->
-      @if (rooms.length < 4) {
-      <div id="addAndRemoveRoomButtonsDiv">
-        <button value="Add Room" (click)="addRoom()" id="addRoomButton">Add Room</button>
-        <button id="removeRoomButton" (click)="removeRoom(rooms.length - 1)">Remove Room</button>
-      </div>
-      } @else{
-      <button id="removeRoomButtonAlt" (click)="removeRoom(rooms.length - 1)">Remove Room</button>
-      <p>Contact hotel staff for bookings larger than 4 rooms</p>
-      }
-    </div>
-    <div id="checkboxesDiv">
-      <label for="adaAccessible" id="adaAccessibleLabel"
-        ><input
-          type="checkbox"
-          id="adaAccessible"
-          formControlName="adaAccessible"
-        />ADA-Accessible</label
+<div class="booking-navbar__container">
+  <mat-card appearance="outlined" class="mat-bg-secondary booking-navbar__card">
+    <mat-card-header>
+      <mat-card-title class="mat-text-on-secondary">Start a new booking</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="findRoomsForm" class="mat-bg-secondary">
+        <mat-form-field
+          appearance="outline"
+          class="mat-bg-secondary mat-text-on-secondary"
+          style="min-width: 180px"
+        >
+          <mat-label class="mat-text-on-secondary">Check-In Date</mat-label>
+          <input
+            matInput
+            type="date"
+            id="checkInDate"
+            name="checkInDate"
+            [attr.min]="todayString"
+            formControlName="checkInDate"
+            class="mat-text-on-secondary"
+          />
+        </mat-form-field>
+        <mat-form-field
+          appearance="outline"
+          class="mat-bg-secondary mat-text-on-secondary"
+          style="min-width: 180px"
+        >
+          <mat-label class="mat-text-on-secondary">Check-Out Date</mat-label>
+          <input
+            matInput
+            type="date"
+            id="checkOutDate"
+            name="checkOutDate"
+            [attr.min]="tomorrowString"
+            [attr.default]="tomorrowString"
+            formControlName="checkOutDate"
+            class="mat-text-on-secondary"
+          />
+        </mat-form-field>
+        <div id="roomsSelector" formArrayName="rooms">
+          <h6 class="mat-text-on-secondary">Number of Guests</h6>
+          <!-- Dynamically add number of rooms to search for -->
+          <div class="number-of-rooms">
+            @for (room of rooms.controls; track $index) {
+              <mat-form-field
+                appearance="outline"
+                class="roomInputDiv mat-bg-secondary mat-text-on-secondary"
+                style="min-width: 120px"
+              >
+                <mat-label class="mat-text-on-secondary">Room {{ $index + 1 }}</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  [id]="'room-' + $index"
+                  class="numGuestsInputs mat-text-on-secondary"
+                  [attr.min]="1"
+                  [attr.max]="4"
+                  [attr.default]="1"
+                  [formControlName]="$index"
+                />
+              </mat-form-field>
+            }
+          </div>
+          <!-- Only allow upto four rooms-->
+          @if (rooms.length < 4) {
+            <div id="addAndRemoveRoomButtonsDiv">
+              <button
+                value="Add Room"
+                (click)="addRoom()"
+                id="addRoomButton"
+                class="mat-bg-secondary-container"
+              >
+                Add Room
+              </button>
+              <button
+                id="removeRoomButton"
+                (click)="removeRoom(rooms.length - 1)"
+                class="mat-bg-secondary-container text-on-secondary"
+              >
+                Remove Room
+              </button>
+            </div>
+          } @else {
+            <button id="removeRoomButtonAlt" (click)="removeRoom(rooms.length - 1)">
+              Remove Room
+            </button>
+            <p>Contact hotel staff for bookings larger than 4 rooms</p>
+          }
+        </div>
+        <div id="checkboxesDiv">
+          <label for="adaAccessible" id="adaAccessibleLabel" class="mat-text-on-secondary">
+            <input
+              type="checkbox"
+              id="adaAccessible"
+              formControlName="adaAccessible"
+              class="mat-text-on-secondary"
+            />
+            ADA-Accessible
+          </label>
+          <label for="nonSmoking" id="nonSmokingLabel" class="mat-text-on-secondary">
+            <input
+              type="checkbox"
+              id="nonSmoking"
+              formControlName="nonSmoking"
+              class="mat-text-on-secondary"
+            />
+            Non-Smoking
+          </label>
+        </div>
+      </form>
+    </mat-card-content>
+    <div class="search-btn-wrapper">
+      <button
+        type="button"
+        (click)="submitfindRoomsForm()"
+        [disabled]="findRoomsForm.invalid"
+        id="submitSearchButton"
+        class="mat-bg-secondary-container"
       >
-      <label for="nonSmoking" id="nonSmokingLabel"
-        ><input type="checkbox" id="nonSmoking" formControlName="nonSmoking" />Non-Smoking</label
-      >
+        Search
+      </button>
     </div>
-    <button
-      type="button"
-      (click)="submitfindRoomsForm()"
-      [disabled]="findRoomsForm.invalid"
-      id="submitSearchButton"
-    >
-      Search
-    </button>
-  </form>
-</nav>
+  </mat-card>
+</div>

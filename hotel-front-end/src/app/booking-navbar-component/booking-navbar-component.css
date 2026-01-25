@@ -1,90 +1,132 @@
-/* Entire booking navbar level */
-nav {
+/* Fix input color for number of guests and date fields in this component */
+.booking-navbar__card .mdc-text-field__input,
+.booking-navbar__card input[type='number'],
+.booking-navbar__card input[type='date'] {
+  color: var(--mat-color-on-secondary, #25190c) !important;
+}
+/* Center the search button at the bottom of the container */
+.search-btn-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  border: 0.1vw white solid;
-  background-color: #966f33;
+  width: 100%;
+  margin-bottom: 2vh;
+}
+/* Entire booking navbar level */
+
+.booking-navbar__card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
   margin: 20px auto;
   border-radius: 0.5vw;
+  width: 90%;
+  max-width: 1200px;
 }
 
 /* "Start a new booking" */
 h3 {
-  background-color: transparent;
   margin: 0 0 2vw 3vw;
   font-size: 1.6vw;
 }
 
-form {
+.booking-navbar__card form {
   display: flex;
-  align-items: center;
-  gap: 3vw;
-  background-color: transparent;
-  margin: 0 4vw 0 0;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 2vw 2vw;
+  border-radius: 0.5vw;
+  width: 100%;
+  padding: 2vw 0 1vw 0;
+  box-sizing: border-box;
 }
 
 #checkInDiv,
 #checkOutDiv {
-  background-color: transparent;
   display: flex;
   flex-direction: column;
+  gap: 0.5vw;
+  margin-top: 0.5vw;
 }
 
 /* entire bordered area for adding rooms */
 #roomsSelector {
-  background-color: transparent;
   display: flex;
   justify-content: center;
   flex-direction: column;
   border: 0.1vw white solid;
   border-radius: 0.5vw;
   margin: 0.5vw;
+  min-width: 220px;
+  max-width: 320px;
+  padding: 1vw 1vw 0.5vw 1vw;
+  box-sizing: border-box;
 }
 
 /* Room {{i}}: [    ] [Remove] */
 .roomInputDiv {
-  background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: left;
-  gap: 3vw;
-  margin: 0.1vw 0;
+  gap: 0.7vw;
+  margin: 0.2vw 0 0.2vw 0;
   padding: 0;
+  min-width: 90px;
+  max-width: 140px;
+  height: 3.2vw;
+  min-height: 44px;
+  align-items: center;
+  margin-bottom: 1vh;
 }
 
 /* "Number of Guests" */
 h6 {
-  background-color: transparent;
-  font-weight: 400;
-  font-size: 0.9vw;
-  margin: 0.5vw 0.5vw 0.5vw 5.5vw;
+  font-weight: 500;
+  font-size: 1.2vw;
+  margin: 0.5vw 0.5vw 1vw 2vw;
+  padding: 0.2em 0.5em;
+  letter-spacing: 0.02em;
+  transition:
+    font-size 0.2s,
+    padding 0.2s;
 }
 
 .numGuestsInputs {
-  font-size: 1vw;
-  width: 2vw;
-  /* margin: 0 2vw 0 1vw; */
-  max-height: 1.3vw;
-  background-color: transparent;
+  font-size: 0.9vw;
+  width: 100%;
+  box-sizing: border-box;
+  height: 2vw;
+  min-height: 28px;
+  max-height: 2.2vw;
+}
+
+.number-of-rooms {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
 }
 
 /* ADA-Accessible and Non-smoking */
 #checkboxesDiv {
-  background-color: transparent;
   display: flex;
   flex-direction: column;
+  gap: 1.2vw;
+  margin-top: 0.5vw;
+  margin-bottom: 2vw;
+  padding-bottom: 1vw;
 }
 
 #addAndRemoveRoomButtonsDiv {
   display: flex;
-  background-color: transparent;
+
   align-items: center;
+  gap: 0.5vw;
+  margin-top: 1.5vw;
 }
 
 /* "contact hotel staff for bookings larger than 4 rooms"  */
 p {
-  background-color: transparent;
   margin: 0 1vw 0.5vw 1vw;
   max-width: 12vw;
   text-align: justify;
@@ -92,51 +134,53 @@ p {
   color: linen;
 }
 
-label,
-input {
-  background-color: transparent;
-}
-
 label {
-  /*   font-weight: 400; */
   font-size: 1.1vw;
   margin-bottom: 0.8vw;
 }
 
-/* Room {{i}} */
 .numGuestsLabel {
   font-size: 1.1vw;
-  /* font-weight: 400; */
   margin: 0 0 0.3vw 0.7vw;
-}
-
-/* When displayed with 'Add Room' button */
-#removeRoomButton {
-  border-radius: 0.2vw;
-  font-size: 0.8vw;
-  margin: 0.5vw 0.5vw;
 }
 
 /* When displayed with <p> tag */
 #removeRoomButtonAlt {
   margin: 0.5vw 0.5vw;
-  font-size: 0.8vw;
-  align-self: flex-end;
-  border-radius: 0.2vw;
-}
-
-#addRoomButton {
+  font-size: 1.1vw;
+  border-radius: 0.3vw;
   margin: 0.5vw 0.5vw;
-  font-size: 0.8vw;
-  border-radius: 0.2vw;
+  padding: 0.5em 1.2em;
+  min-width: 90px;
+  min-height: 36px;
+  transition:
+    font-size 0.2s,
+    padding 0.2s;
+}
+@media (max-width: 900px) {
+  h6 {
+    font-size: 2vw;
+    padding: 0.2em 0.2em;
+    margin-left: 1vw;
+  }
+  #removeRoomButton,
+  #addRoomButton {
+    font-size: 1.5vw;
+    min-width: 90px;
+    max-width: 140px;
+    width: 120px;
+    height: 3vh;
+    padding: 0.4em 0.8em;
+    flex: 1 1 80px;
+  }
 }
 
 /* the checkboxes */
 #adaAccessible,
 #nonSmoking {
-  margin-right: 0.8vw;
-  width: 1.2em;
-  height: 1.2em;
+  margin-right: 1vw;
+  width: 2em;
+  height: 2em;
 }
 
 #adaAccessibleLabel,
@@ -147,5 +191,5 @@ label {
 #submitSearchButton {
   font-size: 1.6vw;
   border-radius: 0.3vw;
-  margin-left: 3vw;
+  width: 50%;
 }
