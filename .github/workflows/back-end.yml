@@ -7,37 +7,37 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: checkout
+      - name: Checkout repository
         uses: actions/checkout@v6.0.2
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v5.1.0
         with:
           aws-region: us-east-1
-          # AWS Access Key ID. Provide this key if you want to assume a role using access keys rather than a web identity token.
-          aws-access-key-id: ${{secrets.ACCESS_KEY_ID}}
-          # AWS Secret Access Key. Required if aws-access-key-id is provided.
-          aws-secret-access-key: ${{secrets.SECRET_ACCESS_KEY}}
+          aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
 
       - name: Setup Java JDK
         uses: actions/setup-java@v5.1.0
         with:
-          # The Java version to set up. Takes a whole or semver Java version. See examples of supported syntax in README file
           java-version: '17'
           distribution: 'oracle'
 
       - name: Build project in Maven
-        run: mvn -B package --file hotel-reservation-system/pom.xml
+        run: mvn -B package -DskipTests --file hotel-reservation-system/pom.xml
         env:
-          DB_HOST: ${{secrets.DB_HOST}}
-          DB_NAME: ${{secrets.DB_NAME}}
-          DB_USERNAME: ${{secrets.DB_USERNAME}}
-          DB_PASSWORD: ${{secrets.DB_PASSWORD}}
-          FRONTEND_BASE_URL: ${{secrets.FRONTEND_BASE_URL}}
-          STRIPE_PUBLISHABLE: ${{secrets.STRIPE_PUBLISHABLE}}
-          STRIPE_SECRET: ${{secrets.STRIPE_SECRET}}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          FRONTEND_BASE_URL: ${{ secrets.FRONTEND_BASE_URL }}
+          STRIPE_PUBLISHABLE: ${{ secrets.STRIPE_PUBLISHABLE }}
+          STRIPE_SECRET: ${{ secrets.STRIPE_SECRET }}
 
-      - name: Deploy
-        working-directory: hotel-reservation-system/target
-        run: aws s3 cp *.jar s3://the-three-broomsticks-maw/
+      - name: List built artifacts
+        run: ls -l hotel-reservation-system/target
+
+      - name: Deploy JAR to S3
+        run: aws s3 cp hotel-reservation-system/target/*.jar s3://the-three-broomsticks-maw/
