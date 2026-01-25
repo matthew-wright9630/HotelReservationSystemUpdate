@@ -180,6 +180,19 @@ article {
   border-radius: 8px;
 }
 
+mat-sidenav {
+  height: 100%;
+}
+
+.mat-drawer-container {
+  background-color: var(--mat-color-on-primary-container) !important;
+}
+
+.mat-mdc-raised-button:not([color]):hover {
+  background-color: var(--mat-color-tertiary-container);
+  color: var(--mat-color-on-tertiary);
+}
+
 img {
   width: 100%;
   height: auto;
@@ -197,14 +210,6 @@ img {
 
 section {
   // background-color: var(--mat-sys-secondary);
-}
-
-mat-sidenav {
-  height: 100%;
-}
-
-.mat-drawer-container {
-  background-color: var(--mat-color-on-primary-container) !important;
 }
 
 footer {
