@@ -1,30 +1,26 @@
-name: Back-end Build & Deploy Pipeline
-run-name: Back-end Build & Deploy Pipeline
+name: Back-end Build & Upload Artifact
+run-name: Back-end Build & Upload Artifact
 
 on:
   workflow_dispatch:
 
 jobs:
-  build-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v6.0.2
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v5.1.0
-        with:
-          aws-region: us-east-1
-          aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
-
+      # 2️⃣ Setup Java
       - name: Setup Java JDK
         uses: actions/setup-java@v5.1.0
         with:
           java-version: '17'
           distribution: 'oracle'
 
+      # 3️⃣ Build project with Maven (skip tests)
       - name: Build project in Maven
         run: mvn -B package -DskipTests --file hotel-reservation-system/pom.xml
         env:
@@ -36,24 +32,13 @@ jobs:
           STRIPE_PUBLISHABLE: ${{ secrets.STRIPE_PUBLISHABLE }}
           STRIPE_SECRET: ${{ secrets.STRIPE_SECRET }}
 
+      # 4️⃣ List target folder to confirm build
       - name: List built artifacts
         run: ls -l hotel-reservation-system/target
 
-      - name: Package for Elastic Beanstalk
-        run: |
-          mkdir eb-deploy
-          cp hotel-reservation-system/target/*.jar eb-deploy/application.jar
-          cd eb-deploy
-          zip -r ../application.zip *
-        shell: bash
-
-      - name: Deploy to Elastic Beanstalk
-        run: |
-          aws elasticbeanstalk create-application-version \
-            --application-name "TheThreeBroomsticks" \
-            --version-label "ci-${{ github.run_number }}" \
-            --source-bundle S3Bucket="the-three-broomsticks-maw",S3Key="application.zip"
-          
-          aws elasticbeanstalk update-environment \
-            --environment-name "mw-the-three-broomsticks" \
-            --version-label "ci-${{ github.run_number }}"
+      # 5️⃣ Upload JAR as GitHub Actions artifact
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: backend-jar
+          path: hotel-reservation-system/target/*.jar
