@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/transaction")
 @CrossOrigin({ "http://localhost:4200/, http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/",
-                "https://the-three-broomsticks-maw.s3.us-east-1.amazonaws.com" })
+                "https://the-three-broomsticks-maw.s3.us-east-1.amazonaws.com", "d2o1ljsv02tivy.cloudfront.net" })
 public class TransactionController {
 
 }

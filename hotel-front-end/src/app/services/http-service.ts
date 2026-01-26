@@ -9,7 +9,7 @@ import { Room } from '../models/room/room';
   providedIn: 'root',
 })
 export class HttpService {
-  baseURL: string = 'http://mw-the-three-broomsticks.us-east-1.elasticbeanstalk.com/api/';
+  baseURL: string = 'https://d2o1ljsv02tivy.cloudfront.net/api/';
 
   constructor(private http: HttpClient) {}
 
