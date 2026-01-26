@@ -1,11 +1,11 @@
-name: Back-end Build Pipeline
-run-name: Back-end Build Pipeline
+name: Back-end Build & Deploy Pipeline
+run-name: Back-end Build & Deploy Pipeline
 
 on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -39,5 +39,21 @@ jobs:
       - name: List built artifacts
         run: ls -l hotel-reservation-system/target
 
-      - name: Deploy JAR to S3
-        run: aws s3 cp hotel-reservation-system/target/*.jar s3://the-three-broomsticks-maw/
+      - name: Package for Elastic Beanstalk
+        run: |
+          mkdir eb-deploy
+          cp hotel-reservation-system/target/*.jar eb-deploy/application.jar
+          cd eb-deploy
+          zip -r ../application.zip *
+        shell: bash
+
+      - name: Deploy to Elastic Beanstalk
+        run: |
+          aws elasticbeanstalk create-application-version \
+            --application-name "TheThreeBroomsticks" \
+            --version-label "ci-${{ github.run_number }}" \
+            --source-bundle S3Bucket="the-three-broomsticks-maw",S3Key="application.zip"
+          
+          aws elasticbeanstalk update-environment \
+            --environment-name "mw-the-three-broomsticks" \
+            --version-label "ci-${{ github.run_number }}"
