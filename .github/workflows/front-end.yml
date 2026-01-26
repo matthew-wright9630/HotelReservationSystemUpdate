@@ -34,8 +34,6 @@ jobs:
         run: npm run build
 
       - name: Deploy
-        run: aws s3 sync hotel-front-end/dist/hotel-front-end s3://the-three-broomsticks-maw \
-          --cache-control "no-cache, no-store, must-revalidate" \
-          --delete
+        run: aws s3 sync hotel-front-end/dist/hotel-front-end s3://the-three-broomsticks-maw
 
         #https://github.com/matthew-wright9630/HotelReservationSystemUpdate
