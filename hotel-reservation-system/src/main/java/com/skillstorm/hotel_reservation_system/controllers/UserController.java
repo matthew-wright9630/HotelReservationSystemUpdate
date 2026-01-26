@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin({ "http://localhost:4200/", "http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/",
-        "https://dun8rqxzjkgrc.cloudfront.net" })
+        "https://the-three-broomsticks-maw.s3.us-east-1.amazonaws.com/search" })
 public class UserController {
 
     private UserService userService;

@@ -20,7 +20,8 @@ export class HeaderComponent {
   }
 
   login() {
-    window.location.href = 'http://localhost:8080/oauth2/code/google';
+    window.location.href =
+      'http://mw-the-three-broomsticks.us-east-1.elasticbeanstalk.com/oauth2/code/google';
     // If deploying, use the backend's public URL, e.g.:
     // window.location.href = 'https://your-backend-domain/oauth2/authorization/google';
   }
