@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("/api/rooms")
 @CrossOrigin({ "http://localhost:4200/", "http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/",
-        "https://the-three-broomsticks-maw.s3.us-east-1.amazonaws.com/search" })
+        "https://the-three-broomsticks-maw.s3.us-east-1.amazonaws.com" })
 public class RoomController {
 
     private final RoomService roomService;
