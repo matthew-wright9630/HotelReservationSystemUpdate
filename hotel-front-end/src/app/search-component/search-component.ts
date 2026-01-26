@@ -8,9 +8,9 @@ import { RoomDescriptionComponent } from '../room-description-component/room-des
 import { debounceTime, distinctUntilChanged, Observable } from 'rxjs';
 import { DataPassService } from '../services/data-pass-service';
 import { FrontPageComponent } from '../front-page-component/front-page-component';
-import { User } from '../models/user/user';
 import { RoomSearchInterface } from '../interfaces/room-search-interface';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 /**
  * The Homepage component is the first page that guests will see when entering the website. It pulls a list of rooms from
@@ -28,13 +28,17 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
     BookingNavbarComponent,
     FrontPageComponent,
     ReactiveFormsModule,
+    MatSidenavModule,
   ],
   templateUrl: './search-component.html',
   styleUrl: './search-component.css',
 })
 export class SearchComponent {
   // Creates the httpService needed to get API responses from server
-  constructor(private httpService: HttpService, private dataPassService: DataPassService) {
+  constructor(
+    private httpService: HttpService,
+    private dataPassService: DataPassService,
+  ) {
     this.addRoomToHomepage();
 
     effect(() => {
@@ -104,7 +108,7 @@ export class SearchComponent {
               newRoom.price,
               newRoom.isAvailable,
               newRoom.roomColor,
-              newRoom.deleted
+              newRoom.deleted,
             );
           }) || [];
       this.roomDescriptions.set(mappedRooms);

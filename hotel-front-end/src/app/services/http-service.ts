@@ -9,7 +9,7 @@ import { Room } from '../models/room/room';
   providedIn: 'root',
 })
 export class HttpService {
-  baseURL: string = '/api/';
+  baseURL: string = 'http://localhost:8080/api/';
 
   constructor(private http: HttpClient) {}
 

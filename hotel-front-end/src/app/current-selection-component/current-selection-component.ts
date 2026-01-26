@@ -14,11 +14,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { combineLatest } from 'rxjs';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-current-selection-component',
   standalone: true,
-  imports: [CommonModule, RoomDescriptionComponent, ReactiveFormsModule],
+  imports: [CommonModule, RoomDescriptionComponent, ReactiveFormsModule, MatCardModule],
   templateUrl: './current-selection-component.html',
   styleUrl: './current-selection-component.css',
 })
@@ -33,13 +34,13 @@ export class CurrentSelectionComponent {
   constructor(
     private fb: FormBuilder,
     private httpService: HttpService,
-    private dataPass: DataPassService
+    private dataPass: DataPassService,
   ) {
     this.bookingSelectionForm = this.fb.group({
       roomDescriptionControl: this.fb.array(
         Array(this.dataPass.totalNumberOfRooms())
           .fill(null)
-          .map(() => new FormControl<RoomDescription | null>(null))
+          .map(() => new FormControl<RoomDescription | null>(null)),
       ),
     });
     this.dataPass.currentRoomSelectionObservable.subscribe((selection) => {
@@ -57,7 +58,7 @@ export class CurrentSelectionComponent {
         roomDescriptionControl: this.fb.array(
           Array(this.dataPass.totalNumberOfRooms())
             .fill(null)
-            .map(() => new FormControl<RoomDescription | null>(null))
+            .map(() => new FormControl<RoomDescription | null>(null)),
         ),
       });
     });

@@ -37,9 +37,11 @@ public class SecurityConfig {
                                                 .permitAll()
                                                 // Request matcher for AWS ELB Health Check
                                                 .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
-                                                
-                                                .requestMatchers(HttpMethod.GET, "/login/oauth2/code/google").permitAll()
-                                                .requestMatchers(HttpMethod.GET, "/api/login/oauth2/code/google").permitAll()
+
+                                                .requestMatchers(HttpMethod.GET, "/login/oauth2/code/google")
+                                                .permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/api/login/oauth2/code/google")
+                                                .permitAll()
                                                 // Request matchers for the /rooms endpoint.
                                                 .requestMatchers(HttpMethod.GET, "/api/rooms").permitAll()
                                                 .requestMatchers(HttpMethod.GET, "/api/rooms/availability").permitAll()
@@ -82,7 +84,7 @@ public class SecurityConfig {
                                                 .userInfoEndpoint(userInfo -> userInfo
                                                                 .oidcUserService(customUserLoginService))
                                                 .successHandler(customLoginSuccessHandler)
-                                                .failureUrl("http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/login/error"))
+                                                .failureUrl("http://localhost:4200/login/error"))
 
                                 .logout(logout -> logout
                                                 .logoutUrl("/logout")
@@ -90,7 +92,7 @@ public class SecurityConfig {
                                                 .clearAuthentication(true)
                                                 .deleteCookies("JSESSIONID")
                                                 .logoutSuccessUrl(
-                                                                "http://thethreebroomsticks.s3-website-us-east-1.amazonaws.com/"))
+                                                                "http://localhost:4200/home"))
 
                                 .exceptionHandling(exceptions -> exceptions
                                                 // Handles unauthorized requests and returns a 401 error
