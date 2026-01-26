@@ -34,6 +34,6 @@ jobs:
         run: npm run build
 
       - name: Deploy
-        run: aws s3 sync hotel-front-end/dist/hotel-front-end s3://the-three-broomsticks-maw
+        run: aws s3 sync hotel-front-end/dist/hotel-front-end/browser/ s3://the-three-broomsticks-maw/ --delete
 
         #https://github.com/matthew-wright9630/HotelReservationSystemUpdate
