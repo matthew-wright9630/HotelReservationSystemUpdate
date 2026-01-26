@@ -36,9 +36,9 @@ jobs:
       - name: List built artifacts
         run: ls -l hotel-reservation-system/target
 
-      # 5️⃣ Upload JAR as GitHub Actions artifact
+      # 5️⃣ Upload JAR as GitHub Actions artifact (latest syntax)
       - name: Upload JAR artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: backend-jar
           path: hotel-reservation-system/target/*.jar
