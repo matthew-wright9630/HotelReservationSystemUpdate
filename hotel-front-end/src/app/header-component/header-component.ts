@@ -20,7 +20,7 @@ export class HeaderComponent {
   }
 
   login() {
-    window.location.href = 'https://d2o1ljsv02tivy.cloudfront.net/oauth2/authorization/google';
+    window.location.href = '/oauth2/authorization/google';
     // If deploying, use the backend's public URL, e.g.:
     // window.location.href = 'https://your-backend-domain/oauth2/authorization/google';
   }
