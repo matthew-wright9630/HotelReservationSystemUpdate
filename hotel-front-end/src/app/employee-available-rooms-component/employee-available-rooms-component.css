@@ -18,3 +18,34 @@ div:hover {
   background-color: inherit !important;
   cursor: default !important;
 }
+
+/* Calendar color adjustments for primary-container background */
+section,
+full-calendar,
+.fc {
+  background: var(--mat-sys-secondary, #ffdcbc) !important;
+}
+
+.fc-toolbar,
+.fc-day-header,
+.fc-daygrid-day-number,
+.fc-event {
+  color: var(--mat-color-on-primary-container, #2c1700) !important;
+}
+
+h3 {
+  color: var(--mat-color-on-primary-container, #2c1700);
+}
+
+/* Calendar color adjustments for secondary/secondary-container background */
+full-calendar,
+.fc {
+  background: var(--mat-sys-secondary, #f6dfc9) !important;
+}
+
+.fc-toolbar,
+.fc-day-header,
+.fc-daygrid-day-number,
+.fc-event {
+  color: var(--mat-color-on-secondary-container, #25190c) !important;
+}

@@ -9,15 +9,36 @@
 }
 
 .portal__btns {
-  width: 10vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  gap: 2vh;
 }
 
-button {
-  background-color: #966f33;
-  background-image: none;
-  width: 80%;
+.portal__btns button {
+  color: var(--mat-sys-on-primary) !important;
+  background: var(--mat-sys-primary);
+  font-size: 1.1vw;
+  border-radius: 0.3vw;
+  padding: 0.7em 1.2em;
+  transition: background 0.2s;
+}
+
+.portal__btns button:hover {
+  background: var(--mat-sys-secondary, #f6dfc9);
+}
+
+.employee-portal-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 2vw 1vw;
+  width: 25%;
+  background: var(--mat-sys-primary-container);
+}
+
+.employee-portal-container {
+  min-height: 70vh;
 }
