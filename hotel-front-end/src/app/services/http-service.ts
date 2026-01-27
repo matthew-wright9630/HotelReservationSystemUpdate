@@ -4,6 +4,7 @@ import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { User } from '../models/user/user';
 import { RoomDescription } from '../models/room-description/room-description';
 import { Room } from '../models/room/room';
+import { Booking } from '../models/booking/booking';
 
 @Injectable({
   providedIn: 'root',
@@ -215,6 +216,58 @@ export class HttpService {
       .put<User>(this.baseURL + 'users/reactivate/' + id, {
         observe: 'response',
         withCredentials: true,
+      })
+      .pipe(map((response) => response));
+  }
+
+  // Sends a request to the server to get all bookings connected to a guest where the checkin date is the current date.
+  getAllBookings(): Observable<Booking[] | null> {
+    return this.http
+      .get<Booking[]>(this.baseURL + 'booking', {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
+  }
+
+  checkinGuest(email: string, employee: User): Observable<Booking | null> {
+    let params = new HttpParams();
+    params = params.append('email', email);
+    return this.http
+      .put<Booking>(this.baseURL + 'booking/checkin', employee, {
+        observe: 'response',
+        params: params,
+      })
+      .pipe(map((response) => response.body));
+  }
+
+  updateBooking(booking: Booking): Observable<Booking | null> {
+    console.log(booking);
+    return this.http
+      .put<Booking>(this.baseURL + 'booking/' + booking.id, booking, {
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
+  }
+
+  // Sends the delete request of the specified booking to the server.
+  deactivateBooking(id: number): Observable<Booking | null> {
+    console.log(id);
+    return this.http
+      .delete<Booking>(this.baseURL + 'booking/' + id, {
+        observe: 'response',
+        // withCredentials: true,
+      })
+      .pipe(map((response) => response.body));
+  }
+
+  // Sends the reactivation request of the specified booking to the server.
+  reactivateBooking(id: number): Observable<Booking | null> {
+    return this.http
+      .put<Booking>(this.baseURL + 'booking/reactivate/' + id, {
+        observe: 'response',
+        // withCredentials: true,
       })
       .pipe(map((response) => response));
   }

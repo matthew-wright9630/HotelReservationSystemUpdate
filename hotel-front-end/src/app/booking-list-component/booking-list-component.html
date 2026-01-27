@@ -1,0 +1,419 @@
+<section>
+  <div class="bookings">
+    <div class="bookings__header">
+      <h2>Manage Reservations</h2>
+    </div>
+    <input
+      class="bookings__search"
+      type="text"
+      placeholder="Search reservations..."
+      [formControl]="searchControl"
+    />
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Name on Booking</th>
+        <th>Email</th>
+        <th>Check-in Date</th>
+        <th>Check-out Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (booking of filteredBookings(); track booking.id) {
+        <tr>
+          <td>{{ booking?.name }}</td>
+          <td class="table__element">{{ booking?.email }}</td>
+          <td>{{ booking?.checkInDate }}</td>
+          <td>{{ booking?.checkOutDate }}</td>
+          <td class="td__btn">
+            <div class="btn__div">
+              <button (click)="openEditModal(booking)">Edit</button>
+              <button (click)="openDeleteConfirmation(booking)">Cancel</button>
+              <button (click)="openViewModal(booking)">See all Details</button>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <div class="modal" *ngIf="showEditModal">
+    <div class="modal__content edit_booking__container">
+      @if (selectedBooking()) {
+        @if (selectedBooking()!.id > 0) {
+          <p class="modal__p">What changes need to be made to the booking?</p>
+        } @else {
+          <p class="modal__p">Please add the following details</p>
+        }
+      }
+      <form [formGroup]="editBookingForm" (ngSubmit)="openConfirmationModal()">
+        <h3>{{ selectedBooking()?.name }}</h3>
+        <div class="edit-form">
+          <div class="edit-form__div">
+            <label for="nameControl">Name* </label>
+            <div class="edit-form__input-div">
+              <input
+                type="text"
+                id="nameControl"
+                name="nameControl"
+                formControlName="nameControl"
+              />
+              <div
+                class="error"
+                *ngIf="
+                  editBookingForm.get('nameControl')?.touched &&
+                  editBookingForm.get('nameControl')?.invalid
+                "
+              >
+                <span
+                  class="edit__error-span"
+                  *ngIf="editBookingForm.get('nameControl')?.errors?.['required']"
+                >
+                  Name is required.
+                </span>
+                <span
+                  class="edit__error-span"
+                  *ngIf="editBookingForm.get('nameControl')?.errors?.['minlength']"
+                >
+                  Must be at least 2 characters.
+                </span>
+                <span
+                  class="edit__error-span"
+                  *ngIf="editBookingForm.get('nameControl')?.errors?.['maxlength']"
+                >
+                  Cannot exceed 255 characters.
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="edit-form__div">
+            <label for="emailControl">Email* </label>
+            <div class="edit-form__input-div">
+              <input
+                type="text"
+                id="emailControl"
+                name="emailControl"
+                formControlName="emailControl"
+              />
+              <div
+                class="error"
+                *ngIf="
+                  editBookingForm.get('emailControl')?.touched &&
+                  editBookingForm.get('emailControl')?.invalid
+                "
+              >
+                <span
+                  class="edit__error-span"
+                  *ngIf="editBookingForm.get('emailControl')?.errors?.['required']"
+                >
+                  Email is required.
+                </span>
+                <span
+                  class="edit__error-span"
+                  *ngIf="editBookingForm.get('emailControl')?.errors?.['minlength']"
+                >
+                  Must be at least 2 characters.
+                </span>
+                <span
+                  class="edit__error-span"
+                  *ngIf="editBookingForm.get('emailControl')?.errors?.['maxlength']"
+                >
+                  Cannot exceed 255 characters.
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="edit-form__div">
+            <label for="checkInDateControl">Check-in Date* </label>
+            <div class="edit-form__input-div">
+              <input
+                type="date"
+                id="checkInDateControl"
+                name="checkInDateControl"
+                formControlName="checkInDateControl"
+              />
+              <div
+                class="error"
+                *ngIf="
+                  editBookingForm.get('checkInDateControl')?.touched &&
+                  editBookingForm.get('checkInDateControl')?.invalid
+                "
+              >
+                <span
+                  class="edit__error-span"
+                  *ngIf="editBookingForm.get('checkInDateControl')?.errors?.['required']"
+                >
+                  Check-in Date is required.
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="edit-form__div">
+            <label for="checkOutDateControl">Check-out Date* </label>
+            <div class="edit-form__input-div">
+              <input
+                type="date"
+                id="checkOutDateControl"
+                name="checkOutDateControl"
+                formControlName="checkOutDateControl"
+              />
+              <div
+                class="error"
+                *ngIf="
+                  editBookingForm.get('checkOutDateControl')?.touched &&
+                  editBookingForm.get('checkOutDateControl')?.invalid
+                "
+              >
+                <span
+                  class="edit__error-span"
+                  *ngIf="editBookingForm.get('checkOutDateControl')?.errors?.['required']"
+                >
+                  Check-out Date is required.
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="edit-form__div">
+            <label for="phoneNumberControl">Phone Number* </label>
+            <div class="edit-form__input-div">
+              <input
+                type="number"
+                id="phoneNumberControl"
+                name="phoneNumberControl"
+                formControlName="phoneNumberControl"
+                pattern="[0-9]{10}"
+              />
+              <div
+                class="error"
+                *ngIf="
+                  editBookingForm.get('phoneNumberControl')?.touched &&
+                  editBookingForm.get('phoneNumberControl')?.invalid
+                "
+              >
+                <span
+                  class="edit__error-span"
+                  *ngIf="editBookingForm.get('phoneNumberControl')?.errors?.['required']"
+                >
+                  Phone number is required.
+                </span>
+                <span
+                  class="edit__error-span"
+                  *ngIf="editBookingForm.get('phoneNumberControl')?.errors?.['pattern']"
+                >
+                  Please input your phone number in a 10 digit format (1234567890).
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="edit-form__div">
+            <label for="priceControl">Price* </label>
+            <div class="edit-form__input-div">
+              <input
+                type="number"
+                id="priceControl"
+                name="priceControl"
+                formControlName="priceControl"
+              />
+              <div
+                class="error"
+                *ngIf="
+                  editBookingForm.get('priceControl')?.touched &&
+                  editBookingForm.get('priceControl')?.invalid
+                "
+              >
+                <span
+                  class="edit__error-span"
+                  *ngIf="editBookingForm.get('priceControl')?.errors?.['required']"
+                >
+                  Price is required.
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="edit-form__div">
+            <label for="numberOfGuestsControl">numberOfGuests* </label>
+            <div class="edit-form__input-div">
+              <input
+                type="number"
+                id="numberOfGuestsControl"
+                name="numberOfGuestsControl"
+                formControlName="numberOfGuestsControl"
+              />
+              <div
+                class="error"
+                *ngIf="
+                  editBookingForm.get('numberOfGuestsControl')?.touched &&
+                  editBookingForm.get('numberOfGuestsControl')?.invalid
+                "
+              >
+                <span
+                  class="edit__error-span"
+                  *ngIf="editBookingForm.get('numberOfGuestsControl')?.errors?.['required']"
+                >
+                  Number of guests is required.
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="edit-form__btn-div">
+            <button [disabled]="editBookingForm.invalid" type="submit" class="modal__btn">
+              Submit
+            </button>
+            <button type="button" class="modal__btn" (click)="cancelEditModal()">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal" *ngIf="showViewModal">
+    <div class="modal__content view_booking__container">
+      @if (selectedBooking()) {
+        @if (selectedBooking()!.id > 0) {
+          <p class="modal__p">Reservation details</p>
+        }
+      }
+      <form [formGroup]="viewBookingForm">
+        <div class="view-form">
+          <div class="view-form__div">
+            <label for="nameControl">Name </label>
+            <div class="view-form__input-div">
+              <input
+                type="text"
+                id="nameControl"
+                name="nameControl"
+                formControlName="nameControl"
+              />
+            </div>
+          </div>
+          <div class="view-form__div">
+            <label for="emailControl">Email </label>
+            <div class="view-form__input-div">
+              <input
+                type="text"
+                id="emailControl"
+                name="emailControl"
+                formControlName="emailControl"
+              />
+            </div>
+          </div>
+          <div class="view-form__div">
+            <label for="checkInDateControl">Check-in Date </label>
+            <div class="view-form__input-div">
+              <input
+                type="date"
+                id="checkInDateControl"
+                name="checkInDateControl"
+                formControlName="checkInDateControl"
+              />
+            </div>
+          </div>
+          <div class="view-form__div">
+            <label for="checkOutDateControl">Check-out Date </label>
+            <div class="view-form__input-div">
+              <input
+                type="date"
+                id="checkOutDateControl"
+                name="checkOutDateControl"
+                formControlName="checkOutDateControl"
+              />
+            </div>
+          </div>
+          <div class="view-form__div">
+            <label for="phoneNumberControl">Phone Number </label>
+            <div class="view-form__input-div">
+              <input
+                type="number"
+                id="phoneNumberControl"
+                name="phoneNumberControl"
+                formControlName="phoneNumberControl"
+                pattern="[0-9]{10}"
+              />
+            </div>
+          </div>
+          <div class="view-form__div">
+            <label for="priceControl">Price </label>
+            <div class="view-form__input-div">
+              <input
+                type="number"
+                id="priceControl"
+                name="priceControl"
+                formControlName="priceControl"
+              />
+            </div>
+          </div>
+          <div class="view-form__div">
+            <label for="numberOfGuestsControl">numberOfGuests </label>
+            <div class="view-form__input-div">
+              <input
+                type="number"
+                id="numberOfGuestsControl"
+                name="numberOfGuestsControl"
+                formControlName="numberOfGuestsControl"
+              />
+            </div>
+          </div>
+          <div class="view-form__div">
+            <label for="employeeUserNameControl">Name of employee who checked in</label>
+            <div class="view-form__input-div">
+              <input
+                type="number"
+                id="employeeUserNameControl"
+                name="employeeUserNameControl"
+                formControlName="employeeUserNameControl"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="view-form__div">
+          @if (selectedRoomDescription() !== null) {
+            <app-room-description-component
+              [room]="selectedRoomDescription()"
+              [showErrors]="false"
+            ></app-room-description-component>
+          }
+        </div>
+        <div class="view-form__btn-div">
+          <button type="button" class="modal__btn" (click)="cancelViewModal()">close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal" *ngIf="showDeleteConfirmation">
+    <div class="modal__content">
+      <p class="modal__p">Are you sure you want to cancel this reservation?</p>
+      <div class="modal__buttons">
+        <button class="modal__btn" (click)="confirmDeleteSubmit()">Yes</button>
+        <button type="button" class="modal__btn" (click)="cancelDelete()">No</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal" *ngIf="showReactivationConfirmation">
+    <div class="modal__content">
+      <p class="modal__p">Are you sure you want to reactivate this reservation?</p>
+      <div class="modal__buttons">
+        <button class="modal__btn" (click)="confirmReactivationSubmit()">Yes</button>
+        <button type="button" class="modal__btn" (click)="cancelReactivation()">No</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal" *ngIf="showConfirmation">
+    <div class="modal__content">
+      <p class="modal__p">Are you sure you want to submit the changes?</p>
+      <div class="modal__buttons">
+        <button class="modal__btn" (click)="confirmSubmit()">Yes</button>
+        <button type="button" class="modal__btn" (click)="cancelSubmit()">No</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal" *ngIf="showSuccessMessage">
+    <div class="modal__content">
+      <p class="modal__p">Success! You can close this window.</p>
+      <div class="modal__buttons">
+        <button (click)="closeSuccessModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</section>

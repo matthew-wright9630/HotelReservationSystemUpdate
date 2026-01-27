@@ -1,0 +1,66 @@
+<!-- <section>
+  <h3>Which guest is checking in?</h3>
+  <form [formGroup]="checkinForm" (ngSubmit)="lookupReservation()">
+    <div class="checkin__container">
+      <div class="checkin__name-container">
+        <div class="checkin__input-div">
+          <label for="firstNameControl">First Name: </label>
+          <input
+            type="text"
+            id="firstNameControl"
+            name="firstNameControl"
+            formControlName="firstNameControl"
+          />
+        </div>
+        <div class="checkin__input-div">
+          <label for="lastNameControl">Last Name: </label>
+          <input
+            type="text"
+            id="lastNameControl"
+            name="lastNameControl"
+            formControlName="lastNameControl"
+          />
+        </div>
+      </div>
+      <p class="checkin__p">Or:</p>
+      <div class="checkin__name-container">
+        <div class="checkin__input-div email__control">
+          <label for="emailControl">Email: </label>
+          <input type="text" id="emailControl" name="emailControl" formControlName="emailControl" />
+        </div>
+      </div>
+    </div>
+    <div class="checkin__btn-div">
+      <button>Lookup Reservation</button>
+    </div>
+  </form>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Guest Email</th>
+        <th>Check-in Date</th>
+        <th>Check-out Date</th>
+        <th>Room Type</th>
+        <th>Room Colors</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (booking of foundBookings(); track booking.id) {
+        <tr>
+          <td>{{ booking?.name }}</td>
+          <td class="table__element">{{ booking?.email }}</td>
+          <td>{{ booking?.checkInDate }}</td>
+          <td>{{ booking?.checkOutDate }}</td>
+          <td>{{ booking?.room?.roomDescription?.bedStyle }}</td>
+          <td>{{ booking?.room?.roomDescription?.roomColor }}</td>
+          <td>
+            <button class="table__btn" (click)="checkinGuest()">Check in?</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section> -->

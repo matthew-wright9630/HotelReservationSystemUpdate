@@ -1,23 +1,32 @@
 <section class="portal">
   <div class="portal__components">
-    @switch (selectionElement) { @case ('available-rooms') {
-    <app-employee-available-rooms-component />
-    } @case ('edit-rooms') {
-    <app-employee-edit-room-component />
-    } @case ('manage-users') {
-    <app-manage-users-component />
-    } }
+    @switch (selectionElement) {
+      @case ('available-rooms') {
+        <app-employee-available-rooms-component />
+      }
+      @case ('check-in') {
+        <app-checkin-guests-component />
+      }
+      @case ('reservations') {
+        <app-booking-list-component />
+      }
+      @case ('edit-rooms') {
+        <app-employee-edit-room-component />
+      }
+      @case ('manage-users') {
+        <app-manage-users-component />
+      }
+    }
   </div>
   <div class="portal__btns">
     <button (click)="displayAvailableRoomsComponent()">Available Rooms</button>
-    <button (click)="displayEditRoomsComponent()">Check guests in/out</button>
-    <button (click)="displayEditRoomsComponent()">Reservation History</button>
-    <button (click)="displayEditRoomsComponent()">Book a guest</button>
+    <button (click)="displayCheckinGuestComponent()">Check in/out</button>
+    <button (click)="displayReservationComponent()">Reservations</button>
+    <button (click)="displaySearchComponent()">Book guest</button>
 
     @if (this.userRole() === 'admin') {
-
-    <button (click)="displayEditRoomsComponent()">Edit Rooms</button>
-    <button (click)="displayManageUsersComponent()">Manage Users</button>
+      <button (click)="displayEditRoomsComponent()">Edit Rooms</button>
+      <button (click)="displayManageUsersComponent()">Manage Users</button>
     }
   </div>
 </section>
