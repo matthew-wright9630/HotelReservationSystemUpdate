@@ -1,10 +1,10 @@
 <mat-card
   appearance="outlined"
   [class.selected-description]="room.id === selectedRoomId"
-  class="mat-bg-secondary mat-text-on-secondary"
+  class="mat-bg-secondary-container mat-text-on-secondary-container"
 >
   <mat-card-header>
-    <mat-card-title class="mat-text-on-secondary"
+    <mat-card-title class="mat-text-on-secondary-container"
       >Description of room: {{ room.bedStyle }}, {{ room.roomColor }} style</mat-card-title
     >
   </mat-card-header>
@@ -31,7 +31,7 @@
         <mat-card-actions align="end">
           <button
             mat-raised-button
-            class="mat-bg-secondary-container"
+            class="mat-bg-secondary-container-container"
             [disabled]="!room.isAvailable"
             (click)="addRoomToBooking(room)"
           >

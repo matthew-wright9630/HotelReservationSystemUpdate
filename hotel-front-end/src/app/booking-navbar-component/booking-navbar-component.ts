@@ -70,7 +70,6 @@ export class BookingNavbarComponent {
 
   // to be connected with rooms component
   submitfindRoomsForm(): void {
-    console.log(this.findRoomsForm.value);
     this.dataPass.bookingSearchSignal.set(this.findRoomsForm.value);
     this.router.navigate(['/search']);
   }

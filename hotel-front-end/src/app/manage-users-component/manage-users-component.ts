@@ -121,7 +121,6 @@ export class ManageUsersComponent {
     if (query === null) {
       this.filteredUsers.set(this.users());
     }
-    console.log(query);
     const queryString = query.toLowerCase();
 
     const userList = this.users();
@@ -309,7 +308,6 @@ export class ManageUsersComponent {
   }
 
   editUserFormSubmit(): void {
-    console.log(this.editType());
     if (this.editType() === 'edit') {
       // If the submission type is edit, hits this endpoint and updates the user
       if (this.selectedUser() && this.selectedUser().id != null) {

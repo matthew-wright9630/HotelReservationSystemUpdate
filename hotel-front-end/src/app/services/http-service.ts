@@ -34,7 +34,6 @@ export class HttpService {
 
   // Sends the post request to create a new room description to the server.
   createRoom(room: Room): Observable<Room | null> {
-    console.log(room);
     return this.http
       .post<Room>(this.baseURL + 'rooms', room, {
         observe: 'response',
@@ -45,7 +44,6 @@ export class HttpService {
 
   // Sends the put request to update a room description to the server.
   updateRoom(room: Room): Observable<Room | null> {
-    console.log(room);
     return this.http
       .put<Room>(this.baseURL + 'rooms/' + room.id, room, {
         observe: 'response',
@@ -240,7 +238,6 @@ export class HttpService {
   }
 
   updateBooking(booking: Booking): Observable<Booking | null> {
-    console.log(booking);
     return this.http
       .put<Booking>(this.baseURL + 'booking/' + booking.id, booking, {
         observe: 'response',
@@ -251,7 +248,6 @@ export class HttpService {
 
   // Sends the delete request of the specified booking to the server.
   deactivateBooking(id: number): Observable<Booking | null> {
-    console.log(id);
     return this.http
       .delete<Booking>(this.baseURL + 'booking/' + id, {
         observe: 'response',

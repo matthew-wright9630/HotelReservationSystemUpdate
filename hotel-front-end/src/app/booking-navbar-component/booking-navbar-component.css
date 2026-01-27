@@ -162,6 +162,17 @@ label {
     font-size 0.2s,
     padding 0.2s;
 }
+
+button:hover {
+  cursor: pointer;
+  background-color: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+}
+
+p {
+  color: var(--mat-color-on-secondary-container);
+}
+
 @media (max-width: 900px) {
   h6 {
     font-size: 2vw;

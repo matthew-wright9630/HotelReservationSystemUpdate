@@ -93,7 +93,6 @@ export class SearchComponent {
   // Used to add all rooms to the homepage
   addRoomToHomepage() {
     this.httpService.getAllRoomDescriptions().subscribe((data) => {
-      console.log(data?.body);
       const mappedRooms =
         data.body
           ?.filter((newRoom) => !newRoom.deleted)
@@ -143,7 +142,6 @@ export class SearchComponent {
     const roomDescriptionList = this.roomDescriptions();
 
     const results = roomDescriptionList.filter((roomDescription) => {
-      console.log(query, roomDescription.bedStyle.toLowerCase().includes(queryString));
       // Checks the search against each of the fields and returns any rows that match the provided query.
       return (
         roomDescription.bedStyle.toLowerCase().includes(queryString) ||
