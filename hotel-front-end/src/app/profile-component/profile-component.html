@@ -10,10 +10,12 @@
       <label for="firstNameControl">First Name* </label>
       <div class="profile-form__input-div">
         <input
+          matInput
           type="text"
           id="firstNameControl"
           name="firstNameControl"
           formControlName="firstNameControl"
+          class="mat-bg-primary mat-text-on-primary"
         />
         <div
           class="error"
@@ -47,10 +49,12 @@
       <label for="middleNameControl">Middle Name </label>
       <div class="profile-form__input-div">
         <input
+          matInput
           type="text"
           id="middleNameControl"
           name="middleNameControl"
           formControlName="middleNameControl"
+          class="mat-bg-primary mat-text-on-primary"
         />
       </div>
       <div
@@ -72,10 +76,12 @@
       <label for="lastNameControl">Last Name* </label>
       <div class="profile-form__input-div">
         <input
+          matInput
           type="text"
           id="lastNameControl"
           name="lastNameControl"
           formControlName="lastNameControl"
+          class="mat-bg-primary mat-text-on-primary"
         />
         <div
           class="error"
@@ -109,10 +115,12 @@
       <label for="homeAddressControl">Address* </label>
       <div class="profile-form__input-div">
         <input
+          matInput
           type="text"
           id="homeAddressControl"
           name="homeAddressControl"
           formControlName="homeAddressControl"
+          class="mat-bg-primary mat-text-on-primary"
         />
         <div
           class="error"
@@ -146,11 +154,13 @@
       <label for="phoneNumberControl">Phone Number* </label>
       <div class="profile-form__input-div">
         <input
+          matInput
           type="number"
           id="phoneNumberControl"
           name="phoneNumberControl"
           formControlName="phoneNumberControl"
           pattern="[0-9]{10}"
+          class="mat-bg-primary mat-text-on-primary"
         />
         <div
           class="error"
@@ -174,7 +184,15 @@
         </div>
       </div>
     </div>
-    <button [disabled]="profileForm.invalid" type="submit">Submit</button>
+    <button
+      mat-raised-button
+      color="primary"
+      class="mat-text-on-primary"
+      [disabled]="profileForm.invalid"
+      type="submit"
+    >
+      Submit
+    </button>
   </form>
   <div class="modal" *ngIf="showConfirmation">
     <div class="modal__content">

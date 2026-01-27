@@ -40,7 +40,7 @@ export class DataPassService {
   loggedInUser = signal<User | null>(null);
 
   // Creates a signal for the total number of rooms to book.
-  totalNumberOfRooms = signal<number>(4);
+  totalNumberOfRooms = signal<number>(1);
 
   // Creates a signal for the eployeeEditRoomForm that records what the room to be updated is.
   editRoomSignal = signal<Room | null>(null);

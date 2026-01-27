@@ -190,6 +190,7 @@ mat-sidenav {
 }
 
 .mat-mdc-raised-button:not([color]) {
+  border-radius: 0.3vw;
   background-color: var(--mat-color-primary);
   color: var(--mat-color-on-primary);
   transition:
@@ -302,7 +303,7 @@ footer {
 }
 
 button {
-  border-radius: 8px;
+  border-radius: 0.3vw;
   transition: 0.2s linear background;
 }
 
