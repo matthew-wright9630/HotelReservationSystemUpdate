@@ -6,22 +6,20 @@
   @for (slot of roomSlots(); track $index; let i = $index) {
     <mat-card
       appearance="outlined"
-      class="selection__div mat-bg-secondary mat-text-on-secondary"
+      class="selection__div mat-bg-secondary-container mat-text-on-secondary-container"
       [class.selected-room]="i === selectedSlotIndex()"
     >
       <mat-card-header>
-        <mat-card-title class="select-room__h3-div mat-text-on-primary">
+        <mat-card-title class="select-room__h3-div mat-text-on-secondary-container">
           Room {{ i + 1 }}
         </mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <div class="select-room__div">
-          @if (roomsArray()[i] > 0) {
+          @if (roomsArray()[i] >= 0) {
             <h4>Number of Guests: {{ roomsArray()[i] }}</h4>
           }
-          <button (click)="pickSlot(i)" class="select__btn mat-bg-secondary-container">
-            Select Room
-          </button>
+          <button mat-raised-button (click)="pickSlot(i)" class="select__btn">Select Room</button>
         </div>
         <div *ngIf="roomDescriptionArray.at(i).value !== null; else selectRoom">
           <p>

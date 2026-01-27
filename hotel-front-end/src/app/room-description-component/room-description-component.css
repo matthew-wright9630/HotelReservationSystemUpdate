@@ -1,16 +1,16 @@
 .selected-description {
-  background-color: var(--mat-sys-tertiary);
-  color: var(--mat-sys-on-tertiary);
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
 }
 
 .selected-description * {
-  background-color: var(--mat-sys-tertiary);
-  color: var(--mat-sys-on-tertiary);
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
 }
 
 .selected-description button {
-  background-color: var(--mat-sys-tertiary-container);
-  color: var(--mat-sys-on-tertiary-container);
+  background-color: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
 }
 
 div {

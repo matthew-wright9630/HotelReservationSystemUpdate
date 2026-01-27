@@ -1,26 +1,26 @@
 <!-- Allow users to specify when they want to visit and their room requirements -->
 
 <div class="booking-navbar__container">
-  <mat-card appearance="outlined" class="mat-bg-secondary booking-navbar__card">
+  <mat-card appearance="outlined" class="mat-bg-secondary-container booking-navbar__card">
     <mat-card-header>
-      <mat-card-title class="mat-text-on-secondary">Start a new booking</mat-card-title>
+      <mat-card-title class="mat-text-on-secondary-container">Start a new booking</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form [formGroup]="findRoomsForm" class="mat-bg-secondary booking-navbar__form">
+      <form [formGroup]="findRoomsForm" class="mat-bg-secondary-container booking-navbar__form">
         <div class="date-fields-vertical">
           <div class="input-group">
-            <label for="checkInDate" class="mat-text-on-secondary">Check-In Date</label>
+            <label for="checkInDate" class="mat-text-on-secondary-container">Check-In Date</label>
             <input
               type="date"
               id="checkInDate"
               name="checkInDate"
               [attr.min]="todayString"
               formControlName="checkInDate"
-              class="mat-text-on-secondary"
+              class="mat-text-on-secondary-container"
             />
           </div>
           <div class="input-group">
-            <label for="checkOutDate" class="mat-text-on-secondary">Check-Out Date</label>
+            <label for="checkOutDate" class="mat-text-on-secondary-container">Check-Out Date</label>
             <input
               type="date"
               id="checkOutDate"
@@ -28,23 +28,23 @@
               [attr.min]="tomorrowString"
               [attr.default]="tomorrowString"
               formControlName="checkOutDate"
-              class="mat-text-on-secondary"
+              class="mat-text-on-secondary-container"
             />
           </div>
         </div>
         <div id="roomsSelector" formArrayName="rooms">
-          <h6 class="mat-text-on-secondary">Number of Guests</h6>
+          <h6 class="mat-text-on-secondary-container">Number of Guests</h6>
           <!-- Dynamically add number of rooms to search for -->
           <div class="number-of-rooms">
             @for (room of rooms.controls; track $index) {
               <div class="roomInputDiv">
-                <label class="mat-text-on-secondary" [for]="'room-' + $index"
+                <label class="mat-text-on-secondary-container" [for]="'room-' + $index"
                   >Room {{ $index + 1 }}</label
                 >
                 <input
                   type="number"
                   [id]="'room-' + $index"
-                  class="numGuestsInputs mat-text-on-secondary"
+                  class="numGuestsInputs mat-text-on-secondary-container"
                   [attr.min]="1"
                   [attr.max]="4"
                   [attr.default]="1"
@@ -60,14 +60,14 @@
                 value="Add Room"
                 (click)="addRoom()"
                 id="addRoomButton"
-                class="mat-bg-secondary-container"
+                class="mat-bg-secondary mat-text-on-secondary"
               >
                 Add Room
               </button>
               <button
                 id="removeRoomButton"
                 (click)="removeRoom(rooms.length - 1)"
-                class="mat-bg-secondary-container text-on-secondary"
+                class="mat-bg-secondary mat-text-on-secondary"
               >
                 Remove Room
               </button>
@@ -76,7 +76,7 @@
             <button
               id="removeRoomButtonAlt"
               (click)="removeRoom(rooms.length - 1)"
-              class="mat-bg-secondary-container text-on-secondary"
+              class="mat-bg-secondary mat-text-on-secondary"
             >
               Remove Room
             </button>
@@ -84,21 +84,25 @@
           }
         </div>
         <div id="checkboxesDiv">
-          <label for="adaAccessible" id="adaAccessibleLabel" class="mat-text-on-secondary">
+          <label
+            for="adaAccessible"
+            id="adaAccessibleLabel"
+            class="mat-text-on-secondary-container"
+          >
             <input
               type="checkbox"
               id="adaAccessible"
               formControlName="adaAccessible"
-              class="mat-text-on-secondary"
+              class="mat-text-on-secondary-container"
             />
             ADA-Accessible
           </label>
-          <label for="nonSmoking" id="nonSmokingLabel" class="mat-text-on-secondary">
+          <label for="nonSmoking" id="nonSmokingLabel" class="mat-text-on-secondary-container">
             <input
               type="checkbox"
               id="nonSmoking"
               formControlName="nonSmoking"
-              class="mat-text-on-secondary"
+              class="mat-text-on-secondary-container"
             />
             Non-Smoking
           </label>
@@ -111,7 +115,7 @@
         (click)="submitfindRoomsForm()"
         [disabled]="findRoomsForm.invalid"
         id="submitSearchButton"
-        class="mat-bg-secondary-container"
+        class="mat-bg-primary mat-text-on-primary"
       >
         Search
       </button>

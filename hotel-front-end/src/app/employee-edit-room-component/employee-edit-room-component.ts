@@ -143,7 +143,6 @@ export class EmployeeEditRoomComponent {
       this.resetRoomDescriptionFields();
     });
     this.editRoomForm.get('selectedRoom')?.valueChanges.subscribe((selectedOption) => {
-      console.log(selectedOption);
       this.onRoomChange(selectedOption.roomDescription);
     });
   }
@@ -256,7 +255,6 @@ export class EmployeeEditRoomComponent {
       switch (this.editTypeRadio?.value) {
         case 'Create': {
           const room: Room = new Room(0, this.selectedRoomDescription?.value, false);
-          console.log(room);
           this.httpService.createRoom(room).subscribe({
             next: (res) => {
               this.openSuccessModal();

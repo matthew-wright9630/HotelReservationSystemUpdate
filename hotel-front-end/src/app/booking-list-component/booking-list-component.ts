@@ -103,7 +103,6 @@ export class BookingListComponent {
     this.httpService.getAllBookings().subscribe({
       next: (data) => {
         if (data) {
-          console.log(data);
           this.foundBookings.set(data);
           this.filteredBookings.set(data);
         }
@@ -187,7 +186,6 @@ export class BookingListComponent {
 
   openEditModal(booking: Booking | null) {
     this.selectedBooking.set(booking);
-    console.log(booking);
     if (booking)
       this.editBookingForm.patchValue({
         nameControl: booking.name,
@@ -207,7 +205,6 @@ export class BookingListComponent {
 
   openViewModal(booking: Booking | null) {
     this.selectedBooking.set(booking);
-    console.log(booking);
     if (booking) {
       this.selectedRoomDescription.set(booking?.room.roomDescription);
       this.viewBookingForm.patchValue({
@@ -253,7 +250,6 @@ export class BookingListComponent {
   showDeleteConfirmation = false;
 
   openDeleteConfirmation(booking: Booking) {
-    console.log(this.filteredBookings, booking);
     this.showDeleteConfirmation = true;
     this.editType.set('delete');
     this.selectedBooking.set(booking);
@@ -316,7 +312,6 @@ export class BookingListComponent {
   }
 
   editBookingFormSubmit(): void {
-    console.log(this.editType(), this.selectedBooking());
     if (this.editType() === 'edit') {
       // If the submission type is edit, hits this endpoint and updates the booking
       if (this.selectedBooking() && this.selectedBooking()?.id != null) {
@@ -352,7 +347,6 @@ export class BookingListComponent {
         if (booking !== null && booking !== undefined) {
           this.httpService.deactivateBooking(booking.id).subscribe({
             next: () => {
-              console.log('Booking deactivated');
               this.findAllBookings();
             },
             error: (err) => console.error(err),
