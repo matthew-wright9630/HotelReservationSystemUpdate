@@ -145,7 +145,7 @@ export class HttpService {
 
   // Logs out the user.
   logout(): void {
-    window.location.href = '/api/logout';
+    window.location.href = 'https://d2o1ljsv02tivy.cloudfront.net/logout';
   }
 
   // Gets all users from the server
