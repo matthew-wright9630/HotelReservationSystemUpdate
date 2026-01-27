@@ -88,12 +88,13 @@ public class SecurityConfig {
                                                 .failureUrl("https://d2o1ljsv02tivy.cloudfront.net/login/error"))
 
                                 .logout(logout -> logout
-                                                .logoutUrl("/logout")
+                                                .logoutUrl("/api/logout")
                                                 .invalidateHttpSession(true)
                                                 .clearAuthentication(true)
                                                 .deleteCookies("JSESSIONID")
-                                                .logoutSuccessUrl(
-                                                                "https://d2o1ljsv02tivy.cloudfront.net/home"))
+                                                .logoutSuccessHandler((req, res, auth) -> {
+                                                        res.setStatus(200);
+                                                }))
 
                                 .exceptionHandling(exceptions -> exceptions
                                                 // Handles unauthorized requests and returns a 401 error
