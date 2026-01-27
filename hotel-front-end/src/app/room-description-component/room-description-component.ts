@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { RoomDescription } from '../models/room-description/room-description';
 import { DataPassService } from '../services/data-pass-service';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
 
 /**
  * The RoomDescription Component accepts a Room datatype and displays it as a card on the website.
@@ -12,13 +11,15 @@ import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-room-description-component',
   standalone: true,
-  imports: [CommonModule, MatCardModule],
+  imports: [CommonModule],
   templateUrl: './room-description-component.html',
   styleUrl: './room-description-component.css',
 })
 export class RoomDescriptionComponent {
   @Input() room!: RoomDescription;
   @Input() slotIndex!: number;
+  @Input() showErrors = true;
+  @Input() showSelect = true;
 
   constructor(private dataPass: DataPassService) {}
 

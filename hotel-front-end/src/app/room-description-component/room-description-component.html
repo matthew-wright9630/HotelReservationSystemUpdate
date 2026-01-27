@@ -1,23 +1,15 @@
-<mat-card
-  appearance="outlined"
-  [class.selected-description]="room.id === selectedRoomId"
-  class="mat-bg-secondary mat-text-on-secondary"
->
-  <mat-card-header>
-    <mat-card-title class="mat-text-on-secondary"
-      >Description of room: {{ room.bedStyle }}, {{ room.roomColor }} style</mat-card-title
-    >
-  </mat-card-header>
-  <mat-card-content align="center">
-    <img [src]="room.roomImage" [alt]="room.bedStyle + ', ' + room.roomColor + ' style'" />
-    <div class="room__amenities">
-      @if (room.adaCompliant) {
-        <img src="../../assets/ada_compliant.png" alt="Ada compliant" />
-      }
-      @if (!room.isSmoking) {
-        <img src="../../assets/non-smoking.png" alt="Ada compliant" />
-      }
-    </div>
+<section [class.selected-description]="room.id === selectedRoomId">
+  <h3>Description of room: {{ room.bedStyle }}, {{ room.roomColor }} style</h3>
+  <img [src]="room.roomImage" [alt]="room.bedStyle + ', ' + room.roomColor + ' style'" />
+  <div class="room__amenities">
+    @if (room.adaCompliant) {
+      <img src="../../assets/ada_compliant.png" alt="Ada compliant" />
+    }
+    @if (!room.isSmoking) {
+      <img src="../../assets/non-smoking.png" alt="Ada compliant" />
+    }
+  </div>
+  @if (showErrors) {
     <div>
       @if (room.isAvailable) {
         <p>max occupancy of {{ room.maxOccupancy }} guests</p>
@@ -28,17 +20,10 @@
       }
       <div>
         <p>${{ room.price }}</p>
-        <mat-card-actions align="end">
-          <button
-            mat-raised-button
-            class="mat-bg-secondary-container"
-            [disabled]="!room.isAvailable"
-            (click)="addRoomToBooking(room)"
-          >
-            Select
-          </button>
-        </mat-card-actions>
+        <button [disabled]="!room.isAvailable" (click)="addRoomToBooking(room)">Select</button>
       </div>
     </div>
-  </mat-card-content>
-</mat-card>
+  } @else {
+    <p>Price: ${{ room.price }}</p>
+  }
+</section>
