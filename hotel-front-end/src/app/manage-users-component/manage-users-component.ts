@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-manage-users-component',
@@ -51,6 +52,7 @@ export class ManageUsersComponent {
 
   // variables needed for the search feature.
   searchControl = new FormControl('');
+  search = toSignal(this.searchControl.valueChanges, { initialValue: '' });
   filteredUsers = signal<User[]>([]);
 
   @ViewChild('editUserDialog') editUserDialog!: TemplateRef<any>;
@@ -108,7 +110,6 @@ export class ManageUsersComponent {
   }
 
   ngOnInit() {
-    // On init, subscribes to the change of searchControl and applies a filter based on its value.
     this.searchControl.valueChanges
       .pipe(debounceTime(200), distinctUntilChanged())
       .subscribe((value) => this.applyFilter(value ?? ''));
@@ -120,6 +121,7 @@ export class ManageUsersComponent {
     if (query === null) {
       this.filteredUsers.set(this.users());
     }
+    console.log(query);
     const queryString = query.toLowerCase();
 
     const userList = this.users();
@@ -142,7 +144,7 @@ export class ManageUsersComponent {
         user.lastName.toLowerCase().includes(queryString) ||
         user.email.toLowerCase().includes(queryString) ||
         user.role.toLowerCase().includes(queryString) ||
-        user.address.toLowerCase().includes(queryString) ||
+        user.address?.toLowerCase().includes(queryString) ||
         phone.includes(queryString) ||
         phone.endsWith(queryString)
       );
