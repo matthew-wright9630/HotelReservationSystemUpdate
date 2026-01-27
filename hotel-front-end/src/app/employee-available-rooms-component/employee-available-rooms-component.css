@@ -3,10 +3,6 @@ full-calendar {
   margin: 1vw 1vh;
 }
 
-button {
-  background-image: none;
-}
-
 @import '~@fullcalendar/daygrid/main.css';
 @import '~@fullcalendar/core/main.css';
 

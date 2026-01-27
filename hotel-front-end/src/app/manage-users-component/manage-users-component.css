@@ -128,6 +128,10 @@ option {
   flex-wrap: wrap;
 }
 
+.form__field .mat-form-field-label {
+  transform: translateY(4px); /* push down 4px */
+}
+
 label {
   width: 5vw;
 }

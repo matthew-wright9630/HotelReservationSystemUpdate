@@ -130,14 +130,14 @@
           <div class="edit-form">
             <mat-form-field appearance="outline" class="edit-form__div" style="width: 100%">
               <mat-label>Role</mat-label>
-              <mat-select formControlName="roleControl">
-                <mat-option *ngFor="let option of roleOptions" [value]="option">{{
+              <mat-select align="center" formControlName="roleControl">
+                <mat-option align="center" *ngFor="let option of roleOptions" [value]="option">{{
                   option
                 }}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline" class="edit-form__div" style="width: 100%">
-              <mat-label>First Name*</mat-label>
+              <mat-label>First Name</mat-label>
               <input matInput formControlName="firstNameControl" />
               <mat-error *ngIf="editUserForm.get('firstNameControl')?.hasError('required')"
                 >First name is required.</mat-error
@@ -157,7 +157,7 @@
               >
             </mat-form-field>
             <mat-form-field appearance="outline" class="edit-form__div" style="width: 100%">
-              <mat-label>Last Name*</mat-label>
+              <mat-label>Last Name</mat-label>
               <input matInput formControlName="lastNameControl" />
               <mat-error *ngIf="editUserForm.get('lastNameControl')?.hasError('required')"
                 >Last name is required.</mat-error
@@ -170,7 +170,7 @@
               >
             </mat-form-field>
             <mat-form-field appearance="outline" class="edit-form__div" style="width: 100%">
-              <mat-label>Email*</mat-label>
+              <mat-label>Email</mat-label>
               <input matInput formControlName="emailControl" />
               <mat-error *ngIf="editUserForm.get('emailControl')?.hasError('required')"
                 >Email is required.</mat-error
@@ -183,7 +183,7 @@
               >
             </mat-form-field>
             <mat-form-field appearance="outline" class="edit-form__div" style="width: 100%">
-              <mat-label>Address*</mat-label>
+              <mat-label>Address</mat-label>
               <input matInput formControlName="homeAddressControl" />
               <mat-error *ngIf="editUserForm.get('homeAddressControl')?.hasError('required')"
                 >Address is required.</mat-error
@@ -196,7 +196,7 @@
               >
             </mat-form-field>
             <mat-form-field appearance="outline" class="edit-form__div" style="width: 100%">
-              <mat-label>Phone Number*</mat-label>
+              <mat-label>Phone Number</mat-label>
               <input
                 matInput
                 formControlName="phoneNumberControl"

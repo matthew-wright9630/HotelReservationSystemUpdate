@@ -94,11 +94,6 @@ table th {
   gap: 0.5vh;
 }
 
-button {
-  background-image: none;
-  background-color: #966f33;
-}
-
 .edit-form {
   display: flex;
   flex-direction: column;
