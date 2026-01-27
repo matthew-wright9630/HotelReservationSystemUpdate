@@ -183,9 +183,11 @@
     }
     @if (editTypeRadio?.value !== '' && roomRadio?.value !== 0) {
       <!-- Submit button. -->
-      <button [disabled]="editRoomForm.invalid" type="submit">
-        {{ editTypeRadio?.value }} {{ roomRadio?.value }}
-      </button>
+      <div class="edit-form__edit-btn">
+        <button [disabled]="editRoomForm.invalid" type="submit">
+          {{ editTypeRadio?.value }} {{ roomRadio?.value }}
+        </button>
+      </div>
     }
   </form>
   <div class="modal" *ngIf="showConfirmation">

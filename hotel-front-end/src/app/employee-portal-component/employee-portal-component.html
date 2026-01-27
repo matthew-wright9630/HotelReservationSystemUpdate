@@ -5,6 +5,7 @@
         mat-raised-button
         (click)="displayAvailableRoomsComponent()"
         [class.selected-room]="selectionElement === 'available-rooms'"
+        [disabled]="selectionElement === 'available-rooms'"
       >
         Available Rooms
       </button>
@@ -14,6 +15,7 @@
         mat-raised-button
         (click)="displaySearchComponent()"
         [class.selected-room]="selectionElement === 'book-guest'"
+        [disabled]="selectionElement === 'book-guest'"
       >
         Book guest
       </button>
@@ -22,6 +24,7 @@
         mat-raised-button
         (click)="displayEditRoomsComponent()"
         [class.selected-room]="selectionElement === 'edit-rooms'"
+        [disabled]="selectionElement === 'edit-rooms'"
       >
         Edit Rooms
       </button>
@@ -29,6 +32,7 @@
         mat-raised-button
         (click)="displayManageUsersComponent()"
         [class.selected-room]="selectionElement === 'manage-users'"
+        [disabled]="selectionElement === 'manage-users'"
       >
         Manage Users
       </button>

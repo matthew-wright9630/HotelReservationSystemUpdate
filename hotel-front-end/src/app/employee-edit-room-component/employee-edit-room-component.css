@@ -10,6 +10,8 @@ form {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-left: 10vw;
+  margin-right: 5vw;
 }
 
 p {
@@ -44,11 +46,17 @@ option {
   text-align: center;
 }
 
+.edit-form__edit-btn {
+  display: flex;
+  justify-content: center;
+}
+
 button {
   background-color: var(--mat-sys-primary);
   color: var(--mat-sys-on-primary);
   background-image: none;
   height: 5vh;
+  width: 45%;
 }
 
 .modal__p {
