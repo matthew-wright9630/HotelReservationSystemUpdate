@@ -88,7 +88,7 @@ public class SecurityConfig {
                                                 .failureUrl("https://d2o1ljsv02tivy.cloudfront.net/login/error"))
 
                                 .logout(logout -> logout
-                                                .logoutUrl("/api/logout")
+                                                .logoutUrl("/logout")
                                                 .invalidateHttpSession(true)
                                                 .clearAuthentication(true)
                                                 .deleteCookies("JSESSIONID")
