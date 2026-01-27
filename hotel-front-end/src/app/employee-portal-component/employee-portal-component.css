@@ -5,19 +5,46 @@
 }
 
 .portal__components {
-  width: 85%;
+  width: 100%;
 }
 
 .portal__btns {
-  width: 10vw;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
+  height: 100%;
+  gap: 2vh;
 }
 
-button {
-  background-color: #966f33;
-  background-image: none;
-  width: 80%;
+.portal__btns button {
+  /* color: var(--mat-sys-on-secondary) !important; */
+  /* background: var(--mat-sys-secondary); */
+  font-size: 1.1vw;
+  border-radius: 0.3vw;
+  padding: 0.7em 1.2em;
+  /* transition: linear 0.2s background; */
+}
+
+.portal__btns button:hover {
+  background-color: var(--mat-sys-primary) !important;
+  color: var(--mat-sys-on-primary) !important;
+}
+
+.selected-room {
+  background-color: var(--mat-sys-primary) !important;
+  color: var(--mat-sys-on-primary) !important;
+}
+
+.employee-portal-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 2vw 1vw;
+  width: 15%;
+  background: var(--mat-sys-primary-container);
+}
+
+.employee-portal-container {
+  min-height: 70vh;
 }

@@ -182,15 +182,33 @@ article {
 
 mat-sidenav {
   height: 100%;
+  z-index: 100;
 }
 
 .mat-drawer-container {
   background-color: var(--mat-color-on-primary-container) !important;
 }
 
+.mat-mdc-raised-button:not([color]) {
+  background-color: var(--mat-color-primary);
+  color: var(--mat-color-on-primary);
+  transition:
+    background-color 0.2s linear,
+    color 0.2s linear;
+}
+
+.mat-mdc-raised-button:not([color]) .mdc-button__ripple {
+  background-color: transparent !important;
+}
+
 .mat-mdc-raised-button:not([color]):hover {
   background-color: var(--mat-color-tertiary-container);
   color: var(--mat-color-on-tertiary);
+}
+
+.text-on-secondary-container {
+  --mdc-outlined-text-field-input-text-color: var(--md-sys-color-on-secondary-container);
+  --mdc-filled-text-field-input-text-color: var(--md-sys-color-on-secondary-container);
 }
 
 img {
@@ -199,17 +217,84 @@ img {
   border-radius: 8px;
 }
 
-// article:hover {
-//   background-color: var(--mat-sys-primary-container);
-// }
+.fc-daygrid {
+  border: 2px solid var(--mat-sys-secondary) !important;
+  border-radius: 4px;
+}
+
+.fc-col-header-cell {
+  border-right: 1px solid var(--mat-sys-secondary) !important;
+}
+
+/* Month grid borders */
+.fc-daygrid-day {
+  border: 1px solid var(--mat-sys-secondary) !important;
+}
+
+/* Grid header (day names) */
+.fc-col-header-cell {
+  border-bottom: 1px solid var(--mat-sys-secondary) !important;
+}
 
 .dark article {
   background-color: var(--mat-sys-primary);
   color: var(--mat-color-on-primary);
 }
 
-section {
-  // background-color: var(--mat-sys-secondary);
+.my-dialog-content {
+  position: fixed;
+  top: 0;
+  left: 25vw;
+  width: 50%;
+  background-color: var(--mat-sys-primary-container);
+  color: var(--mat-sys-primary-container);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.my-dialog-content button {
+  transition:
+    0.2s linear background-color,
+    0.2s linear color;
+}
+
+.my-dialog-content button:hover {
+  color: var(--mat-sys-on-primary);
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+.content-wrapper {
+  background-color: var(--mat-sys-primary-container);
+  padding: 5vh 2vw;
+}
+
+// .mat-dialog-container {
+//   background: var(--mat-sys-primary-container);
+//   color: var(--mat-sys-on-primary-container);
+//   padding: 2rem 2.5rem;
+//   border-radius: 16px;
+//   box-shadow:
+//     0 2px 8px 0 rgba(28, 27, 27, 0.18),
+//     0 0.5px 1.5px 0 rgba(28, 27, 27, 0.12);
+//   min-width: 320px;
+//   max-width: 90vw;
+//   max-height: 90vh;
+//   text-align: center;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 1.5rem;
+//   transition:
+//     box-shadow 0.2s linear,
+//     background 0.2s linear;
+// }
+
+mat-drawer-container,
+mat-drawer {
+  z-index: 1000;
 }
 
 footer {
@@ -218,14 +303,10 @@ footer {
 
 button {
   border-radius: 8px;
-}
-
-button {
-  opacity: 1;
-  transition: 0.2s linear;
+  transition: 0.2s linear background;
 }
 
 button:hover {
   cursor: pointer;
-  opacity: 0.6;
+  // opacity: 0.6;
 }

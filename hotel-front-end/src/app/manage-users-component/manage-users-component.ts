@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ViewChild, TemplateRef } from '@angular/core';
 import { HttpService } from '../services/http-service';
 import { DataPassService } from '../services/data-pass-service';
 import { User } from '../models/user/user';
@@ -11,11 +11,26 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-manage-users-component',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    MatTableModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatSelectModule,
+  ],
   templateUrl: './manage-users-component.html',
   styleUrl: './manage-users-component.css',
 })
@@ -38,10 +53,17 @@ export class ManageUsersComponent {
   searchControl = new FormControl('');
   filteredUsers = signal<User[]>([]);
 
+  @ViewChild('editUserDialog') editUserDialog!: TemplateRef<any>;
+  @ViewChild('deleteConfirmationDialog') deleteConfirmationDialog!: TemplateRef<any>;
+  @ViewChild('reactivationConfirmationDialog') reactivationConfirmationDialog!: TemplateRef<any>;
+  @ViewChild('confirmationDialog') confirmationDialog!: TemplateRef<any>;
+  @ViewChild('successDialog') successDialog!: TemplateRef<any>;
+
   constructor(
     private fb: FormBuilder,
     private httpService: HttpService,
-    private dataPass: DataPassService
+    private dataPass: DataPassService,
+    public dialog: MatDialog,
   ) {
     this.editUserForm = this.fb.group({
       firstNameControl: new FormControl('', [
@@ -156,7 +178,12 @@ export class ManageUsersComponent {
       });
       this.editType.set('create');
     }
-    this.showEditModal = true;
+    this.dialog.open(this.editUserDialog, {
+      width: '100%',
+      panelClass: 'custom-dialog',
+      autoFocus: false,
+      restoreFocus: false,
+    });
   }
 
   // Get methods for all the form fields.
@@ -193,67 +220,73 @@ export class ManageUsersComponent {
     return this.editUserForm.get('emailControl');
   }
 
-  // Methods used to open/close the edit user modal.
-  showEditModal = false;
-
-  dispalyEditModal() {
-    this.showEditModal = false;
-  }
-
-  cancelEditModal() {
-    this.showEditModal = false;
-  }
+  // Methods used to open/close the edit user modal are now handled by MatDialog
 
   // Methods used to open/close the delete confirmation modal
   showDeleteConfirmation = false;
 
   openDeleteConfirmation(user: User) {
-    this.showDeleteConfirmation = true;
     this.editType.set('delete');
     this.selectedUser.set(user);
+    this.dialog.open(this.deleteConfirmationDialog, {
+      width: '400px',
+      panelClass: 'custom-dialog',
+      autoFocus: false,
+      restoreFocus: false,
+    });
   }
 
   confirmDeleteSubmit() {
-    this.showDeleteConfirmation = false;
+    this.dialog.closeAll();
     this.editUserFormSubmit();
   }
 
   cancelDelete() {
-    this.showDeleteConfirmation = false;
+    this.dialog.closeAll();
   }
 
   // Methods used to open/close the reactivation confirmation modal
   showReactivationConfirmation = false;
 
   openReactivationConfirmation(user: User) {
-    this.showReactivationConfirmation = true;
     this.editType.set('reactivate');
     this.selectedUser.set(user);
+    this.dialog.open(this.reactivationConfirmationDialog, {
+      width: '400px',
+      panelClass: 'custom-dialog',
+      autoFocus: false,
+      restoreFocus: false,
+    });
   }
 
   confirmReactivationSubmit() {
-    this.showReactivationConfirmation = false;
+    this.dialog.closeAll();
     this.editUserFormSubmit();
   }
 
   cancelReactivation() {
-    this.showReactivationConfirmation = false;
+    this.dialog.closeAll();
   }
 
   // Methods used to open/close the confirmation modal
   showConfirmation = false;
 
   openConfirmationModal() {
-    this.showConfirmation = true;
+    this.dialog.open(this.confirmationDialog, {
+      width: '400px',
+      panelClass: 'custom-dialog',
+      autoFocus: false,
+      restoreFocus: false,
+    });
   }
 
   confirmSubmit() {
-    this.showConfirmation = false;
+    this.dialog.closeAll();
     this.editUserFormSubmit();
   }
 
   cancelSubmit() {
-    this.showConfirmation = false;
+    this.dialog.closeAll();
   }
 
   // Methods used to open/close the success modal
@@ -261,12 +294,16 @@ export class ManageUsersComponent {
   showSuccessMessage = false;
 
   openSuccessModal() {
-    this.showSuccessMessage = true;
+    this.dialog.open(this.successDialog, {
+      width: '400px',
+      panelClass: 'custom-dialog',
+      autoFocus: false,
+      restoreFocus: false,
+    });
   }
 
   closeSuccessModal() {
-    this.showSuccessMessage = false;
-    this.showEditModal = false;
+    this.dialog.closeAll();
   }
 
   editUserFormSubmit(): void {
@@ -284,7 +321,7 @@ export class ManageUsersComponent {
           this.homeAddressControl?.value,
           this.phoneNumberControl?.value,
           this.selectedUser().onboardingComplete,
-          this.selectedUser().deleted
+          this.selectedUser().deleted,
         );
         this.httpService.updateProfile(updatedUser).subscribe({
           next: () => {
@@ -308,7 +345,7 @@ export class ManageUsersComponent {
           this.homeAddressControl?.value,
           this.phoneNumberControl?.value,
           true,
-          false
+          false,
         );
         this.httpService.createManager(createdUser).subscribe({
           next: () => {
@@ -328,7 +365,7 @@ export class ManageUsersComponent {
           this.homeAddressControl?.value,
           this.phoneNumberControl?.value,
           true,
-          false
+          false,
         );
         this.httpService.createAdmin(createdUser).subscribe({
           next: () => {
@@ -348,7 +385,7 @@ export class ManageUsersComponent {
           this.homeAddressControl?.value,
           this.phoneNumberControl?.value,
           true,
-          false
+          false,
         );
         this.httpService.createGuest(createdUser).subscribe({
           next: () => {

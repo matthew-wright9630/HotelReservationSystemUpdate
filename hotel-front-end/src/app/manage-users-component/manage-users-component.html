@@ -1,324 +1,299 @@
-<section>
+<section class="mat-bg-primary-container">
   <div class="manage-users">
     <div class="manage-users__header">
-      <h2>Manage Users</h2>
-      <button class="manage-users__header__btn" (click)="openEditModal(null)">Add User</button>
+      <h2 class="mat-text-on-primary-container">Manage Users</h2>
+      <button mat-raised-button (click)="openEditModal(null)">Add User</button>
     </div>
-    <input
-      class="manage-users__search"
-      type="text"
-      placeholder="Search users..."
-      [formControl]="searchControl"
-    />
+    <mat-form-field
+      appearance="outline"
+      class="mat-bg-secondary-container mat-text-on-secondary-container"
+      style="width: 100%; max-width: 400px"
+    >
+      <mat-label>Search users...</mat-label>
+      <input matInput [formControl]="searchControl" />
+    </mat-form-field>
   </div>
-  <table>
-    <thead>
-      <tr>
-        <th>First Name</th>
-        <th>Middle Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Role</th>
-        <th>Status</th>
-        <th>Address</th>
-        <th>Phone Number</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      @for (user of filteredUsers(); track user.id) {
-      <tr>
-        <td>{{ user?.firstName }}</td>
-        <td>{{ user?.middleName }}</td>
-        <td>{{ user?.lastName }}</td>
-        <td class="table__element">{{ user?.email }}</td>
-        <td>{{ user?.role }}</td>
-        <td>@if (user?.deleted) { Deactivated } @else { Active }</td>
-        <td class="table__element">{{ user?.address }}</td>
-        <td>{{ user?.phoneNumber }}</td>
-        <td class="td__btn">
-          <div class="btn__div">
-            <button (click)="openEditModal(user)">Edit</button>
-            @if (!user?.deleted) {
-            <button (click)="openDeleteConfirmation(user)">Delete</button>
-            } @else {
-            <button (click)="openReactivationConfirmation(user)">Reactivate</button>
-            }
-          </div>
-        </td>
-      </tr>
-      }
-    </tbody>
+  <table
+    mat-table
+    [dataSource]="filteredUsers()"
+    class="mat-elevation-z1 mat-bg-primary-container mat-text-on-primary-container"
+    style="width: 100%; margin-top: 2vh"
+  >
+    <!-- First Name Column -->
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef>First Name</th>
+      <td mat-cell *matCellDef="let user">{{ user?.firstName }}</td>
+    </ng-container>
+    <!-- Middle Name Column -->
+    <ng-container matColumnDef="middleName">
+      <th mat-header-cell *matHeaderCellDef>Middle Name</th>
+      <td mat-cell *matCellDef="let user">{{ user?.middleName }}</td>
+    </ng-container>
+    <!-- Last Name Column -->
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef>Last Name</th>
+      <td mat-cell *matCellDef="let user">{{ user?.lastName }}</td>
+    </ng-container>
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell class="form__email" *matCellDef="let user">{{ user?.email }}</td>
+    </ng-container>
+    <!-- Role Column -->
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef>Role</th>
+      <td mat-cell *matCellDef="let user">{{ user?.role }}</td>
+    </ng-container>
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let user">
+        @if (user?.deleted) {
+          Deactivated
+        } @else {
+          Active
+        }
+      </td>
+    </ng-container>
+    <!-- Address Column -->
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef>Address</th>
+      <td mat-cell *matCellDef="let user">{{ user?.address }}</td>
+    </ng-container>
+    <!-- Phone Number Column -->
+    <ng-container matColumnDef="phoneNumber">
+      <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+      <td mat-cell *matCellDef="let user">{{ user?.phoneNumber }}</td>
+    </ng-container>
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let user">
+        <div class="btn__div">
+          <button mat-raised-button (click)="openEditModal(user)">Edit</button>
+          @if (!user?.deleted) {
+            <button mat-raised-button (click)="openDeleteConfirmation(user)">Delete</button>
+          } @else {
+            <button mat-raised-button (click)="openReactivationConfirmation(user)">
+              Reactivate
+            </button>
+          }
+        </div>
+      </td>
+    </ng-container>
+    <tr
+      mat-header-row
+      *matHeaderRowDef="[
+        'firstName',
+        'middleName',
+        'lastName',
+        'email',
+        'role',
+        'status',
+        'address',
+        'phoneNumber',
+        'actions',
+      ]"
+    ></tr>
+    <tr
+      mat-row
+      *matRowDef="
+        let row;
+        columns: [
+          'firstName',
+          'middleName',
+          'lastName',
+          'email',
+          'role',
+          'status',
+          'address',
+          'phoneNumber',
+          'actions',
+        ]
+      "
+    ></tr>
   </table>
 
-  <div class="modal edit__modal" *ngIf="showEditModal">
-    <div class="modal__content edit-modal__content">
-      @if (selectedUser()) { @if (selectedUser()!.id > 0) {
-      <p class="modal__p">What changes need to be made to the account?</p>
-      } @else {
-      <p class="modal__p">Please add the following details</p>
-
-      } }
+  <ng-template #editUserDialog *ngIf="selectedUser()">
+    <div class="my-dialog-content">
+      <div mat-dialog-title>
+        <span *ngIf="selectedUser() && selectedUser().id > 0; else addDetails">
+          What changes need to be made to the account?
+        </span>
+        <ng-template #addDetails>
+          <span>Please add the following details</span>
+        </ng-template>
+      </div>
       <form [formGroup]="editUserForm" (ngSubmit)="openConfirmationModal()">
-        <h3>{{ selectedUser()?.firstName }} {{ selectedUser()?.lastName }}</h3>
-        <div class="edit-form">
-          <div class="edit-form__div">
-            <p>Role:</p>
-            <select formControlName="roleControl">
-              @for (option of roleOptions; track $index) {
-              <option [ngValue]="option">{{ option }}</option>
-              }
-            </select>
-          </div>
-          <div class="edit-form__div">
-            <label for="firstNameControl">First Name* </label>
-            <div class="edit-form__input-div">
-              <input
-                type="text"
-                id="firstNameControl"
-                name="firstNameControl"
-                formControlName="firstNameControl"
-              />
-              <div
-                class="error"
-                *ngIf="
-                  editUserForm.get('firstNameControl')?.touched &&
-                  editUserForm.get('firstNameControl')?.invalid
-                "
+        <mat-dialog-content>
+          <h3>{{ selectedUser()?.firstName }} {{ selectedUser()?.lastName }}</h3>
+          <div class="edit-form">
+            <mat-form-field appearance="outline" class="edit-form__div" style="width: 100%">
+              <mat-label>Role</mat-label>
+              <mat-select formControlName="roleControl">
+                <mat-option *ngFor="let option of roleOptions" [value]="option">{{
+                  option
+                }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="edit-form__div" style="width: 100%">
+              <mat-label>First Name*</mat-label>
+              <input matInput formControlName="firstNameControl" />
+              <mat-error *ngIf="editUserForm.get('firstNameControl')?.hasError('required')"
+                >First name is required.</mat-error
               >
-                <span
-                  class="edit__error-span"
-                  *ngIf="editUserForm.get('firstNameControl')?.errors?.['required']"
-                >
-                  First name is required.
-                </span>
-                <span
-                  class="edit__error-span"
-                  *ngIf="editUserForm.get('firstNameControl')?.errors?.['minlength']"
-                >
-                  Must be at least 2 characters.
-                </span>
-                <span
-                  class="edit__error-span"
-                  *ngIf="editUserForm.get('firstNameControl')?.errors?.['maxlength']"
-                >
-                  Cannot exceed 255 characters.
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="edit-form__div">
-            <label for="middleNameControl">Middle Name </label>
-            <div class="edit-form__input-div">
-              <input
-                type="text"
-                id="middleNameControl"
-                name="middleNameControl"
-                formControlName="middleNameControl"
-              />
-            </div>
-            <div
-              class="error"
-              *ngIf="
-                editUserForm.get('middleNameControl')?.touched &&
-                editUserForm.get('middleNameControl')?.invalid
-              "
-            >
-              <span
-                class="edit__error-span"
-                *ngIf="editUserForm.get('middleNameControl')?.errors?.['maxlength']"
+              <mat-error *ngIf="editUserForm.get('firstNameControl')?.hasError('minlength')"
+                >Must be at least 2 characters.</mat-error
               >
-                Cannot exceed 255 characters.
-              </span>
-            </div>
-          </div>
-          <div class="edit-form__div">
-            <label for="lastNameControl">Last Name* </label>
-            <div class="edit-form__input-div">
-              <input
-                type="text"
-                id="lastNameControl"
-                name="lastNameControl"
-                formControlName="lastNameControl"
-              />
-              <div
-                class="error"
-                *ngIf="
-                  editUserForm.get('lastNameControl')?.touched &&
-                  editUserForm.get('lastNameControl')?.invalid
-                "
+              <mat-error *ngIf="editUserForm.get('firstNameControl')?.hasError('maxlength')"
+                >Cannot exceed 255 characters.</mat-error
               >
-                <span
-                  class="edit__error-span"
-                  *ngIf="editUserForm.get('lastNameControl')?.errors?.['required']"
-                >
-                  Last name is required.
-                </span>
-                <span
-                  class="edit__error-span"
-                  *ngIf="editUserForm.get('lastNameControl')?.errors?.['minlength']"
-                >
-                  Must be at least 2 characters.
-                </span>
-                <span
-                  class="edit__error-span"
-                  *ngIf="editUserForm.get('lastNameControl')?.errors?.['maxlength']"
-                >
-                  Cannot exceed 255 characters.
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="edit-form__div">
-            <label for="emailControl">Email* </label>
-            <div class="edit-form__input-div">
-              <input
-                type="text"
-                id="emailControl"
-                name="emailControl"
-                formControlName="emailControl"
-              />
-              <div
-                class="error"
-                *ngIf="
-                  editUserForm.get('emailControl')?.touched &&
-                  editUserForm.get('emailControl')?.invalid
-                "
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="edit-form__div" style="width: 100%">
+              <mat-label>Middle Name</mat-label>
+              <input matInput formControlName="middleNameControl" />
+              <mat-error *ngIf="editUserForm.get('middleNameControl')?.hasError('maxlength')"
+                >Cannot exceed 255 characters.</mat-error
               >
-                <span
-                  class="edit__error-span"
-                  *ngIf="editUserForm.get('emailControl')?.errors?.['required']"
-                >
-                  Email is required.
-                </span>
-                <span
-                  class="edit__error-span"
-                  *ngIf="editUserForm.get('emailControl')?.errors?.['minlength']"
-                >
-                  Must be at least 2 characters.
-                </span>
-                <span
-                  class="edit__error-span"
-                  *ngIf="editUserForm.get('emailControl')?.errors?.['maxlength']"
-                >
-                  Cannot exceed 255 characters.
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="edit-form__div">
-            <label for="homeAddressControl">Address* </label>
-            <div class="edit-form__input-div">
-              <input
-                type="text"
-                id="homeAddressControl"
-                name="homeAddressControl"
-                formControlName="homeAddressControl"
-              />
-              <div
-                class="error"
-                *ngIf="
-                  editUserForm.get('homeAddressControl')?.touched &&
-                  editUserForm.get('homeAddressControl')?.invalid
-                "
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="edit-form__div" style="width: 100%">
+              <mat-label>Last Name*</mat-label>
+              <input matInput formControlName="lastNameControl" />
+              <mat-error *ngIf="editUserForm.get('lastNameControl')?.hasError('required')"
+                >Last name is required.</mat-error
               >
-                <span
-                  class="edit__error-span"
-                  *ngIf="editUserForm.get('homeAddressControl')?.errors?.['required']"
-                >
-                  Address is required.
-                </span>
-                <span
-                  class="edit__error-span"
-                  *ngIf="editUserForm.get('homeAddressControl')?.errors?.['minlength']"
-                >
-                  Must be at least 2 characters.
-                </span>
-                <span
-                  class="edit__error-span"
-                  *ngIf="editUserForm.get('homeAddressControl')?.errors?.['maxlength']"
-                >
-                  Cannot exceed 255 characters.
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="edit-form__div">
-            <label for="phoneNumberControl">Phone Number* </label>
-            <div class="edit-form__input-div">
+              <mat-error *ngIf="editUserForm.get('lastNameControl')?.hasError('minlength')"
+                >Must be at least 2 characters.</mat-error
+              >
+              <mat-error *ngIf="editUserForm.get('lastNameControl')?.hasError('maxlength')"
+                >Cannot exceed 255 characters.</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="edit-form__div" style="width: 100%">
+              <mat-label>Email*</mat-label>
+              <input matInput formControlName="emailControl" />
+              <mat-error *ngIf="editUserForm.get('emailControl')?.hasError('required')"
+                >Email is required.</mat-error
+              >
+              <mat-error *ngIf="editUserForm.get('emailControl')?.hasError('minlength')"
+                >Must be at least 2 characters.</mat-error
+              >
+              <mat-error *ngIf="editUserForm.get('emailControl')?.hasError('maxlength')"
+                >Cannot exceed 255 characters.</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="edit-form__div" style="width: 100%">
+              <mat-label>Address*</mat-label>
+              <input matInput formControlName="homeAddressControl" />
+              <mat-error *ngIf="editUserForm.get('homeAddressControl')?.hasError('required')"
+                >Address is required.</mat-error
+              >
+              <mat-error *ngIf="editUserForm.get('homeAddressControl')?.hasError('minlength')"
+                >Must be at least 2 characters.</mat-error
+              >
+              <mat-error *ngIf="editUserForm.get('homeAddressControl')?.hasError('maxlength')"
+                >Cannot exceed 255 characters.</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="edit-form__div" style="width: 100%">
+              <mat-label>Phone Number*</mat-label>
               <input
-                type="number"
-                id="phoneNumberControl"
-                name="phoneNumberControl"
+                matInput
                 formControlName="phoneNumberControl"
+                type="number"
                 pattern="[0-9]{10}"
               />
-              <div
-                class="error"
-                *ngIf="
-                  editUserForm.get('phoneNumberControl')?.touched &&
-                  editUserForm.get('phoneNumberControl')?.invalid
-                "
+              <mat-error *ngIf="editUserForm.get('phoneNumberControl')?.hasError('required')"
+                >Phone number is required.</mat-error
               >
-                <span
-                  class="edit__error-span"
-                  *ngIf="editUserForm.get('phoneNumberControl')?.errors?.['required']"
-                >
-                  Phone number is required.
-                </span>
-                <span
-                  class="edit__error-span"
-                  *ngIf="editUserForm.get('phoneNumberControl')?.errors?.['pattern']"
-                >
-                  Please input your phone number in a 10 digit format (1234567890).
-                </span>
-              </div>
-            </div>
+              <mat-error *ngIf="editUserForm.get('phoneNumberControl')?.hasError('pattern')"
+                >Please input your phone number in a 10 digit format (1234567890).</mat-error
+              >
+            </mat-form-field>
           </div>
-          <div class="edit-form__btn-div">
-            <button [disabled]="editUserForm.invalid" type="submit" class="modal__btn">
-              Submit
-            </button>
-            <button type="button" class="modal__btn" (click)="cancelEditModal()">Cancel</button>
-          </div>
-        </div>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+          <button mat-button type="button" (click)="$event.preventDefault(); dialog.closeAll()">
+            Cancel
+          </button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="editUserForm.invalid">
+            Submit
+          </button>
+        </mat-dialog-actions>
       </form>
     </div>
-  </div>
-  <div class="modal" *ngIf="showDeleteConfirmation">
-    <div class="modal__content">
-      <p class="modal__p">Are you sure you want to deactivate this user?</p>
-      <div class="modal__buttons">
-        <button class="modal__btn" (click)="confirmDeleteSubmit()">Yes</button>
-        <button type="button" class="modal__btn" (click)="cancelDelete()">No</button>
-      </div>
+  </ng-template>
+  <ng-template #deleteConfirmationDialog>
+    <div class="my-dialog-content">
+      <div mat-dialog-title>Deactivate User</div>
+      <mat-dialog-content>
+        <p class="modal__p">Are you sure you want to deactivate this user?</p>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+        <button
+          mat-raised-button
+          type="button"
+          (click)="$event.preventDefault(); dialog.closeAll()"
+        >
+          No
+        </button>
+        <button mat-raised-button color="warn" type="button" (click)="confirmDeleteSubmit()">
+          Yes
+        </button>
+      </mat-dialog-actions>
     </div>
-  </div>
-  <div class="modal" *ngIf="showReactivationConfirmation">
-    <div class="modal__content">
-      <p class="modal__p">Are you sure you want to reactivate this user?</p>
-      <div class="modal__buttons">
-        <button class="modal__btn" (click)="confirmReactivationSubmit()">Yes</button>
-        <button type="button" class="modal__btn" (click)="cancelReactivation()">No</button>
-      </div>
+  </ng-template>
+  <ng-template #reactivationConfirmationDialog>
+    <div class="my-dialog-content">
+      <div mat-dialog-title>Reactivate User</div>
+      <mat-dialog-content>
+        <p class="modal__p">Are you sure you want to reactivate this user?</p>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+        <!-- secondary action -->
+        <button mat-button (click)="dialog.closeAll()">No</button>
+
+        <!-- primary action -->
+        <button mat-raised-button color="primary" (click)="confirmReactivationSubmit()">Yes</button>
+      </mat-dialog-actions>
     </div>
-  </div>
-  <div class="modal" *ngIf="showConfirmation">
-    <div class="modal__content">
-      <p class="modal__p">Are you sure you want to submit the changes?</p>
-      <div class="modal__buttons">
-        <button class="modal__btn" (click)="confirmSubmit()">Yes</button>
-        <button type="button" class="modal__btn" (click)="cancelSubmit()">No</button>
-      </div>
+  </ng-template>
+  <ng-template #confirmationDialog>
+    <div class="my-dialog-content">
+      <div mat-dialog-title>Confirm Changes</div>
+      <mat-dialog-content>
+        <p class="modal__p">Are you sure you want to submit the changes?</p>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+        <button
+          mat-raised-button
+          type="button"
+          (click)="$event.preventDefault(); dialog.closeAll()"
+        >
+          No
+        </button>
+        <button mat-raised-button color="primary" type="button" (click)="confirmSubmit()">
+          Yes
+        </button>
+      </mat-dialog-actions>
     </div>
-  </div>
-  <div class="modal" *ngIf="showSuccessMessage">
-    <div class="modal__content">
-      <p class="modal__p">Success! You can close this window.</p>
-      <div class="modal__buttons">
-        <button (click)="closeSuccessModal()">Close</button>
-      </div>
+  </ng-template>
+  <ng-template #successDialog>
+    <div class="my-dialog-content">
+      <div mat-dialog-title>Success</div>
+      <mat-dialog-content>
+        <p class="modal__p">Success! You can close this window.</p>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="$event.preventDefault(); dialog.closeAll()"
+        >
+          Close
+        </button>
+      </mat-dialog-actions>
     </div>
-  </div>
+  </ng-template>
 </section>

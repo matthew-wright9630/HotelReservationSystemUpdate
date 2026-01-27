@@ -1,32 +1,63 @@
-<section class="portal">
-  <div class="portal__components">
-    @switch (selectionElement) {
-      @case ('available-rooms') {
-        <app-employee-available-rooms-component />
+<mat-sidenav-container class="employee-portal-container">
+  <mat-sidenav mode="side" opened class="employee-portal-sidebar mat-bg-primary-container">
+    <div class="portal__btns">
+      <button
+        mat-raised-button
+        (click)="displayAvailableRoomsComponent()"
+        [class.selected-room]="selectionElement === 'available-rooms'"
+        [disabled]="selectionElement === 'available-rooms'"
+      >
+        Available Rooms
+      </button>
+      <!-- <button (click)="displayCheckinGuestComponent()">Check in/out</button>
+      <button (click)="displayReservationComponent()">Reservations</button> -->
+      <button
+        mat-raised-button
+        (click)="displaySearchComponent()"
+        [class.selected-room]="selectionElement === 'book-guest'"
+        [disabled]="selectionElement === 'book-guest'"
+      >
+        Book guest
+      </button>
+      <!-- @if (this.userRole() === 'admin') { -->
+      <button
+        mat-raised-button
+        (click)="displayEditRoomsComponent()"
+        [class.selected-room]="selectionElement === 'edit-rooms'"
+        [disabled]="selectionElement === 'edit-rooms'"
+      >
+        Edit Rooms
+      </button>
+      <button
+        mat-raised-button
+        (click)="displayManageUsersComponent()"
+        [class.selected-room]="selectionElement === 'manage-users'"
+        [disabled]="selectionElement === 'manage-users'"
+      >
+        Manage Users
+      </button>
+      <!-- } -->
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content class="employee-portal-content mat-bg-primary-container">
+    <div class="portal__components">
+      @switch (selectionElement) {
+        @case ('available-rooms') {
+          <app-employee-available-rooms-component />
+        }
+        @case ('check-in') {
+          <app-checkin-guests-component />
+        }
+        @case ('reservations') {
+          <app-booking-list-component />
+        }
+        @case ('edit-rooms') {
+          <app-employee-edit-room-component />
+        }
+        @case ('manage-users') {
+          <app-manage-users-component />
+        }
       }
-      @case ('check-in') {
-        <app-checkin-guests-component />
-      }
-      @case ('reservations') {
-        <app-booking-list-component />
-      }
-      @case ('edit-rooms') {
-        <app-employee-edit-room-component />
-      }
-      @case ('manage-users') {
-        <app-manage-users-component />
-      }
-    }
-  </div>
-  <div class="portal__btns">
-    <button (click)="displayAvailableRoomsComponent()">Available Rooms</button>
-    <button (click)="displayCheckinGuestComponent()">Check in/out</button>
-    <button (click)="displayReservationComponent()">Reservations</button>
-    <button (click)="displaySearchComponent()">Book guest</button>
-
-    @if (this.userRole() === 'admin') {
-      <button (click)="displayEditRoomsComponent()">Edit Rooms</button>
-      <button (click)="displayManageUsersComponent()">Manage Users</button>
-    }
-  </div>
-</section>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

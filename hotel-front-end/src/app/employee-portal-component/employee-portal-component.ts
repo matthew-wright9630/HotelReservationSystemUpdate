@@ -1,3 +1,6 @@
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+
 import { Component, signal } from '@angular/core';
 import { EmployeeAvailableRoomsComponent } from '../employee-available-rooms-component/employee-available-rooms-component';
 import { EmployeeEditRoomComponent } from '../employee-edit-room-component/employee-edit-room-component';
@@ -16,6 +19,8 @@ import { BookingListComponent } from '../booking-list-component/booking-list-com
     ManageUsersComponent,
     CheckinGuestsComponent,
     BookingListComponent,
+    MatSidenavModule,
+    MatButtonModule,
   ],
   templateUrl: './employee-portal-component.html',
   styleUrl: './employee-portal-component.css',
@@ -79,9 +84,7 @@ export class EmployeePortalComponent {
       this.router.navigate(['/']);
       return;
     }
-
     this.userRole.set(role);
-
     if (role !== 'manager' && role !== 'admin') {
       this.router.navigate(['/']);
     }

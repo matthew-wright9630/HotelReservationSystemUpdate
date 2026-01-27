@@ -13,10 +13,25 @@ import { HttpService } from '../services/http-service';
 import { RoomDescription } from '../models/room-description/room-description';
 import { Room } from '../models/room/room';
 import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-employee-edit-room-component',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatCheckboxModule,
+  ],
   templateUrl: './employee-edit-room-component.html',
   styleUrl: './employee-edit-room-component.css',
 })
@@ -31,7 +46,10 @@ export class EmployeeEditRoomComponent {
   roomDescriptionOptions: RoomDescription[] = [];
   roomOptions: Room[] = [];
 
-  constructor(private fb: FormBuilder, private httpService: HttpService) {
+  constructor(
+    private fb: FormBuilder,
+    private httpService: HttpService,
+  ) {
     this.editRoomForm = this.fb.group({
       roomRadio: new FormControl('', [Validators.required]),
       editTypeRadio: new FormControl('', [Validators.required]),
@@ -253,7 +271,7 @@ export class EmployeeEditRoomComponent {
           const room: Room = new Room(
             this.selectedRoom?.value.id,
             this.selectedRoomDescription?.value,
-            false
+            false,
           );
           this.httpService.updateRoom(room).subscribe({
             next: (res) => {
@@ -291,7 +309,7 @@ export class EmployeeEditRoomComponent {
             this.priceControl?.value,
             true,
             this.roomColorControl?.value,
-            false
+            false,
           );
           this.httpService.createRoomDescription(roomDescription).subscribe({
             next: (res) => {
@@ -315,7 +333,7 @@ export class EmployeeEditRoomComponent {
             this.priceControl?.value,
             true,
             this.roomColorControl?.value,
-            false
+            false,
           );
           this.httpService.updateRoomDescription(roomDescription).subscribe({
             next: (res) => {
