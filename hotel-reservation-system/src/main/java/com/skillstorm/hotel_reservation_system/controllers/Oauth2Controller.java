@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("/oauth")
+@RequestMapping("/api/oauth")
 public class Oauth2Controller {
 
     private final UserService userService;
