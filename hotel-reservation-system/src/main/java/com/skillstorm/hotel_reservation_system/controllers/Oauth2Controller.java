@@ -39,12 +39,6 @@ public class Oauth2Controller {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User does not exist");
     }
 
-    @GetMapping("/logout")
-    public void logout(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        req.getSession().invalidate();
-        res.setHeader("Clear-Site-Data", "\"cookies\"");
-    }
-
     @GetMapping("/credentials")
     public ResponseEntity<?> getUser(@AuthenticationPrincipal OidcUser principal) {
         if (principal == null) {

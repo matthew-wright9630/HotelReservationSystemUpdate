@@ -12,6 +12,12 @@
   width: 100%;
   margin-bottom: 2vh;
 }
+
+.booking-navbar__form {
+  display: flex;
+  justify-content: space-around;
+}
+
 /* Entire booking navbar level */
 
 .booking-navbar__card {
@@ -104,7 +110,6 @@ h6 {
 .number-of-rooms {
   display: flex;
   flex-direction: column;
-  gap: 2vh;
 }
 
 /* ADA-Accessible and Non-smoking */
@@ -192,4 +197,16 @@ label {
   font-size: 1.6vw;
   border-radius: 0.3vw;
   width: 50%;
+}
+
+.date-fields-vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 200px;
+}
+
+.date-fields-vertical .input-group {
+  display: flex;
+  flex-direction: column;
 }
