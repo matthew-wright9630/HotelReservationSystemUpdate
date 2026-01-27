@@ -92,9 +92,7 @@ public class SecurityConfig {
                                                 .invalidateHttpSession(true)
                                                 .clearAuthentication(true)
                                                 .deleteCookies("JSESSIONID")
-                                                .logoutSuccessHandler((req, res, auth) -> {
-                                                        res.setStatus(200);
-                                                }))
+                                                .logoutSuccessUrl("https://d2o1ljsv02tivy.cloudfront.net/homepage"))
 
                                 .exceptionHandling(exceptions -> exceptions
                                                 // Handles unauthorized requests and returns a 401 error
