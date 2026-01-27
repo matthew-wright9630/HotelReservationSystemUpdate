@@ -5,28 +5,34 @@
 }
 
 .portal__components {
-  width: 85%;
+  width: 100%;
 }
 
 .portal__btns {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   height: 100%;
   gap: 2vh;
 }
 
 .portal__btns button {
-  color: var(--mat-sys-on-primary) !important;
-  background: var(--mat-sys-primary);
+  /* color: var(--mat-sys-on-secondary) !important; */
+  /* background: var(--mat-sys-secondary); */
   font-size: 1.1vw;
   border-radius: 0.3vw;
   padding: 0.7em 1.2em;
-  transition: background 0.2s;
+  transition: linear 0.2s background;
 }
 
 .portal__btns button:hover {
-  background: var(--mat-sys-secondary, #f6dfc9);
+  background-color: var(--mat-sys-primary) !important;
+  color: var(--mat-sys-on-primary) !important;
+}
+
+.selected-room {
+  background-color: var(--mat-sys-primary) !important;
+  color: var(--mat-sys-on-primary) !important;
 }
 
 .employee-portal-sidebar {
@@ -35,7 +41,7 @@
   justify-content: flex-start;
   align-items: stretch;
   padding: 2vw 1vw;
-  width: 25%;
+  width: 15%;
   background: var(--mat-sys-primary-container);
 }
 

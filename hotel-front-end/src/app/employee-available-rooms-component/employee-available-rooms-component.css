@@ -1,5 +1,6 @@
 full-calendar {
-  height: 70vh;
+  height: 80vh;
+  margin: 1vw 1vh;
 }
 
 button {
@@ -23,7 +24,7 @@ div:hover {
 section,
 full-calendar,
 .fc {
-  background: var(--mat-sys-secondary, #ffdcbc) !important;
+  background: var(--mat-sys-primary-container, #ffdcbc) !important;
 }
 
 .fc-toolbar,
@@ -40,7 +41,7 @@ h3 {
 /* Calendar color adjustments for secondary/secondary-container background */
 full-calendar,
 .fc {
-  background: var(--mat-sys-secondary, #f6dfc9) !important;
+  background: var(--mat-sys-primary-container, #f6dfc9) !important;
 }
 
 .fc-toolbar,
@@ -48,4 +49,17 @@ full-calendar,
 .fc-daygrid-day-number,
 .fc-event {
   color: var(--mat-color-on-secondary-container, #25190c) !important;
+}
+
+table {
+  border: 1px solid var(--mat-sys-secondary) !important;
+  border-color: var(--mat-sys-secondary) !important;
+  margin: 1vw 1vh;
+}
+
+.fc,
+.fc table,
+.fc th,
+.fc td {
+  border-color: var(--mat-color-secondary, #6c5b4a) !important;
 }

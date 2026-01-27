@@ -1,218 +1,191 @@
-<section>
-  <form [formGroup]="editRoomForm" (ngSubmit)="openConfirmationModal()">
+<section class="mat-bg-primary-container">
+  <form
+    [formGroup]="editRoomForm"
+    (ngSubmit)="openConfirmationModal()"
+    class="mat-bg-secondary-container mat-elevation-z2"
+  >
     <div class="edit-form__div">
-      <!-- Selector for if a room or room type is being updated -->
-      <p>Are you updating a room or a room type?</p>
-      <div>
-        <label for="roomRadio">Room</label>
-        <input
-          type="radio"
-          id="roomRadio"
-          name="roomRadio"
-          formControlName="roomRadio"
-          value="Room"
-        />
-      </div>
-      <div>
-        <label for="typeRadio">Room Type</label>
-        <input
-          type="radio"
-          id="typeRadio"
-          name="roomRadio"
-          formControlName="roomRadio"
-          value="Room Type"
-        />
-      </div>
+      <p class="mat-text-on-primary-container">Are you updating a room or a room type?</p>
+      <mat-radio-group formControlName="roomRadio" class="mat-text-on-primary-container">
+        <mat-radio-button value="Room">Room</mat-radio-button>
+        <mat-radio-button value="Room Type">Room Type</mat-radio-button>
+      </mat-radio-group>
     </div>
     <div class="edit-form__div">
       <!-- Selector for add, editing, or removing a room or room type -->
       @if (roomRadio?.value !== '') {
-
-      <p>Are you adding, removing, or editing the {{ roomRadio?.value }}?</p>
-      <div>
-        <label for="editTypeRadio">Create</label>
-        <input
-          type="radio"
-          id="addType"
-          name="editTypeRadio"
-          formControlName="editTypeRadio"
-          value="Create"
-        />
-      </div>
-
-      <div>
-        <label for="editTypeRadio">Edit</label>
-        <input
-          type="radio"
-          id="editType"
-          name="editTypeRadio"
-          formControlName="editTypeRadio"
-          value="Edit"
-        />
-      </div>
-      <div>
-        <label for="editTypeRadio">Delete</label>
-        <input
-          type="radio"
-          id="removeType"
-          name="editTypeRadio"
-          formControlName="editTypeRadio"
-          value="Delete"
-        />
-      </div>
+        <p class="mat-text-on-primary-container">
+          Are you adding, removing, or editing the {{ roomRadio?.value }}?
+        </p>
+        <mat-radio-group formControlName="editTypeRadio" class="mat-text-on-primary-container">
+          <mat-radio-button value="Create">Create</mat-radio-button>
+          <mat-radio-button value="Edit">Edit</mat-radio-button>
+          <mat-radio-button value="Delete">Delete</mat-radio-button>
+        </mat-radio-group>
       }
     </div>
 
     <!-- If roomRadio is a Room Type, the Room Description section is displayed and is editable.
      Then if the Room Description is to be edited or deleted, the selectedRoomDescription select field becomes available -->
-    @if (roomRadio?.value === 'Room Type' && editTypeRadio?.value !== '') { @if
-    (editTypeRadio?.value === 'Edit' || editTypeRadio?.value === 'Delete') {
-    <div class="edit-form__div">
-      <p>Select the {{ roomRadio?.value }} to {{ editTypeRadio?.value }}:</p>
-      <select formControlName="selectedRoomDescription">
-        @for (option of roomDescriptionOptions; track option.id) {
-        <option [ngValue]="option">{{ option.bedStyle }}, {{ option.roomColor }}</option>
-        }
-      </select>
-    </div>
-    }
-    <!-- All the fields for creating/editing a Room Description -->
-    <div class="edit-form__div">
-      <label for="bedStyleControl"
-        >How many beds will the room have, and of what style? (King, Queen, twin, etc).
-      </label>
-      <input
-        type="text"
-        id="bedStyleControl"
-        name="bedStyleControl"
-        formControlName="bedStyleControl"
-      />
-    </div>
-    <div class="edit-form__div">
-      <label for="bedStyleControl">Which house colors will the room have? </label>
-      <select formControlName="roomColorControl">
-        @for (option of houseColorOptions; track $index) {
-        <option [ngValue]="option">{{ option }}</option>
-        }
-      </select>
-    </div>
-    <div class="edit-form__div">
-      <label for="adaCompliantControl">Will the room be ADA compliant? </label>
-      <input
-        type="checkbox"
-        id="adaCompliantControl"
-        name="adaCompliantControl"
-        formControlName="adaCompliantControl"
-      />
-    </div>
-    <div class="edit-form__div">
-      <label for="isSmokingControl">Will the room be allow smoking? </label>
-      <input
-        type="checkbox"
-        id="isSmokingControl"
-        name="isSmokingControl"
-        formControlName="isSmokingControl"
-      />
-    </div>
-    <div class="edit-form__div">
-      <label for="maxOccupancyControl">How many people will this room accomodate? Up to 4 </label>
-      <input
-        type="number"
-        id="maxOccupancyControl"
-        name="maxOccupancyControl"
-        formControlName="maxOccupancyControl"
-        [attr.min]="1"
-        [attr.max]="4"
-        min="1"
-        max="4"
-      />
-    </div>
-    <div class="edit-form__div">
-      <label for="priceControl">What is the price of the room (in Galleons)? </label>
-      <input type="number" id="priceControl" name="priceControl" formControlName="priceControl" />
-    </div>
-    <!-- If the roomRadio is a Room, then the following fields are displayed.
+    @if (roomRadio?.value === 'Room Type' && editTypeRadio?.value !== '') {
+      @if (editTypeRadio?.value === 'Edit' || editTypeRadio?.value === 'Delete') {
+        <div class="edit-form__div">
+          <p>Select the {{ roomRadio?.value }} to {{ editTypeRadio?.value }}:</p>
+          <select formControlName="selectedRoomDescription">
+            @for (option of roomDescriptionOptions; track option.id) {
+              <option [ngValue]="option">{{ option.bedStyle }}, {{ option.roomColor }}</option>
+            }
+          </select>
+        </div>
+      }
+      <!-- All the fields for creating/editing a Room Description -->
+      <div class="edit-form__div">
+        <label for="bedStyleControl" class="mat-text-on-secondary-container"
+          >How many beds will the room have, and of what style? (King, Queen, twin, etc).
+        </label>
+        <input
+          type="text"
+          id="bedStyleControl"
+          name="bedStyleControl"
+          formControlName="bedStyleControl"
+        />
+      </div>
+      <div class="edit-form__div">
+        <label for="bedStyleControl">Which house colors will the room have? </label>
+        <select formControlName="roomColorControl">
+          @for (option of houseColorOptions; track $index) {
+            <option [ngValue]="option">{{ option }}</option>
+          }
+        </select>
+      </div>
+      <div class="edit-form__div">
+        <label for="adaCompliantControl">Will the room be ADA compliant? </label>
+        <input
+          type="checkbox"
+          id="adaCompliantControl"
+          name="adaCompliantControl"
+          formControlName="adaCompliantControl"
+        />
+      </div>
+      <div class="edit-form__div">
+        <label for="isSmokingControl">Will the room be allow smoking? </label>
+        <input
+          type="checkbox"
+          id="isSmokingControl"
+          name="isSmokingControl"
+          formControlName="isSmokingControl"
+        />
+      </div>
+      <div class="edit-form__div">
+        <label for="maxOccupancyControl">How many people will this room accomodate? Up to 4 </label>
+        <input
+          type="number"
+          id="maxOccupancyControl"
+          name="maxOccupancyControl"
+          formControlName="maxOccupancyControl"
+          [attr.min]="1"
+          [attr.max]="4"
+          min="1"
+          max="4"
+        />
+      </div>
+      <div class="edit-form__div">
+        <label for="priceControl">What is the price of the room (in Galleons)? </label>
+        <input type="number" id="priceControl" name="priceControl" formControlName="priceControl" />
+      </div>
+      <!-- If the roomRadio is a Room, then the following fields are displayed.
      Then, if the action is to edit or delete, the selectedRoom field is displayed -->
-    } @else { @if (editTypeRadio?.value === 'Edit' || editTypeRadio?.value === 'Delete') {
-    <div class="edit-form__div">
-      <p>Select the {{ roomRadio?.value }} to {{ editTypeRadio?.value }}:</p>
-      <select formControlName="selectedRoom">
-        @for (option of roomOptions; track $index) {
-        <option [ngValue]="option">Room number: {{ option.id }}.</option>
-        }
-      </select>
-    </div>
-    <!-- Prevents the fields from being visible before roomRadio and editTypeRadio are selected -->
-    } @if (roomRadio?.value !== '' && editTypeRadio?.value !== '') {
-    <div class="edit-form__div">
-      <!-- Selects the room description that will be connected to the room. -->
-      <p>What is the room type to be associated with the room?</p>
-      <select formControlName="selectedRoomDescription" [compareWith]="compareDescriptions">
-        @for (option of roomDescriptionOptions; track $index) {
-        <option [ngValue]="option">{{ option.bedStyle }}, {{ option.roomColor }}</option>
-        }
-      </select>
-    </div>
-    <!-- The room description fields. These are disabled because they should not be edited as part of the room creation/edit. -->
-    <div class="edit-form__div">
-      <label for="bedStyleControl"
-        >How many beds will the room have, and of what style? (King, Queen, twin, etc).
-      </label>
-      <input
-        type="text"
-        id="bedStyleControl"
-        name="bedStyleControl"
-        formControlName="bedStyleControl"
-      />
-    </div>
-    <div class="edit-form__div">
-      <label for="bedStyleControl">Which house colors will the room have? </label>
-      <select formControlName="roomColorControl">
-        @for (option of houseColorOptions; track $index) {
-        <option [ngValue]="option">{{ option }}</option>
-        }
-      </select>
-    </div>
-    <div class="edit-form__div">
-      <label for="adaCompliantControl">Will the room be ADA compliant? </label>
-      <input
-        type="checkbox"
-        id="adaCompliantControl"
-        name="adaCompliantControl"
-        formControlName="adaCompliantControl"
-      />
-    </div>
-    <div class="edit-form__div">
-      <label for="isSmokingControl">Will the room be allow smoking? </label>
-      <input
-        type="checkbox"
-        id="isSmokingControl"
-        name="isSmokingControl"
-        formControlName="isSmokingControl"
-      />
-    </div>
-    <div class="edit-form__div">
-      <label for="maxOccupancyControl">How many people will this room accomodate? Up to 4 </label>
-      <input
-        type="number"
-        id="maxOccupancyControl"
-        name="maxOccupancyControl"
-        formControlName="maxOccupancyControl"
-        [attr.min]="1"
-        [attr.max]="4"
-        min="1"
-        max="4"
-      />
-    </div>
-    <div class="edit-form__div">
-      <label for="priceControl">What is the price of the room (in Galleons)? </label>
-      <input type="number" id="priceControl" name="priceControl" formControlName="priceControl" />
-    </div>
-    } } @if(editTypeRadio?.value !== '' && roomRadio?.value !== 0) {
-    <!-- Submit button. -->
-    <button [disabled]="editRoomForm.invalid" type="submit">
-      {{ editTypeRadio?.value }} {{ roomRadio?.value }}
-    </button>
+    } @else {
+      @if (editTypeRadio?.value === 'Edit' || editTypeRadio?.value === 'Delete') {
+        <div class="edit-form__div">
+          <p>Select the {{ roomRadio?.value }} to {{ editTypeRadio?.value }}:</p>
+          <select formControlName="selectedRoom">
+            @for (option of roomOptions; track $index) {
+              <option [ngValue]="option">Room number: {{ option.id }}.</option>
+            }
+          </select>
+        </div>
+        <!-- Prevents the fields from being visible before roomRadio and editTypeRadio are selected -->
+      }
+      @if (roomRadio?.value !== '' && editTypeRadio?.value !== '') {
+        <div class="edit-form__div">
+          <!-- Selects the room description that will be connected to the room. -->
+          <p>What is the room type to be associated with the room?</p>
+          <select formControlName="selectedRoomDescription" [compareWith]="compareDescriptions">
+            @for (option of roomDescriptionOptions; track $index) {
+              <option [ngValue]="option">{{ option.bedStyle }}, {{ option.roomColor }}</option>
+            }
+          </select>
+        </div>
+        <!-- The room description fields. These are disabled because they should not be edited as part of the room creation/edit. -->
+        <div class="edit-form__div">
+          <label for="bedStyleControl"
+            >How many beds will the room have, and of what style? (King, Queen, twin, etc).
+          </label>
+          <input
+            type="text"
+            id="bedStyleControl"
+            name="bedStyleControl"
+            formControlName="bedStyleControl"
+          />
+        </div>
+        <div class="edit-form__div">
+          <label for="bedStyleControl">Which house colors will the room have? </label>
+          <select formControlName="roomColorControl">
+            @for (option of houseColorOptions; track $index) {
+              <option [ngValue]="option">{{ option }}</option>
+            }
+          </select>
+        </div>
+        <div class="edit-form__div">
+          <label for="adaCompliantControl">Will the room be ADA compliant? </label>
+          <input
+            type="checkbox"
+            id="adaCompliantControl"
+            name="adaCompliantControl"
+            formControlName="adaCompliantControl"
+          />
+        </div>
+        <div class="edit-form__div">
+          <label for="isSmokingControl">Will the room be allow smoking? </label>
+          <input
+            type="checkbox"
+            id="isSmokingControl"
+            name="isSmokingControl"
+            formControlName="isSmokingControl"
+          />
+        </div>
+        <div class="edit-form__div">
+          <label for="maxOccupancyControl"
+            >How many people will this room accomodate? Up to 4
+          </label>
+          <input
+            type="number"
+            id="maxOccupancyControl"
+            name="maxOccupancyControl"
+            formControlName="maxOccupancyControl"
+            [attr.min]="1"
+            [attr.max]="4"
+            min="1"
+            max="4"
+          />
+        </div>
+        <div class="edit-form__div">
+          <label for="priceControl">What is the price of the room (in Galleons)? </label>
+          <input
+            type="number"
+            id="priceControl"
+            name="priceControl"
+            formControlName="priceControl"
+          />
+        </div>
+      }
+    }
+    @if (editTypeRadio?.value !== '' && roomRadio?.value !== 0) {
+      <!-- Submit button. -->
+      <button [disabled]="editRoomForm.invalid" type="submit">
+        {{ editTypeRadio?.value }} {{ roomRadio?.value }}
+      </button>
     }
   </form>
   <div class="modal" *ngIf="showConfirmation">

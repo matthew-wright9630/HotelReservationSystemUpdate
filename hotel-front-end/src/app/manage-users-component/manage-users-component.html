@@ -1,65 +1,135 @@
-<section>
+<section class="mat-bg-primary-container">
   <div class="manage-users">
     <div class="manage-users__header">
-      <h2>Manage Users</h2>
-      <button class="manage-users__header__btn" (click)="openEditModal(null)">Add User</button>
+      <h2 class="mat-text-on-primary-container">Manage Users</h2>
+      <button
+        mat-raised-button
+        color="primary"
+        class="mat-bg-secondary text-on-secondary"
+        (click)="openEditModal(null)"
+      >
+        Add User
+      </button>
     </div>
-    <input
-      class="manage-users__search"
-      type="text"
-      placeholder="Search users..."
-      [formControl]="searchControl"
-    />
+    <mat-form-field
+      appearance="outline"
+      class="mat-bg-secondary-container mat-text-on-secondary-container"
+      style="width: 100%; max-width: 400px"
+    >
+      <mat-label>Search users...</mat-label>
+      <input matInput [formControl]="searchControl" />
+    </mat-form-field>
   </div>
-  <table>
-    <thead>
-      <tr>
-        <th>First Name</th>
-        <th>Middle Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Role</th>
-        <th>Status</th>
-        <th>Address</th>
-        <th>Phone Number</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      @for (user of filteredUsers(); track user.id) {
-      <tr>
-        <td>{{ user?.firstName }}</td>
-        <td>{{ user?.middleName }}</td>
-        <td>{{ user?.lastName }}</td>
-        <td class="table__element">{{ user?.email }}</td>
-        <td>{{ user?.role }}</td>
-        <td>@if (user?.deleted) { Deactivated } @else { Active }</td>
-        <td class="table__element">{{ user?.address }}</td>
-        <td>{{ user?.phoneNumber }}</td>
-        <td class="td__btn">
-          <div class="btn__div">
-            <button (click)="openEditModal(user)">Edit</button>
-            @if (!user?.deleted) {
-            <button (click)="openDeleteConfirmation(user)">Delete</button>
-            } @else {
-            <button (click)="openReactivationConfirmation(user)">Reactivate</button>
-            }
-          </div>
-        </td>
-      </tr>
-      }
-    </tbody>
+  <table
+    mat-table
+    [dataSource]="filteredUsers()"
+    class="mat-elevation-z1 mat-bg-primary-container mat-text-on-primary-container"
+    style="width: 100%; margin-top: 2vh"
+  >
+    <!-- First Name Column -->
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef>First Name</th>
+      <td mat-cell *matCellDef="let user">{{ user?.firstName }}</td>
+    </ng-container>
+    <!-- Middle Name Column -->
+    <ng-container matColumnDef="middleName">
+      <th mat-header-cell *matHeaderCellDef>Middle Name</th>
+      <td mat-cell *matCellDef="let user">{{ user?.middleName }}</td>
+    </ng-container>
+    <!-- Last Name Column -->
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef>Last Name</th>
+      <td mat-cell *matCellDef="let user">{{ user?.lastName }}</td>
+    </ng-container>
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell class="form__email" *matCellDef="let user">{{ user?.email }}</td>
+    </ng-container>
+    <!-- Role Column -->
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef>Role</th>
+      <td mat-cell *matCellDef="let user">{{ user?.role }}</td>
+    </ng-container>
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let user">
+        @if (user?.deleted) {
+          Deactivated
+        } @else {
+          Active
+        }
+      </td>
+    </ng-container>
+    <!-- Address Column -->
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef>Address</th>
+      <td mat-cell *matCellDef="let user">{{ user?.address }}</td>
+    </ng-container>
+    <!-- Phone Number Column -->
+    <ng-container matColumnDef="phoneNumber">
+      <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+      <td mat-cell *matCellDef="let user">{{ user?.phoneNumber }}</td>
+    </ng-container>
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let user">
+        <div class="btn__div">
+          <button mat-raised-button (click)="openEditModal(user)">Edit</button>
+          @if (!user?.deleted) {
+            <button mat-raised-button (click)="openDeleteConfirmation(user)">Delete</button>
+          } @else {
+            <button mat-raised-button (click)="openReactivationConfirmation(user)">
+              Reactivate
+            </button>
+          }
+        </div>
+      </td>
+    </ng-container>
+    <tr
+      mat-header-row
+      *matHeaderRowDef="[
+        'firstName',
+        'middleName',
+        'lastName',
+        'email',
+        'role',
+        'status',
+        'address',
+        'phoneNumber',
+        'actions',
+      ]"
+    ></tr>
+    <tr
+      mat-row
+      *matRowDef="
+        let row;
+        columns: [
+          'firstName',
+          'middleName',
+          'lastName',
+          'email',
+          'role',
+          'status',
+          'address',
+          'phoneNumber',
+          'actions',
+        ]
+      "
+    ></tr>
   </table>
 
   <div class="modal edit__modal" *ngIf="showEditModal">
     <div class="modal__content edit-modal__content">
-      @if (selectedUser()) { @if (selectedUser()!.id > 0) {
-      <p class="modal__p">What changes need to be made to the account?</p>
-      } @else {
-      <p class="modal__p">Please add the following details</p>
-
-      } }
+      @if (selectedUser()) {
+        @if (selectedUser()!.id > 0) {
+          <p class="modal__p">What changes need to be made to the account?</p>
+        } @else {
+          <p class="modal__p">Please add the following details</p>
+        }
+      }
       <form [formGroup]="editUserForm" (ngSubmit)="openConfirmationModal()">
         <h3>{{ selectedUser()?.firstName }} {{ selectedUser()?.lastName }}</h3>
         <div class="edit-form">
@@ -67,7 +137,7 @@
             <p>Role:</p>
             <select formControlName="roleControl">
               @for (option of roleOptions; track $index) {
-              <option [ngValue]="option">{{ option }}</option>
+                <option [ngValue]="option">{{ option }}</option>
               }
             </select>
           </div>

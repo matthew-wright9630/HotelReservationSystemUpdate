@@ -1,13 +1,37 @@
-<mat-sidenav-container class="employee-portal-container" autosize>
-  <mat-sidenav mode="side" position="end" opened class="employee-portal-sidebar mat-bg-primary-container">
+<mat-sidenav-container class="employee-portal-container">
+  <mat-sidenav mode="side" opened class="employee-portal-sidebar mat-bg-primary-container">
     <div class="portal__btns">
-      <button (click)="displayAvailableRoomsComponent()">Available Rooms</button>
-      <button (click)="displayCheckinGuestComponent()">Check in/out</button>
-      <button (click)="displayReservationComponent()">Reservations</button>
-      <button (click)="displaySearchComponent()">Book guest</button>
+      <button
+        mat-raised-button
+        (click)="displayAvailableRoomsComponent()"
+        [class.selected-room]="selectionElement === 'available-rooms'"
+      >
+        Available Rooms
+      </button>
+      <!-- <button (click)="displayCheckinGuestComponent()">Check in/out</button>
+      <button (click)="displayReservationComponent()">Reservations</button> -->
+      <button
+        mat-raised-button
+        (click)="displaySearchComponent()"
+        [class.selected-room]="selectionElement === 'book-guest'"
+      >
+        Book guest
+      </button>
       <!-- @if (this.userRole() === 'admin') { -->
-      <button (click)="displayEditRoomsComponent()">Edit Rooms</button>
-      <button (click)="displayManageUsersComponent()">Manage Users</button>
+      <button
+        mat-raised-button
+        (click)="displayEditRoomsComponent()"
+        [class.selected-room]="selectionElement === 'edit-rooms'"
+      >
+        Edit Rooms
+      </button>
+      <button
+        mat-raised-button
+        (click)="displayManageUsersComponent()"
+        [class.selected-room]="selectionElement === 'manage-users'"
+      >
+        Manage Users
+      </button>
       <!-- } -->
     </div>
   </mat-sidenav>

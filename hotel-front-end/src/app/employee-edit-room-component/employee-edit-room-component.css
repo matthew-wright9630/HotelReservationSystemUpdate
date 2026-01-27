@@ -22,7 +22,8 @@ label {
 
 input {
   width: 40%;
-  background-color: #966f33;
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
   text-align: center;
 }
 
@@ -32,8 +33,9 @@ input:disabled {
 
 select {
   width: 40%;
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
   text-align: center;
-  background-color: #966f33;
 }
 
 option {
@@ -43,7 +45,8 @@ option {
 }
 
 button {
-  background-color: #966f33;
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
   background-image: none;
   height: 5vh;
 }

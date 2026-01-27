@@ -11,11 +11,22 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-manage-users-component',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    MatTableModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+  ],
   templateUrl: './manage-users-component.html',
   styleUrl: './manage-users-component.css',
 })
@@ -41,7 +52,7 @@ export class ManageUsersComponent {
   constructor(
     private fb: FormBuilder,
     private httpService: HttpService,
-    private dataPass: DataPassService
+    private dataPass: DataPassService,
   ) {
     this.editUserForm = this.fb.group({
       firstNameControl: new FormControl('', [
@@ -284,7 +295,7 @@ export class ManageUsersComponent {
           this.homeAddressControl?.value,
           this.phoneNumberControl?.value,
           this.selectedUser().onboardingComplete,
-          this.selectedUser().deleted
+          this.selectedUser().deleted,
         );
         this.httpService.updateProfile(updatedUser).subscribe({
           next: () => {
@@ -308,7 +319,7 @@ export class ManageUsersComponent {
           this.homeAddressControl?.value,
           this.phoneNumberControl?.value,
           true,
-          false
+          false,
         );
         this.httpService.createManager(createdUser).subscribe({
           next: () => {
@@ -328,7 +339,7 @@ export class ManageUsersComponent {
           this.homeAddressControl?.value,
           this.phoneNumberControl?.value,
           true,
-          false
+          false,
         );
         this.httpService.createAdmin(createdUser).subscribe({
           next: () => {
@@ -348,7 +359,7 @@ export class ManageUsersComponent {
           this.homeAddressControl?.value,
           this.phoneNumberControl?.value,
           true,
-          false
+          false,
         );
         this.httpService.createGuest(createdUser).subscribe({
           next: () => {

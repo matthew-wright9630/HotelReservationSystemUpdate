@@ -18,8 +18,8 @@
     @if (getLoggedInUser() === null) {
       <button mat-raised-button (click)="login()">Login</button>
     } @else {
-      <a routerLink="/profile" routerLinkActive="active">Profile</a>
-      <button mat-button (click)="logout()">Sign Out</button>
+      <a mat-raised-button routerLink="/profile" routerLinkActive="active">Profile</a>
+      <button mat-raised-button (click)="logout()">Sign Out</button>
     }
   </mat-toolbar-row>
 </mat-toolbar>

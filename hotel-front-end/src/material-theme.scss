@@ -188,9 +188,26 @@ mat-sidenav {
   background-color: var(--mat-color-on-primary-container) !important;
 }
 
+.mat-mdc-raised-button:not([color]) {
+  background-color: var(--mat-color-primary);
+  color: var(--mat-color-on-primary);
+  transition:
+    background-color 0.2s linear,
+    color 0.2s linear;
+}
+
+.mat-mdc-raised-button:not([color]) .mdc-button__ripple {
+  background-color: transparent !important;
+}
+
 .mat-mdc-raised-button:not([color]):hover {
   background-color: var(--mat-color-tertiary-container);
   color: var(--mat-color-on-tertiary);
+}
+
+.text-on-secondary-container {
+  --mdc-outlined-text-field-input-text-color: var(--md-sys-color-on-secondary-container);
+  --mdc-filled-text-field-input-text-color: var(--md-sys-color-on-secondary-container);
 }
 
 img {
@@ -199,17 +216,28 @@ img {
   border-radius: 8px;
 }
 
-// article:hover {
-//   background-color: var(--mat-sys-primary-container);
-// }
+.fc-daygrid {
+  border: 2px solid var(--mat-sys-secondary) !important;
+  border-radius: 4px;
+}
+
+.fc-col-header-cell {
+  border-right: 1px solid var(--mat-sys-secondary) !important;
+}
+
+/* Month grid borders */
+.fc-daygrid-day {
+  border: 1px solid var(--mat-sys-secondary) !important;
+}
+
+/* Grid header (day names) */
+.fc-col-header-cell {
+  border-bottom: 1px solid var(--mat-sys-secondary) !important;
+}
 
 .dark article {
   background-color: var(--mat-sys-primary);
   color: var(--mat-color-on-primary);
-}
-
-section {
-  // background-color: var(--mat-sys-secondary);
 }
 
 footer {
@@ -218,14 +246,10 @@ footer {
 
 button {
   border-radius: 8px;
-}
-
-button {
-  opacity: 1;
-  transition: 0.2s linear;
+  transition: 0.2s linear background;
 }
 
 button:hover {
   cursor: pointer;
-  opacity: 0.6;
+  // opacity: 0.6;
 }
