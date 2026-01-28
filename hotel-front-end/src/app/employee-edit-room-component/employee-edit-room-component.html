@@ -190,21 +190,42 @@
       </div>
     }
   </form>
-  <div class="modal" *ngIf="showConfirmation">
-    <div class="modal__content">
-      <p class="modal__p">Are you sure you want to submit the changes?</p>
-      <div class="modal__buttons">
-        <button class="modal__btn" (click)="confirmSubmit()">Yes</button>
-        <button class="modal__btn" (click)="cancelSubmit()">No</button>
-      </div>
+  <ng-template #confirmationDialog>
+    <div class="my-dialog-content">
+      <div mat-dialog-title>Confirm Changes</div>
+      <mat-dialog-content>
+        <p class="modal__p">Are you sure you want to submit the changes?</p>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+        <button
+          mat-raised-button
+          type="button"
+          (click)="$event.preventDefault(); dialog.closeAll()"
+        >
+          No
+        </button>
+        <button mat-raised-button color="primary" type="button" (click)="confirmSubmit()">
+          Yes
+        </button>
+      </mat-dialog-actions>
     </div>
-  </div>
-  <div class="modal" *ngIf="showSuccessMessage">
-    <div class="modal__content">
-      <p class="modal__p">Success! You can close this window.</p>
-      <div class="modal__buttons">
-        <button (click)="closeSuccessModal()">Close</button>
-      </div>
+  </ng-template>
+  <ng-template #successDialog>
+    <div class="my-dialog-content">
+      <div mat-dialog-title>Success</div>
+      <mat-dialog-content>
+        <p class="modal__p">Success! You can close this window.</p>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="$event.preventDefault(); dialog.closeAll()"
+        >
+          Close
+        </button>
+      </mat-dialog-actions>
     </div>
-  </div>
+  </ng-template>
 </section>

@@ -9,27 +9,30 @@
       <form [formGroup]="findRoomsForm" class="mat-bg-secondary-container booking-navbar__form">
         <div class="date-fields-vertical">
           <div class="input-group">
-            <label for="checkInDate" class="mat-text-on-secondary-container">Check-In Date</label>
+            <mat-form-field appearance="outline">
+              <mat-label>Check-In Date</mat-label>
+              <input matInput [matDatepicker]="picker" />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <!-- <label for="checkInDate" class="mat-text-on-secondary-container">Check-In Date</label>
             <input
-              type="date"
+              matInput
+              [matDatepicker]="picker"
               id="checkInDate"
               name="checkInDate"
               [attr.min]="todayString"
               formControlName="checkInDate"
               class="mat-text-on-secondary-container"
-            />
+            /> -->
           </div>
           <div class="input-group">
-            <label for="checkOutDate" class="mat-text-on-secondary-container">Check-Out Date</label>
-            <input
-              type="date"
-              id="checkOutDate"
-              name="checkOutDate"
-              [attr.min]="tomorrowString"
-              [attr.default]="tomorrowString"
-              formControlName="checkOutDate"
-              class="mat-text-on-secondary-container"
-            />
+            <mat-form-field appearance="outline">
+              <mat-label>Check-out Date</mat-label>
+              <input matInput [matDatepicker]="pickerOut" />
+              <mat-datepicker-toggle matSuffix [for]="pickerOut"></mat-datepicker-toggle>
+              <mat-datepicker #pickerOut></mat-datepicker>
+            </mat-form-field>
           </div>
         </div>
         <div id="roomsSelector" formArrayName="rooms">
