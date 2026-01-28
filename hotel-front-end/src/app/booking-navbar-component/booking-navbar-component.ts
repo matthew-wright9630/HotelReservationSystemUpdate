@@ -14,6 +14,9 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataPassService } from '../services/data-pass-service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-booking-navbar-component',
@@ -23,9 +26,12 @@ import { DataPassService } from '../services/data-pass-service';
     MatInputModule,
     MatCheckboxModule,
     MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   templateUrl: './booking-navbar-component.html',
   styleUrl: './booking-navbar-component.css',
+  providers: [provideNativeDateAdapter()],
 })
 export class BookingNavbarComponent {
   private router = inject(Router);

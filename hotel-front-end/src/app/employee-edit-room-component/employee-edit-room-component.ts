@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialog, MatDialogActions, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-employee-edit-room-component',
@@ -31,6 +32,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatRadioModule,
     MatSelectModule,
     MatCheckboxModule,
+    MatDialogModule,
+    MatDialogActions,
   ],
   templateUrl: './employee-edit-room-component.html',
   styleUrl: './employee-edit-room-component.css',
@@ -38,6 +41,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 export class EmployeeEditRoomComponent {
   private router = inject(Router);
   editRoomForm: FormGroup;
+
+  @ViewChild('confirmationDialog') confirmationDialog!: TemplateRef<any>;
+  @ViewChild('successDialog') successDialog!: TemplateRef<any>;
 
   // Options for the house colors.
   houseColorOptions = ['Griffindor', 'Slytherin', 'Ravenclaw', 'Hufflepuff'];
@@ -49,6 +55,7 @@ export class EmployeeEditRoomComponent {
   constructor(
     private fb: FormBuilder,
     private httpService: HttpService,
+    public dialog: MatDialog,
   ) {
     this.editRoomForm = this.fb.group({
       roomRadio: new FormControl('', [Validators.required]),
@@ -222,19 +229,21 @@ export class EmployeeEditRoomComponent {
   showConfirmation = false;
 
   openConfirmationModal() {
-    if (!this.editRoomForm.valid) {
-      return;
-    }
-    this.showConfirmation = true;
+    this.dialog.open(this.confirmationDialog, {
+      width: '400px',
+      panelClass: 'custom-dialog',
+      autoFocus: false,
+      restoreFocus: false,
+    });
   }
 
   confirmSubmit() {
-    this.showConfirmation = false;
+    this.dialog.closeAll();
     this.editRoomFormSubmit();
   }
 
   cancelSubmit() {
-    this.showConfirmation = false;
+    this.dialog.closeAll();
   }
 
   // Methods used to open/close the success modal
@@ -242,11 +251,16 @@ export class EmployeeEditRoomComponent {
   showSuccessMessage = false;
 
   openSuccessModal() {
-    this.showSuccessMessage = true;
+    this.dialog.open(this.successDialog, {
+      width: '400px',
+      panelClass: 'custom-dialog',
+      autoFocus: false,
+      restoreFocus: false,
+    });
   }
 
   closeSuccessModal() {
-    this.showSuccessMessage = false;
+    this.dialog.closeAll();
   }
 
   // Looks at roomRadio and editTypeRadio to determine which type of request to send to the server.
